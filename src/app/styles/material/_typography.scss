@@ -1,0 +1,5 @@
+@use '@angular/material' as mat;
+$global-font: "'Montserrat', sans-serif";
+$custom-typography-font: mat.define-typography-config(
+  $font-family: $global-font,
+);

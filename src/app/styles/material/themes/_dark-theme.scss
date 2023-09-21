@@ -1,0 +1,53 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+$dark-teheme:(
+    50 : #e1e0e4,
+    100 : #b5b3bd,
+    200 : #848091,
+    300 : #524d64,
+    400 : #2d2643,
+    500 : #080022,
+    600 : #07001e,
+    700 : #060019,
+    800 : #040014,
+    900 : #02000c,
+    A100 : #373743,
+    A200 : #0a0a2d,
+    A400 : #060622,
+    A700 : #1b1b1b,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$dark-primary: mat.define-palette($dark-teheme);
+$dark-accent: mat.define-palette($dark-teheme, A200, A100, A400);
+$dark-warn: mat.define-palette(mat.$deep-orange-palette);
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+      warn: $dark-warn,
+    ),
+  )
+);
+
+
+
+
+

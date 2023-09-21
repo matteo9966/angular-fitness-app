@@ -1,0 +1,16 @@
+@use "@angular/material" as mat;
+
+// this function is used to define themes using core-color for themes and core-theme for default color core-color is for overriding
+
+@mixin themify-mat-components($mat-theme, $is-global: false) {
+  @if $is-global {
+    @include mat.core-theme($mat-theme);
+    @include mat.button-theme($mat-theme);
+    @include mat.toolbar-theme($mat-theme);
+    
+} @else {
+    @include mat.core-color($mat-theme);
+    @include mat.button-color($mat-theme);
+    @include mat.toolbar-color($mat-theme);
+  }
+}

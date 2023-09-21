@@ -1,0 +1,7 @@
+@use "../material/themes/light-theme" as lt;
+@use "../material/thimify-mat-components" as tmc;
+
+@include tmc.themify-mat-components(
+  $mat-theme: lt.$light-theme,
+  $is-global: true
+);

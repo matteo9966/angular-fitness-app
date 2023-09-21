@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@use './app/styles/reset';
+@use './app/styles/material/material';
+
+
+//TODO: al these themes must be lazy loaded using a service!!
+
+@use './app/styles/themes/dark-theme';
+@use './app/styles/themes/default-theme';
+@use './app/styles/themes/theme-pink';
+@use './app/styles/themes/theme-green';
+
+
+
+
+
+
+

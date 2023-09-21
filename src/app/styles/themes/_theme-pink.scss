@@ -1,0 +1,6 @@
+@use "../material/thimify-mat-components" as tmc;
+@use '../material/themes/theme-pink' as tp;
+
+.theme-pink{
+    @include tmc.themify-mat-components($mat-theme: tp.$light-theme);
+}

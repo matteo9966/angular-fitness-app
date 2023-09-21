@@ -1,0 +1,6 @@
+@use "../material/themes/dark-theme" as dt;
+@use "../material/thimify-mat-components" as tmc;
+
+.dark {
+  @include tmc.themify-mat-components($mat-theme: dt.$dark-theme);
+}
