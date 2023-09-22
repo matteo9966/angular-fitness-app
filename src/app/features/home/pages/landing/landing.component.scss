@@ -1,0 +1,32 @@
+@use "../../../../styles/fonts" as f;
+.app-landing-content {
+  width: 100%;
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.app-landing-news-cards {
+  position: relative;
+  top: -20px;
+  z-index: 4;
+}
+
+.app-landing-titles {
+  text-transform: uppercase;
+  .title {
+    font-size: 26px;
+    color: white;
+    @include f.exo-font;
+  }
+  .subtitle {
+    font-size: 20px;
+    color: white;
+    @include f.exo-font;
+  }
+}

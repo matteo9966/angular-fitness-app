@@ -1,7 +1,16 @@
 @use "../material/themes/light-theme" as lt;
 @use "../material/thimify-mat-components" as tmc;
+@use "../features/home/components/toolbar" as t;
+@use '../features/home/components/slideshow' as ss; 
+@use '../features/home/components/news-card' as nc; 
 
 @include tmc.themify-mat-components(
   $mat-theme: lt.$light-theme,
   $is-global: true
 );
+
+
+
+@include t.toolbar(lt.$light-theme);
+@include ss.slideshow(lt.$light-theme);
+@include nc.news-card(lt.$light-theme);

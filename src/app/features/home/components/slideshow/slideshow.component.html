@@ -1,0 +1,19 @@
+<div class="slide-show">
+  <ng-container
+    [ngTemplateOutlet]="slide"
+    [ngTemplateOutletContext]="slide$|async"
+  ></ng-container>
+</div>
+
+<ng-template #slide let-src="src" let-title="title" let-subtitle="subtitle">
+  <div class="slide">
+    <img [src]="src" alt="" class="slide-img" />
+    <div class="slide-content">
+      <div class="slide-hero-container">
+        <h1 class="title">{{ title }}</h1>
+        <h2 class="subtitle">{{ subtitle }}</h2>
+        <app-hero-button></app-hero-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

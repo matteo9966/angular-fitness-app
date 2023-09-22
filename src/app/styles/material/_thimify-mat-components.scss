@@ -7,10 +7,12 @@
     @include mat.core-theme($mat-theme);
     @include mat.button-theme($mat-theme);
     @include mat.toolbar-theme($mat-theme);
+    @include mat.card-theme($mat-theme);
     
 } @else {
     @include mat.core-color($mat-theme);
     @include mat.button-color($mat-theme);
     @include mat.toolbar-color($mat-theme);
+    @include mat.card-color($mat-theme);
   }
 }

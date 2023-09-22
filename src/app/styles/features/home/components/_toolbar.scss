@@ -1,0 +1,201 @@
+@use "../../../material/themify-custom-component" as tc;
+@use "sass:map";
+@use "@angular/material" as mat;
+@use 'sass:color';
+@mixin toolbar($theme) {
+  @include tc.themify-custom-component($theme) using ($palette) {
+    $primary-palette: map.get(
+      $map: $palette,
+      $key: "primary",
+    );
+
+    $background: mat.get-color-from-palette($primary-palette, 700);
+    $background-contrast: mat.get-color-from-palette(
+      $primary-palette,
+      "700-contrast"
+    );
+  
+    .app-toolbar.background {
+      background-color: transparentize($background, 0.9);
+    }
+
+    .app-toolbarlogo {
+      .title {
+        color: $background-contrast;
+      }
+      .subtitle {
+        color: rgba(128, 128, 128, 0.389);
+      }
+    }
+    .app-navigation-links {
+      color: $background-contrast;
+    }
+  }
+}
+
+// todo: remove this map,. this is only to show what is inside 
+$map: (
+  "primary": (
+    50: #e0f1f7,
+    100: #b3dceb,
+    200: #80c5de,
+    300: #4daed1,
+    400: #269cc7,
+    500: #008bbd,
+    600: #0083b7,
+    700: #0078ae,
+    800: #006ea6,
+    900: #005b98,
+    A100: #c3e3ff,
+    A200: #90ccff,
+    A400: #5db4ff,
+    A700: #44a8ff,
+    contrast: (
+      50: #000000,
+      100: #000000,
+      200: #000000,
+      300: #000000,
+      400: #ffffff,
+      500: #ffffff,
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+      A100: #000000,
+      A200: #000000,
+      A400: #000000,
+      A700: #000000,
+    ),
+    default: #008bbd,
+    lighter: #b3dceb,
+    darker: #0078ae,
+    text: #008bbd,
+    default-contrast: #ffffff,
+    lighter-contrast: #000000,
+    darker-contrast: #ffffff,
+    "50-contrast": #000000,
+    "100-contrast": #000000,
+    "200-contrast": #000000,
+    "300-contrast": #000000,
+    "400-contrast": #ffffff,
+    "500-contrast": #ffffff,
+    "600-contrast": #ffffff,
+    "700-contrast": #ffffff,
+    "800-contrast": #ffffff,
+    "900-contrast": #ffffff,
+    "A100-contrast": #000000,
+    "A200-contrast": #000000,
+    "A400-contrast": #000000,
+    "A700-contrast": #000000,
+    "contrast-contrast": null,
+  ),
+  "accent": (
+    50: #e1f2ed,
+    100: #b5ded1,
+    200: #84c9b3,
+    300: #52b395,
+    400: #2da27e,
+    500: #089267,
+    600: #078a5f,
+    700: #067f54,
+    800: #04754a,
+    900: #026339,
+    A100: #93ffc8,
+    A200: #60ffaf,
+    A400: #2dff95,
+    A700: #14ff88,
+    contrast: (
+      50: #000000,
+      100: #000000,
+      200: #000000,
+      300: #000000,
+      400: #ffffff,
+      500: #ffffff,
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+      A100: #000000,
+      A200: #000000,
+      A400: #000000,
+      A700: #000000,
+    ),
+    default: #60ffaf,
+    lighter: #93ffc8,
+    darker: #2dff95,
+    text: #60ffaf,
+    default-contrast: #000000,
+    lighter-contrast: #000000,
+    darker-contrast: #000000,
+    "50-contrast": #000000,
+    "100-contrast": #000000,
+    "200-contrast": #000000,
+    "300-contrast": #000000,
+    "400-contrast": #ffffff,
+    "500-contrast": #ffffff,
+    "600-contrast": #ffffff,
+    "700-contrast": #ffffff,
+    "800-contrast": #ffffff,
+    "900-contrast": #ffffff,
+    "A100-contrast": #000000,
+    "A200-contrast": #000000,
+    "A400-contrast": #000000,
+    "A700-contrast": #000000,
+    "contrast-contrast": null,
+  ),
+  "warn": (
+    50: #ffebee,
+    100: #ffcdd2,
+    200: #ef9a9a,
+    300: #e57373,
+    400: #ef5350,
+    500: #f44336,
+    600: #e53935,
+    700: #d32f2f,
+    800: #c62828,
+    900: #b71c1c,
+    A100: #ff8a80,
+    A200: #ff5252,
+    A400: #ff1744,
+    A700: #d50000,
+    contrast: (
+      50: rgba(0, 0, 0, 0.87),
+      100: rgba(0, 0, 0, 0.87),
+      200: rgba(0, 0, 0, 0.87),
+      300: rgba(0, 0, 0, 0.87),
+      400: rgba(0, 0, 0, 0.87),
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+      A100: rgba(0, 0, 0, 0.87),
+      A200: white,
+      A400: white,
+      A700: white,
+    ),
+    default: #f44336,
+    lighter: #ffcdd2,
+    darker: #d32f2f,
+    text: #f44336,
+    default-contrast: white,
+    lighter-contrast: rgba(0, 0, 0, 0.87),
+    darker-contrast: white,
+    "50-contrast": rgba(0, 0, 0, 0.87),
+    "100-contrast": rgba(0, 0, 0, 0.87),
+    "200-contrast": rgba(0, 0, 0, 0.87),
+    "300-contrast": rgba(0, 0, 0, 0.87),
+    "400-contrast": rgba(0, 0, 0, 0.87),
+    "500-contrast": white,
+    "600-contrast": white,
+    "700-contrast": white,
+    "800-contrast": white,
+    "900-contrast": white,
+    "A100-contrast": rgba(0, 0, 0, 0.87),
+    "A200-contrast": white,
+    "A400-contrast": white,
+    "A700-contrast": white,
+    "contrast-contrast": null,
+  ),
+  "is-dark": false,
+);

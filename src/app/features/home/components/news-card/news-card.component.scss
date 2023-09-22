@@ -1,0 +1,26 @@
+.app-news-card {
+  border-radius: 0;
+}
+
+.app-news-card-content{
+    padding:1rem;
+    min-width: 180px;
+    width: 180px;
+    aspect-ratio: 1;
+}
+
+// .app-news-card {
+//   &.primary {
+//     background-color:red;
+//     color:black;
+//   }
+//   &.secondary {
+//      background-color: green;
+//      color: white;
+//   }
+
+//   &.plain {
+//      background-color: white;
+//      color:black;
+//   }
+// }

@@ -3,4 +3,6 @@
 
 .theme-green{
     @include tmc.themify-mat-components($mat-theme: tg.$light-theme);
+
+    // definisco il tema qui dentro
 }

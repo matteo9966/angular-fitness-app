@@ -1,4 +1,6 @@
 @use '@angular/material' as mat;
-@use './typography';
+@use './typography' as t;
 
 @include mat.core();
+@include mat.all-component-typographies(t.$custom-typography-font);
+@include mat.typography-hierarchy(t.$custom-typography-font);

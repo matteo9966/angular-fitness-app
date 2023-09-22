@@ -1,0 +1,29 @@
+@use "../../../material/themify-custom-component" as tc;
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "sass:color";
+@mixin slideshow($theme) {
+  @include tc.themify-custom-component($theme) using ($palette) {
+    $primary-palette: map.get(
+      $map: $palette,
+      $key: "primary",
+    );
+
+    $accent-palette: map.get(
+      $map: $palette,
+      $key: "accent",
+    );
+
+    $title-color: mat.get-color-from-palette($primary-palette, "700-contrast");
+    $subtitle-color: mat.get-color-from-palette($accent-palette, 700);
+
+    .slide-hero-container {
+      .title {
+        color: $title-color;
+      }
+      .subtitle {
+        color: $subtitle-color;
+      }
+    }
+  }
+}

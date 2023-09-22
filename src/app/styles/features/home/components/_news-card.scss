@@ -1,0 +1,45 @@
+@use "../../../material/themify-custom-component" as tc;
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "sass:color";
+@mixin news-card($theme) {
+  @include tc.themify-custom-component($theme) using ($palette) {
+    $primary-palette: map.get(
+      $map: $palette,
+      $key: "primary",
+    );
+
+    $accent-palette: map.get(
+      $map: $palette,
+      $key: "accent",
+    );
+
+    $background-primary: mat.get-color-from-palette($primary-palette, 700);
+    $color-primary: mat.get-color-from-palette(
+      $primary-palette,
+      "700-contrast"
+    );
+    $background-secondary: mat.get-color-from-palette($accent-palette, 700);
+    $color-secondary: mat.get-color-from-palette(
+      $accent-palette,
+      "700-contrast"
+    );
+    $color-plain: "black";
+
+    .app-news-card {
+      &.primary {
+        background-color: $background-primary;
+        color: $color-primary;
+      }
+      &.secondary {
+        background-color: $background-secondary;
+        color: $color-secondary;
+      }
+
+      &.plain {
+        background-color: white;
+        color: $color-plain;
+      }
+    }
+  }
+}

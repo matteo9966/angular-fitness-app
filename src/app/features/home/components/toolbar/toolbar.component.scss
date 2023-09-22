@@ -1,0 +1,76 @@
+@use '../../../../styles/fonts' as f;
+@use '../../styles/variables/components/toolbar' as *;
+
+.app-toolbar {
+  height: $toolbar-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.app-toolbar-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-toolbarlogo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  h1.title {
+    font-size: $toolbar-title-font;
+    letter-spacing: 0.2ch;
+    margin: 0;
+    @include f.exo-font;
+  }
+  
+  p.subtitle {
+    font-size: $toolbar-subtitle-font;
+    text-transform: uppercase;
+    margin: 0;
+  }
+}
+
+
+
+.app-nav {
+  margin-left: $toolbar-links-margin-left;
+}
+
+.app-navigation-links {
+  display: flex;
+  flex-direction: row;
+  gap: $toolbar-links-gap;
+
+  .link{
+    cursor: pointer;
+  }
+}
+
+// .app-toolbar {
+//     background-color: red;
+//   }
+
+
+
+// .app-navigation-links{
+//    color:white;
+// }
+
+// .app-toolbar {
+//     background-color: rgb(35, 35, 35);
+//   }
+
+// .app-toolbarlogo{
+//     .title{
+//         color:white;
+
+//     }
+//     .subtitle{
+//         color: rgba(128, 128, 128, 0.389);
+
+//     }
+// }
