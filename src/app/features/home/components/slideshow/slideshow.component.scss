@@ -1,8 +1,5 @@
 @use "../../styles/variables/components/toolbar" as t;
-$slide-show-height: 70vh;
-$slide-show-title-font: 42px;
-$slide-show-subtitle-font: 38px;
-$slide-show-hero-content-gap: 2rem;
+@use '../../styles/variables/components/slideshow' as *;
 .slide-show {
   width: 100%;
   height: $slide-show-height;
@@ -63,6 +60,16 @@ $slide-show-hero-content-gap: 2rem;
     font-size: $slide-show-subtitle-font;
     text-transform: uppercase;
     font-weight: bold;
+  }
+}
+
+.slide-hero-container.mobile{
+  gap:1rem;
+  .title{
+    font-size: 22px;
+  }
+  .subtitle{
+    font-size: 18px;
   }
 }
 

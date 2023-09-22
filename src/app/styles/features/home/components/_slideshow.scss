@@ -15,7 +15,7 @@
     );
 
     $title-color: mat.get-color-from-palette($primary-palette, "700-contrast");
-    $subtitle-color: mat.get-color-from-palette($accent-palette, 700);
+    $subtitle-color: mat.get-color-from-palette($accent-palette, "700-contrast");
 
     .slide-hero-container {
       .title {

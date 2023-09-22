@@ -1,10 +1,10 @@
 <mat-toolbar class="app-toolbar background">
-  <div class="app-toolbar-content">
+  <div class="app-toolbar-content" [ngClass]="{'mobile':isSmallDevice$|async}">
     <a href="" class="app-toolbarlogo">
       <h1 class="title">Fitness</h1>
       <p class="subtitle">Enjoy your life</p>
     </a>
-    <nav class="app-nav">
+    <nav class="app-nav" *ngIf="!(isSmallDevice$|async)">
       <ul class="app-navigation-links">
         <li class="link">About us</li>
         <li class="link">Contuct us</li>

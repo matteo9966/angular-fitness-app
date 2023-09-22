@@ -2,4 +2,13 @@
     display: flex;
     border-radius: 10px;
     overflow: hidden;
+
+&.mobile{
+    flex-direction: column;
+    padding: 1rem;
+    width: 100%;
+    gap:2rem;
+    border-radius: 0px;
+}
+
 }
