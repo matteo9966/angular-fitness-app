@@ -1,0 +1,56 @@
+@use "../../../material/themify-custom-component" as tc;
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "sass:color";
+@mixin tabs($theme) {
+  @include tc.themify-custom-component($theme) using ($palette) {
+    $primary-palette: map.get(
+      $map: $palette,
+      $key: "primary",
+    );
+
+    $accent-palette: map.get(
+      $map: $palette,
+      $key: "accent",
+    );
+
+    $background-color-active: mat.get-color-from-palette(
+      $primary-palette,
+      "A100"
+    );
+    $background-color-active-contrast: mat.get-color-from-palette(
+      $primary-palette,
+      "A100-contrast"
+    );
+
+    $tabs-container-background: color.scale(
+      $background-color-active,
+      $lightness: 35%
+    );
+
+    .app-home-tabs-container{
+       background-color:$tabs-container-background ;
+    }
+
+    .app-home-tab-body {
+      background-color: $tabs-container-background;
+    }
+
+    .app-home-tab-label {
+      color: rgb(186, 186, 186);
+      &.active {
+        color: $background-color-active-contrast;
+      }
+    }
+
+    .app-home-tab-tabs {
+      [role="tab"] {
+        background-color: rgba(72, 72, 72, 0.236);
+        color: transparent;
+        &.mdc-tab--active {
+          background-color: $tabs-container-background;
+        }
+      }
+    }
+  }
+}

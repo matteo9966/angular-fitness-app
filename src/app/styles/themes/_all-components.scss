@@ -1,0 +1,13 @@
+@use "../features/home/components/toolbar" as t;
+@use "../features/home/components/slideshow" as ss;
+@use "../features/home/components/news-card" as nc;
+@use "../features/home/components/tabs" as tabs;
+
+@mixin all-components($mat-theme){
+    
+    @include t.toolbar($mat-theme);
+    @include ss.slideshow($mat-theme);
+    @include nc.news-card($mat-theme);
+    @include tabs.tabs($mat-theme);
+
+}

@@ -1,6 +1,7 @@
+@use "./../../styles/variables/components/news-cards-contents" as *;
 .news-card-container {
   display: flex;
-  border-radius: 10px;
+  border-radius: $card-container-border-radius;
   overflow: hidden;
 
   &.mobile {
@@ -12,55 +13,85 @@
   }
 }
 
-.content-primary {
+.action {
+  text-transform: uppercase;
+  padding: $button-padding;
+  margin: auto;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 
-.content-plain {
-   display: flex;
-   flex-direction: column;
-   gap:15px;
-  .title {
-    font-weight: 600;
-    text-align: left;
-    text-transform: uppercase;
-    font-size: 20px;
-    color: blue; // use colors of palette
+.title-text {
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: $card-content-title-font-size;
+}
+
+.sub-text {
+  all: unset;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: $card-content-gap;
+  height: 100%;
+}
+
+.image-text {
+  text-transform: uppercase;
+  display: flex;
+  gap: 10px;
+  height: $image-text-container-height;
+
+  .image {
+    flex-grow: 1;
+    object-fit: cover;
+    aspect-ratio: 1;
+    height: 100%;
+    border-radius: $card-container-border-radius;
   }
-
-  .image-text {
-    text-transform: uppercase;
-    display: flex;
-    gap: 10px;
-    height: 80px;
-
-    .image {
-      
-      flex-grow: 1;
-      object-fit: cover;
-      aspect-ratio: 1;
-      height: 100%;
-      border-radius: 8px;
-    }
-    .text {
-      flex-grow: 2;
-      all: unset;
-      grid-column: 2 /-1;
-      text-align: left;
-      font-weight: 600;
-    }
-  }
-
-  .footer{
-    font-size: 13px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    p{
-      margin:0;
-      padding: 0;
-    }
+  .sub-text {
+    flex-grow: 2;
   }
 }
 
-.content-secondary {
+.image-text {
+  text-transform: uppercase;
+  display: flex;
+  gap: 10px;
+  height: $image-text-container-height;
+
+  .image {
+    flex-grow: 1;
+    object-fit: cover;
+    aspect-ratio: 1;
+    height: 100%;
+    border-radius: $card-container-border-radius;
+  }
+  .sub-text {
+    flex-grow: 2;
+  }
+}
+
+.footer {
+  font-size: $footer-text-font-size;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+
+  .text-higlight {
+    padding-inline: 0.2ch;
+    border-radius: 5px;
+  }
 }

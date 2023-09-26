@@ -17,6 +17,11 @@
   
     .app-toolbar.background {
       background-color: transparentize($background, 0.9);
+      transition: background-color 0.2s ease-out;
+    }
+
+    .app-toolbar.scrolled-bg{
+      background-color: transparentize($background, 0.1);;
     }
 
     .app-toolbarlogo {
@@ -24,7 +29,7 @@
         color: $background-contrast;
       }
       .subtitle {
-        color: rgba(128, 128, 128, 0.389);
+        color: $background-contrast;
       }
     }
     .app-navigation-links {

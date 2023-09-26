@@ -1,0 +1,29 @@
+@use '../../styles/variables/components/image-card.component' as ic;
+$container-padding:1rem;
+$container-min-height:calc($container-padding + ic.$image-card-height + 2rem);
+:host {
+  width: 100%;
+}
+.app-home-tabs-container {
+  width: 100%;
+}
+
+.tab {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-images-container{
+  display: flex;
+  padding:1rem;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  min-height: $container-min-height;
+
+}

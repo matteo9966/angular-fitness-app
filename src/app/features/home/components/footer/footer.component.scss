@@ -1,0 +1,100 @@
+@use "sass:color";
+$footer-background: black;
+$footer-background-lighter: color.scale($footer-background, $lightness: 20%);
+$social-card-background: color.scale($footer-background, $lightness: 10%);
+$text-color: white;
+$small-text-color: color.scale($footer-background, $lightness: 30%);
+
+footer {
+  background-color: $footer-background;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  color: white;
+}
+
+.socials-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.socials {
+ 
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  gap: 10px;
+}
+
+.social-card {
+  background-color: $social-card-background;
+  padding: 20px 15px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap:20px;
+}
+
+.icon-container{
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+  }
+}
+
+.links-container{
+  width: 100%;
+  padding-block: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $footer-background-lighter;
+  text-align: center;
+  flex-direction: column;
+  gap:20px;
+}
+
+.links-list{
+ padding-inline:20px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap:20px;
+  flex-wrap: wrap;
+
+  .link{
+    margin: auto;
+  }
+
+}
+
+.copy-text{
+  color:$small-text-color;
+}
+.highlight-text{
+  color:$text-color;
+}
+
+.mobile {
+  .socials-container {
+    padding: 0.5rem;
+  }
+
+  .socials {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .links-list{
+    gap:10px;
+  }
+}

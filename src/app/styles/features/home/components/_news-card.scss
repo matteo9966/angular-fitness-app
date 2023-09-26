@@ -14,31 +14,135 @@
       $key: "accent",
     );
 
+    /* plain card colors */
+    $color-plain: "black";
+    $backgroud-color-plain: mat.get-color-from-palette(
+      $primary-palette,
+      "A100"
+    );
+    $color-title-plain: mat.get-color-from-palette($primary-palette, 900);
+    $color-sub-color-plain: mat.get-color-from-palette(
+      $primary-palette,
+      "A100-contrast"
+    );
+    $highlight-background-color-plain: mat.get-color-from-palette(
+      $accent-palette,
+      300
+    );
+    $highlight-color-plain: mat.get-color-from-palette(
+      $accent-palette,
+      "300-contrast"
+    );
+    $text-second-color-plain: mat.get-color-from-palette(
+      $accent-palette,
+      "lighter"
+    );
+    // ---- end plain card colors ----- //
+
+    /* primary card colors */
     $background-primary: mat.get-color-from-palette($primary-palette, 700);
     $color-primary: mat.get-color-from-palette(
       $primary-palette,
       "700-contrast"
     );
+
+    // ---- end primary card colors ----- //
+
+    /* secondary card colors */
+
     $background-secondary: mat.get-color-from-palette($accent-palette, 700);
     $color-secondary: mat.get-color-from-palette(
       $accent-palette,
       "700-contrast"
     );
-    $color-plain: "black";
+
+    // secondary card colors en ---- d
 
     .app-news-card {
       &.primary {
         background-color: $background-primary;
         color: $color-primary;
+
+        .title-color {
+          color: $color-primary;
+        }
+        .sub-color {
+          color: $color-primary;
+        }
+
+        .text-higlight-color {
+          background-color: $color-primary;
+          color: $background-primary;
+        }
+        .par-text-color {
+          color: $color-primary;
+        }
+
+        .par-second-color {
+          color: $color-primary;
+        }
+
+        .action {
+          background-color: darken($background-primary, 20%);
+          color: $color-primary;
+        }
       }
+
       &.secondary {
         background-color: $background-secondary;
         color: $color-secondary;
+
+        .title-color {
+          color: $color-primary;
+        }
+        .sub-color {
+          color: $color-primary;
+        }
+
+        .text-higlight-color {
+          background-color: $color-primary;
+          color: $background-primary;
+        }
+        .par-text-color {
+          color: $color-primary;
+        }
+
+        .par-second-color {
+          color: $color-primary;
+        }
+
+        .action {
+          background-color: darken($background-primary, 20%);
+          color: $color-primary;
+        }
       }
 
       &.plain {
-        background-color: white;
-        color: $color-plain;
+        background-color: $backgroud-color-plain;
+
+        .title-color {
+          color: $color-title-plain;
+        }
+        .sub-color {
+          color: $color-sub-color-plain;
+        }
+
+        .text-higlight-color {
+          background-color: $highlight-background-color-plain;
+          color: $highlight-color-plain;
+        }
+        .par-text-color {
+          color: $color-sub-color-plain;
+        }
+
+        .par-second-color {
+          color: $color-sub-color-plain;
+        }
+
+        .action {
+          background-color: $highlight-background-color-plain;
+          color: $highlight-color-plain;
+        }
       }
     }
   }

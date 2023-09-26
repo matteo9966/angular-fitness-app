@@ -1,0 +1,22 @@
+<footer appAddMobileClass>
+  <div class="socials-container">
+    <div class="socials">
+      <div class="social-card" *ngFor="let social of socials">
+        <div class="icon-container">
+          <img [src]="social.iconUrl" [alt]="social.name" />
+        </div>
+        <span>{{ social.name }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="links-container">
+    <ul class="links-list">
+      <li class="link">contacts</li>
+      <li class="link">contacts</li>
+      <li class="link">contacts</li>
+      <li class="link">contacts</li>
+    </ul>
+    <p class="copy-text">Copyright © Studio MatteoMTL by <span class="highlight-text">Matteo</span></p>
+
+  </div>
+</footer>

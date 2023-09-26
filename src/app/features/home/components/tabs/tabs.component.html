@@ -1,0 +1,28 @@
+<div class="app-home-tabs-container">
+  <mat-tab-group
+    mat-stretch-tabs="false"
+    mat-align-tabs="center"
+    class="app-home-tab-tabs"
+  >
+    <mat-tab #tab1 bodyClass="app-home-tab-body" *ngFor="let tab of tabsConfig">
+      <ng-template mat-tab-label>
+        <div class="app-home-tab-label" [ngClass]="{ active: tab1.isActive }">
+          {{tab.tabLabel}}
+        </div>
+      </ng-template>
+      <ng-template matTabContent>
+        <div class="app-images-container">
+          <app-image-card
+            *ngFor="let program of tab.programs"
+            [title]="program.title"
+            [imageUrl]="program.imageUrl"
+            [actionLabel]="program.actionLabel"
+            [actionLink]="program.linkToInfo"
+            
+          ></app-image-card>
+         
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

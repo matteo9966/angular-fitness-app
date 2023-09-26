@@ -1,5 +1,5 @@
-<mat-toolbar class="app-toolbar background">
-  <div class="app-toolbar-content" [ngClass]="{'mobile':isSmallDevice$|async}">
+<mat-toolbar class="app-toolbar background" [ngClass]="{'scrolled-bg':scrolled$|async}">
+  <div class="app-toolbar-content" [ngClass]="{'mobile':isSmallDevice$|async,'scrolled-bg':scrolled$|async}">
     <a href="" class="app-toolbarlogo">
       <h1 class="title">Fitness</h1>
       <p class="subtitle">Enjoy your life</p>

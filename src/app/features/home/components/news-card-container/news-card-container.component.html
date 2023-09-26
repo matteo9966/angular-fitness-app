@@ -1,21 +1,49 @@
 <div class="news-card-container" appAddMobileClass>
-  <app-news-card color="primary"> </app-news-card>
+  <app-news-card color="primary">
+    <div class="content">
+      <div class="title-text title-color">Lorem ipsum dolor sit.</div>
+      <p class="par-text-color">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, cum.
+        Lorem ipsum dolor sit amet.
+      </p>
+      <button class="action">find out more</button>
+    </div>
+  </app-news-card>
+
   <app-news-card color="plain">
-    <div class="content-plain">
-      <div class="title">Lorem ipsum dolor sit.</div>
+    <div class="content">
+      <div class="title-text title-color">Lorem ipsum dolor sit.</div>
       <div class="image-text">
         <img
           src="https://assets.website-files.com/55f3386352c98c9a451280f9/5e3447af99e6ac3503527e27_man-carrying-barbel-791763.jpg"
           alt=""
           class="image"
         />
-        <h2 class="text">Lorem ipsum dolor sit amet consectetur.</h2>
+        <h2 class="sub-text sub-color">
+          Lorem ipsum dolor sit amet consectetur.
+        </h2>
       </div>
       <div class="footer">
-        <p>By <span>Federik Mullen</span></p>
-        <p>Published on 12/06/2022</p>
+        <p class="par-text-color">
+          By
+          <span class="text-higlight text-higlight-color">Federik Mullen</span>
+        </p>
+        <p class="par-second-color">Published on 12/06/2022</p>
       </div>
+      <button class="action">find out more</button>
     </div>
   </app-news-card>
-  <app-news-card color="secondary"> content3 </app-news-card>
+
+  <app-news-card color="secondary">
+    <div class="content">
+      <div class="title-text title-color">Lorem ipsum dolor sit amet.</div>
+      <h2 class="sub-text sub-color">
+        Lorem ipsum dolor sit amet consectetur.
+      </h2>
+      <p class="par-text-color">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, cum.
+      </p>
+      <button class="action">find out more</button>
+    </div>
+  </app-news-card>
 </div>

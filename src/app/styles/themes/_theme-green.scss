@@ -1,8 +1,8 @@
 @use "../material/thimify-mat-components" as tmc;
 @use '../material/themes/theme-green' as tg;
-
+@use "./all-components" as ac;
 .theme-green{
     @include tmc.themify-mat-components($mat-theme: tg.$light-theme);
-
+    @include ac.all-components(tg.$light-theme);
     // definisco il tema qui dentro
 }

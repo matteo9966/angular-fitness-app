@@ -1,0 +1,73 @@
+@use '../../styles/variables/components/image-card.component' as *;
+
+.app-image-card {
+
+  width: $image-card-height;
+  height: $image-card-height;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  
+  & * {
+      z-index: 2;
+    }
+   
+    &::after{
+      content:" ";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      z-index: 1;
+      transition: background-color 0.2s ease-out;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: cover;
+  }
+
+  .title {
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    transition: all $animation-duration ease-out;
+  }
+  .action {
+    background-color: $action-background-color;
+    color: white;
+    text-transform: uppercase;
+    opacity: 0;
+    transition-delay: $animation-duration;
+    transition-property: all;
+    transition-duration: $animation-duration;
+    transition-timing-function: ease-out;
+    transform:translateY(15px);
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  &:hover {
+    &::after{
+        background-color: rgba(0, 0, 0, 0.337);
+    }
+  
+    .title {
+      transform: translateY(-15px);
+    }
+    .action {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
+
