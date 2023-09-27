@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { HomeService } from './core/services/home.service';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,7 @@ export const routes: Routes = [
       ),
     loadChildren: () =>
       import('./features/home/home.routes').then((r) => r.homeRoutes),
+    providers: [HomeService],
   },
   { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];

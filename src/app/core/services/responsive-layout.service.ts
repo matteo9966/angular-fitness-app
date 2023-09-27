@@ -6,7 +6,8 @@ import { map } from 'rxjs';
 })
 export class ResponsiveLayoutService {
   breakpointObserver = inject(BreakpointObserver);
-  constructor() {}
+  constructor() {
+  }
   get isSmallDevice$() {
     return this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small])

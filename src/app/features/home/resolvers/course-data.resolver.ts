@@ -1,5 +1,7 @@
 import { ResolveFn } from '@angular/router';
 import { IcourseData } from 'src/app/core/models/IcourseData.interface';
+import { inject, INJECTOR, EnvironmentInjector } from '@angular/core';
+import { HomeService } from 'src/app/core/services/home.service';
 
 const mockCourseData: IcourseData = {
   title: 'Extreme fat loss',
@@ -11,15 +13,26 @@ const mockCourseData: IcourseData = {
   shortDescription:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Lorem ipsum dolor sit amet, consectetur adip.',
   difficultyLevel: 'beginner',
-  group: true,
-  groupSize: [20, 25],
-  classDuration: 96,
+  extraDescriptions: [
+    {
+      icon: 'timer',
+      description: 'from 25 to 45 minutes',
+      title: 'Class duration',
+    },
+    { icon: 'group', description: 'from 5 to 15 people', title: 'Group title' },
+  ],
+
   imageBg:
     'https://assets.website-files.com/55f33a0152c98c9a451281aa/5e34486bd4897db8c07c1284_person-holding-barbell-841130.jpg',
 };
 
-export const courseDataResolver: ResolveFn<IcourseData> = (route, state) => {
-  return mockCourseData;
+export const courseDataResolver: ResolveFn<IcourseData|null> = (route, state) => {
+  const homeService = inject(HomeService);
+  const courseId = route.paramMap.get('id');
+  if(!courseId){
+    return null
+  }
+  return homeService.getCourseById(courseId)
 };
 
 /* 

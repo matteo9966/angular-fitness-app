@@ -1,6 +1,10 @@
 import { Directive, ElementRef, Renderer2 } from '@angular/core';
 import { ResponsiveLayoutService } from 'src/app/core/services/responsive-layout.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+/**
+ * @description this directive based on the responsivenss adds or removes the mobile css class to an element
+ */
 @Directive({
   selector: '[appAddMobileClass]',
   standalone: true,

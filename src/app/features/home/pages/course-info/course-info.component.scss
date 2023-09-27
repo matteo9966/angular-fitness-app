@@ -1,7 +1,7 @@
 @use "../../styles/variables/components/toolbar" as t;
 .course-info-container {
   width: 100%;
-  
+  padding-bottom: 100px;
 }
 .course-info-header {
   padding-top: t.$toolbar-height;
@@ -28,31 +28,104 @@
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  color:white;
-  .title{
+  color: white;
+  .title {
     font-weight: bolder;
     text-transform: capitalize;
-    font-size: 40px;  
+    font-size: 40px;
     margin-bottom: 4px;
-}
-  .subtitle{
+  }
+  .subtitle {
     font-weight: 500;
     text-transform: uppercase;
     font-size: 20px;
   }
 }
 
-.content{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    width: 100%;
-    gap:20px;
-    padding:2rem;
+.long-text {
+  padding-block: 20px;
 }
 
-.content-box{
-    max-width:500px;
-    margin:auto;
+.content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  gap: 60px;
+  padding: 2rem;
+  margin-top: 80px;
 }
 
-// .class-description{}
+
+
+.difficulty {
+  padding: 5px 10px;
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  border-radius: 4px;
+}
+
+.subtitle-small {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.details-card-content {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.details-card-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mat-icon {
+  transform: scale(1.5) translateY(2px);
+  margin: 0 !important;
+}
+
+.extra-details-sections{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cards-extra-info-section{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.no-data{
+  display: flex;
+  gap:40px;
+  background-color: gray;
+  height: 100vh;
+  padding: 7rem;
+  text-transform: uppercase;
+  font-size: 20px;
+  align-items: center;
+
+}
+
+.mobile{
+  .content{
+    grid-template-columns: 1fr;
+  }
+}
+
+.beginner {
+  background-color: var(--home-difficulty-background-beginner);
+}
+.intermediate {
+  background-color: var(--home-difficulty-background-intermediate);
+}
+.advanced {
+  background-color: var(--home-difficulty-background-advanced);
+}

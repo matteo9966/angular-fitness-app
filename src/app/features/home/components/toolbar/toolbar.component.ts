@@ -3,10 +3,11 @@ import { AsyncPipe, CommonModule, NgClass, NgIf } from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ResponsiveLayoutService } from 'src/app/core/services/responsive-layout.service';
 import { BehaviorSubject, debounceTime,tap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [MatToolbarModule,AsyncPipe,NgClass,NgIf],
+  imports: [MatToolbarModule,AsyncPipe,NgClass,NgIf,RouterLink],
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

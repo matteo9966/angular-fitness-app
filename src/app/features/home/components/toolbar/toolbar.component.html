@@ -1,15 +1,24 @@
-<mat-toolbar class="app-toolbar background" [ngClass]="{'scrolled-bg':scrolled$|async}">
-  <div class="app-toolbar-content" [ngClass]="{'mobile':isSmallDevice$|async,'scrolled-bg':scrolled$|async}">
-    <a href="" class="app-toolbarlogo">
+<mat-toolbar
+  class="app-toolbar background"
+  [ngClass]="{ 'scrolled-bg': scrolled$ | async }"
+>
+  <div
+    class="app-toolbar-content"
+    [ngClass]="{
+      mobile: isSmallDevice$ | async,
+      'scrolled-bg': scrolled$ | async
+    }"
+  >
+    <a [routerLink]="['']"  class="app-toolbarlogo">
       <h1 class="title">Fitness</h1>
       <p class="subtitle">Enjoy your life</p>
     </a>
-    <nav class="app-nav" *ngIf="!(isSmallDevice$|async)">
+    <nav class="app-nav" *ngIf="!(isSmallDevice$ | async)">
       <ul class="app-navigation-links">
         <li class="link">About us</li>
         <li class="link">Contuct us</li>
         <li class="link">Pricing</li>
-        <li class="link">Blog</li>
+        <li class="link" [routerLink]="['blog']">Blogs</li>
       </ul>
     </nav>
   </div>

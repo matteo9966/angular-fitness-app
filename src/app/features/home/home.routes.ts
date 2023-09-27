@@ -11,14 +11,19 @@ export const homeRoutes: Routes = [
       ),
   },
   {
+    path: 'blog',
+    loadComponent: () =>
+      import('./pages/blog/blog.component').then((b) => b.BlogComponent),
+  },
+  {
     path: ':id',
     loadComponent: () =>
       import('./pages/course-info/course-info.component').then(
         (c) => c.CourseInfoComponent
       ),
-      resolve:{
-        courseData:courseDataResolver
-      }
+    resolve: {
+      courseData: courseDataResolver,
+    },
   },
   {
     path: '**',
