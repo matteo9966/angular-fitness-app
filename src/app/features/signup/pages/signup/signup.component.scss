@@ -1,0 +1,37 @@
+.signup-page-content{
+    max-width: 1000px;
+    margin:auto;
+    display: flex;
+    padding-top:60px;
+    padding-bottom: 50px;
+    gap:80px;
+}
+
+.form-section{
+    flex-grow:5;
+    flex-basis: 60%;
+}
+.extra-info{
+    flex-grow: 4;
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+h2{
+    margin: 0;
+}
+
+.mobile{
+    
+    &.signup-page-content{
+        width: 100%;
+        padding:1rem;
+    }
+    
+    .extra-info{
+        display: none;
+    }
+
+}

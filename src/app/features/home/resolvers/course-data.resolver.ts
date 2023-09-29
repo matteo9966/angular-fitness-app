@@ -1,7 +1,7 @@
 import { ResolveFn } from '@angular/router';
 import { IcourseData } from 'src/app/core/models/IcourseData.interface';
 import { inject, INJECTOR, EnvironmentInjector } from '@angular/core';
-import { HomeService } from 'src/app/core/services/home.service';
+import { HomeService } from 'src/app/features/home/services/home.service';
 
 const mockCourseData: IcourseData = {
   title: 'Extreme fat loss',

@@ -9,10 +9,7 @@
       'scrolled-bg': scrolled$ | async
     }"
   >
-    <a [routerLink]="['']"  class="app-toolbarlogo">
-      <h1 class="title">Fitness</h1>
-      <p class="subtitle">Enjoy your life</p>
-    </a>
+    <app-app-logo size="large" class="app-toolbarlogo"></app-app-logo>
     <nav class="app-nav" *ngIf="!(isSmallDevice$ | async)">
       <ul class="app-navigation-links">
         <li class="link">About us</li>
@@ -21,5 +18,9 @@
         <li class="link" [routerLink]="['blog']">Blogs</li>
       </ul>
     </nav>
+    <span class="spacer" *ngIf="isSmallDevice$ | async"></span>
+    <button mat-button *ngIf="isSmallDevice$  | async " (click)="menuopen=!menuopen">
+      <mat-icon class="menu-icon">{{menuopen? 'menu_open':'menu' }}</mat-icon>
+    </button>
   </div>
 </mat-toolbar>

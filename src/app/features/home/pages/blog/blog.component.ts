@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component,Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlogPostPreviewComponent } from '../../components/blog-post-preview/blog-post-preview.component';
+import { IBlogPreview } from 'src/app/core/models/IBlogPreviews.interface';
 
 @Component({
   selector: 'app-blog',
@@ -11,5 +12,6 @@ import { BlogPostPreviewComponent } from '../../components/blog-post-preview/blo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogComponent {
+  @Input() blogPostPreviews:IBlogPreview[]=[]
 
 }

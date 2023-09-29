@@ -1,0 +1,21 @@
+.fields{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.action{
+    margin-top:60px;
+}
+
+.submit-button{
+    width:200px;
+    text-align: center;
+}
+
+
+.mobile{
+    .submit-button{
+        width: 100%;
+    }
+}

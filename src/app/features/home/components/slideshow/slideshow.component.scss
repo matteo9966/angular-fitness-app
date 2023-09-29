@@ -64,6 +64,14 @@
   }
 }
 
+.actions{
+  display: flex;
+  justify-content: center;
+  gap:40px;
+  margin: auto;
+  width: fit-content;
+}
+
 .slide-hero-container.mobile{
   gap:1rem;
   .title{

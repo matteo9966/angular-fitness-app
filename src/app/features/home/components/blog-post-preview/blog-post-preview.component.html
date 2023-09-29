@@ -1,1 +1,23 @@
-<p>blog-post-preview works!</p>
+<mat-card>
+  <mat-card-content>
+    <div class="blog-post-preview-card" appAddMobileClass>
+      <div class="blog-post-preview-image">
+        <img [src]="blogPreview.imageUrl" alt="blog post image" />
+      </div>
+      <div class="blog-post-preview-content">
+        <h3 class="title">
+          {{ blogPreview.title }}
+        </h3>
+        <p>
+          By <span class="author-name">{{ blogPreview.author }}</span>
+          <span class="author-date">
+            {{ blogPreview.date | date : "d/M/yyyy" }}</span
+          >
+        </p>
+        <p class="preview-text">
+          {{ blogPreview.description }}
+        </p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

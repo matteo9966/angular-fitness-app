@@ -3,6 +3,7 @@ import { AsyncPipe, CommonModule, NgTemplateOutlet } from '@angular/common';
 import { HeroButtonComponent } from '../hero-button/hero-button.component';
 import { interval, map, startWith } from 'rxjs';
 import { AddMobileClassDirective } from 'src/app/shared/directives/add-mobile-class.directive';
+import { RouterLink } from '@angular/router';
 
 interface Slide {
   title: string;
@@ -13,7 +14,7 @@ interface Slide {
 @Component({
   selector: 'app-slideshow',
   standalone: true,
-  imports: [HeroButtonComponent, NgTemplateOutlet, AsyncPipe,AddMobileClassDirective],
+  imports: [HeroButtonComponent, NgTemplateOutlet, AsyncPipe,AddMobileClassDirective,RouterLink],
   templateUrl: './slideshow.component.html',
   styleUrls: ['./slideshow.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

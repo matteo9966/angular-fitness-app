@@ -1,7 +1,7 @@
 <div class="slide-show">
   <ng-container
     [ngTemplateOutlet]="slide"
-    [ngTemplateOutletContext]="slide$|async"
+    [ngTemplateOutletContext]="slide$ | async"
   ></ng-container>
 </div>
 
@@ -12,7 +12,15 @@
       <div class="slide-hero-container" appAddMobileClass>
         <h1 class="title">{{ title }}</h1>
         <h2 class="subtitle">{{ subtitle }}</h2>
-        <app-hero-button></app-hero-button>
+        <div class="actions">
+          <a [routerLink]="['/signup']">
+            <app-hero-button>Signup</app-hero-button>
+          </a>
+          <a [routerLink]="['/signup']">
+            <app-hero-button color="accent">Login</app-hero-button>
+          </a>
+
+        </div>
       </div>
     </div>
   </div>

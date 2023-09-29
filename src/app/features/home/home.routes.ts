@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { courseDataResolver } from './resolvers/course-data.resolver';
+import { blogPreviewsResolver } from './resolvers/blog-previews.resolver';
 
 export const homeRoutes: Routes = [
   {
@@ -14,6 +15,9 @@ export const homeRoutes: Routes = [
     path: 'blog',
     loadComponent: () =>
       import('./pages/blog/blog.component').then((b) => b.BlogComponent),
+    resolve: {
+      blogPostPreviews: blogPreviewsResolver,
+    },
   },
   {
     path: ':id',

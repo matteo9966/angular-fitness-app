@@ -15,24 +15,24 @@
     justify-content: center;
 }
 
-.app-toolbarlogo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+// .app-toolbarlogo {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
 
-  h1.title {
-    font-size: $toolbar-title-font;
-    letter-spacing: 0.2ch;
-    margin: 0;
-    @include f.exo-font;
-  }
+//   h1.title {
+//     font-size: $toolbar-title-font;
+//     letter-spacing: 0.2ch;
+//     margin: 0;
+//     @include f.exo-font;
+//   }
   
-  p.subtitle {
-    font-size: $toolbar-subtitle-font;
-    text-transform: uppercase;
-    margin: 0;
-  }
-}
+//   p.subtitle {
+//     font-size: $toolbar-subtitle-font;
+//     text-transform: uppercase;
+//     margin: 0;
+//   }
+// }
 
 
 
@@ -59,3 +59,11 @@
 
 }
 
+.spacer{
+  flex-grow: 1;
+  flex-basis: auto;
+}
+
+.menu-icon{
+  transform: scale(2.5);
+}

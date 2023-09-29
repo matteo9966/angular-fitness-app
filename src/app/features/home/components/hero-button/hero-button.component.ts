@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component,Input } from '@angular/core';
 
 import {MatButtonModule} from '@angular/material/button';
 @Component({
@@ -10,5 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroButtonComponent {
-
+   
+  @Input() 
+   color:'primary'|'accent'='primary';
 }

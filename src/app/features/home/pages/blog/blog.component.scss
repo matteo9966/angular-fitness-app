@@ -1,35 +1,42 @@
 @use "../../styles/variables/components/toolbar" as t;
-@use '../../../../styles/fonts' as f;
+@use "../../../../styles/fonts" as f;
 $padding-top: t.$toolbar-height;
 
 .blog-page-container {
-    width: 100%;
+  width: 100%;
 }
 
 .blog-page-header {
   padding-top: calc($padding-top + 20px);
   padding-bottom: 20px;
   text-align: center;
-  
 }
 
-.blog-page-title{
+.blog-page-title {
   @include f.exo-font;
   margin: 0;
   font-size: 25px;
 }
 
-.blog-page-subtitle{
-    font-size: 14px;
-    font-weight: 400;
+.blog-page-subtitle {
+  font-size: 14px;
+  font-weight: 400;
 }
 
-.blog-page-title-color,.blog-page-subtitle-color{
-    color:white;
+.blog-page-title-color,
+.blog-page-subtitle-color {
+  color: white;
 }
 
 .blog-page-header-background {
   background-color: black;
 }
 
-
+.blog-posts {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 3rem;
+  gap:60px;
+}

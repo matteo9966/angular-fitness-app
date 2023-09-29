@@ -1,0 +1,22 @@
+$toolbar-height: 100px;
+.authentication-toolbar {
+  &.height {
+    height: $toolbar-height;
+  }
+}
+
+.spacer {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.active-link{
+    text-decoration: underline;
+}
+
+.links{
+    display: flex;
+    gap:40px;
+    padding-inline: 20px;
+}

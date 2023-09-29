@@ -1,0 +1,64 @@
+@use "../../../styles/fonts" as f;
+
+$medium-proportion: 0.8;
+$small-proportion: 0.5;
+
+$title-font-size-large: 2.5rem;
+$subtitle-fontsize-large: 1.1rem;
+
+$title-font-size-medium: $medium-proportion * $title-font-size-large;
+$subtitletitle-font-size-medium: $medium-proportion * $subtitle-fontsize-large;
+
+$title-font-size-small: $small-proportion * $title-font-size-large;
+$subtitletitle-font-size-small: $small-proportion * $subtitle-fontsize-large;
+
+@mixin title-subtitle-fonts($title-font, $subtitle-font) {
+  h1.title {
+    font-size: $title-font;
+  }
+  p.subtitle {
+    font-size: $subtitle-font;
+  }
+}
+
+.app-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  h1.title {
+    
+    letter-spacing: 0.2ch;
+    margin: 0;
+    line-height: 1;
+    @include f.exo-font;
+  }
+
+  p.subtitle {
+    
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+  }
+
+  &.small {
+    @include title-subtitle-fonts(
+      $title-font-size-small,
+      $subtitletitle-font-size-small
+    );
+  }
+
+  &.medium {
+    @include title-subtitle-fonts(
+      $title-font-size-medium,
+      $subtitletitle-font-size-medium
+    );
+  }
+
+  &.large {
+    @include title-subtitle-fonts(
+      $title-font-size-large,
+      $subtitle-fontsize-large
+    );
+  }
+}
