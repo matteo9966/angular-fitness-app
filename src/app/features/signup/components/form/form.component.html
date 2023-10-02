@@ -1,46 +1,39 @@
 <app-authentication-form-container appAddMobileClass>
-    <h2 title>Signup now!</h2>
-    <p subtitle>Create your personal account and discover new features!</p>
+  <h2 title>Signup now!</h2>
+  <p subtitle>Create your personal account and discover new features!</p>
 
-    <form>
-        <div class="fields">
-          <app-text-input
-            placeholder="Name"
-            icon="face"
-            hint="Insert your name"
-            errorMessage=""
-            label="Name"
-            [control]="control"
-          ></app-text-input>
-    
-          <app-text-input
-            placeholder="Email"
-            icon="email"
-            hint="Insert your email"
-            errorMessage="error message"
-            label="Email"
-            [control]="control"
-          ></app-text-input>
-    
-          <app-text-input
-            placeholder="Password"
-            hint="Insert a strong password"
-            errorMessage="error message"
-            label="Password"
-            [control]="control"
-            type="password"
-          ></app-text-input>
-        </div>
-        <div class="action">
-          <button
-            type="submit"
-            mat-flat-button
-            color="primary"
-            class="submit-button"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+  <form [formGroup]="form">
+    <div class="fields">
+      <app-text-input
+        placeholder="Name"
+        icon="face"
+        hint="Insert your name"
+        [errorMessage]="(nameErrorMessage$ | async)!"
+        label="Name"
+        [control]="nameControl"
+      ></app-text-input>
 
+      <app-text-input
+        placeholder="Email"
+        icon="email"
+        hint="Insert your email"
+        [errorMessage]="(emailErrorMessage$ | async)!"
+        label="Email"
+        [control]="emailControl"
+      ></app-text-input>
+
+      <app-text-input
+        placeholder="Password"
+        hint="Insert a strong password"
+        [errorMessage]="(passwordErrorMessage$ | async)!"
+        label="Password"
+        [control]="passwordControl"
+        type="password"
+      ></app-text-input>
+    </div>
+
+    <div class="action">
+      <app-submit-button (click)="submit()">Submit</app-submit-button>
+    </div>
+  </form>
 </app-authentication-form-container>

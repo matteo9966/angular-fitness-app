@@ -3,7 +3,7 @@ import { ResponsiveLayoutService } from 'src/app/core/services/responsive-layout
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
- * @description this directive based on the responsivenss adds or removes the mobile css class to an element
+ * @description use appAddMobileClass, this directive based on the responsivenss adds or removes the mobile css class to an element
  */
 @Directive({
   selector: '[appAddMobileClass]',

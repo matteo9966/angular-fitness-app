@@ -1,23 +1,57 @@
-import { ChangeDetectionStrategy, Component,Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { FormControl, ReactiveFormsModule,Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TextInputComponent } from 'src/app/shared/components/text-input/text-input.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthenticationFormContainerComponent } from 'src/app/shared/components/authentication-form-container/authentication-form-container.component';
 import { AddMobileClassDirective } from 'src/app/shared/directives/add-mobile-class.directive';
+import { SignupFormService } from '../../services/signup-form.service';
+import { SubmitButtonComponent } from 'src/app/shared/components/buttons/submit-button/submit-button.component';
+
+
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule,MatFormFieldModule,MatInputModule,MatIconModule,ReactiveFormsModule,TextInputComponent,ReactiveFormsModule,MatButtonModule,AuthenticationFormContainerComponent,AddMobileClassDirective],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    TextInputComponent,
+    ReactiveFormsModule,
+    MatButtonModule,
+    AuthenticationFormContainerComponent,
+    AddMobileClassDirective,
+    SubmitButtonComponent
+  ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormComponent {
-  @Input() formTitle!:string;
-  @Input() formSubtitle!:string;
- control = new FormControl('',{validators:[Validators.minLength(3)]})
+  formService = inject(SignupFormService);
+  form: FormGroup = this.formService.form;
+  nameControl = this.formService.nameControl;
+  passwordControl = this.formService.passwordControl;
+  emailControl = this.formService.emailControl;
+  nameErrorMessage$ = this.formService.nameErrorMessage$;
+  emailErrorMessage$ = this.formService.emailErrorMessage$;
+  passwordErrorMessage$ = this.formService.passwordErrorMessage$;
+  submit = this.formService.onSubmit;
+
+
+
 }

@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeService } from './features/home/services/home.service';
+import { SignupFormService } from './features/signup/services/signup-form.service';
+import { LoginFormService } from './features/login/services/loginForm.service';
 
 export const routes: Routes = [
   {
@@ -18,6 +20,7 @@ export const routes: Routes = [
       import('./features/signup/pages/signup/signup.component').then(
         (c) => c.SignupComponent
       ),
+    providers: [SignupFormService],
   },
   {
     path: 'login',
@@ -25,6 +28,7 @@ export const routes: Routes = [
       import('./features/login/pages/login/login.component').then(
         (c) => c.LoginComponent
       ),
+    providers: [LoginFormService],
   },
   { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];

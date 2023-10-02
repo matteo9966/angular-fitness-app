@@ -1,6 +1,18 @@
 <app-authentication-form-container>
   <h2 title>Login</h2>
   <p subtitle>Welcome back!!</p>
-  <form>
+  <form [formGroup]="form">
+    <app-text-input
+      label="Email"
+      [control]="emailControl"
+      [errorMessage]="(emailErrorMsg$ | async)!"
+    ></app-text-input>
+    <app-text-input
+      label="Password"
+      type="password"
+      [control]="passwordControl"
+      [errorMessage]="(passwordErrorMsg$ | async)!"
+    ></app-text-input>
+    <app-submit-button (click)="submit()">Login</app-submit-button>
   </form>
 </app-authentication-form-container>
