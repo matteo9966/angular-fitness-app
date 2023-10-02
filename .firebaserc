@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "angular-fire-app-4a0b4"
+  },
+  "targets": {
+    "angular-fire-app-4a0b4": {
+      "hosting": {
+        "angular-fitness": [
+          "angular-fire-app-4a0b4"
+        ]
+      }
+    }
+  }
+}

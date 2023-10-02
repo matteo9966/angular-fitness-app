@@ -4,6 +4,7 @@ import {
   MatFormFieldModule,
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from '@angular/material/form-field';
+import {Firestore} from '@angular/fire/firestore'
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -20,6 +21,9 @@ import {
 export class AppComponent {
   constructor(/* @Inject(MAT_FORM_FIELD_DEFAULT_OPTIONS) private matFormField:MatFormFieldDefaultOptions */) {
     // this.matFormField.appearance='outline';
+    const db = inject(Firestore)
+    console.log(db)
   }
+
   title = 'angular-fitness';
 }
