@@ -20,11 +20,12 @@ import {
   getFunctions,
   provideFunctions,
 } from '@angular/fire/functions';
-
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
+    importProvidersFrom(MatSnackBarModule), // globally have a snackbar
     importProvidersFrom(
       provideFirebaseApp(() => initializeApp(environment.firebase)),
       provideAuth(() => {
@@ -39,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       provideFirestore(() => {
         const firestore = getFirestore();
         if (location.hostname === 'localhost') {
-          connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
+          connectFirestoreEmulator(firestore, '127.0.0.1', 8081);
         }
         return firestore;
       }),

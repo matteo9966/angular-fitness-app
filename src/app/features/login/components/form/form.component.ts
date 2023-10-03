@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { SubmitButtonComponent } from 'src/app/shared/components/buttons/submit-button/submit-button.component';
 import { LoginFormService } from '../../services/loginForm.service';
+
 @Component({
   selector: 'app-form',
   standalone: true,

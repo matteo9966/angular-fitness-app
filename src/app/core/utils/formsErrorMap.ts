@@ -7,6 +7,9 @@ const errorMap = {
     const min = errorObj['requiredLength'];
     return 'field min length is ' + min;
   },
+  password: (errorObj: any) => {
+    return 'TODO: Invalid password'
+  },
 };
 
 export function mapErrorObject(errors: ValidationErrors | null) {
@@ -25,6 +28,8 @@ export function mapErrorObject(errors: ValidationErrors | null) {
 
     case 'minlength':
       return errorMap['minlength'](errors?.['minlength']);
+    case 'password':
+      return errorMap['password'](errors?.['password']);
 
     default:
       return 'invalid field';

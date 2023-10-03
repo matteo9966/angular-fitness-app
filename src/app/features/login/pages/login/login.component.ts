@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component ,inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from '../../components/form/form.component';
 import { AuthenticationToolbarComponent } from 'src/app/shared/components/authentication-toolbar/authentication-toolbar.component';
 import { AddMobileClassDirective } from 'src/app/shared/directives/add-mobile-class.directive';
+
 
 @Component({
   selector: 'app-login',
@@ -13,5 +14,6 @@ import { AddMobileClassDirective } from 'src/app/shared/directives/add-mobile-cl
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
+
 
 }

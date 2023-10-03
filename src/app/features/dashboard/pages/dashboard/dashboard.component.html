@@ -1,0 +1,15 @@
+[dashboard navbar]
+<span *ngIf="loggedIn$ | async; else loggedout" style="background-color: green"
+  >LOGGED IN!!!!</span
+>
+<br />
+<router-outlet></router-outlet>
+<br />
+<button style="background-color: blue; padding: 1rem" (click)="logout()">
+  LOGOUT
+</button>
+[dashboard footer]
+
+<ng-template #loggedout>
+  <span>LOGGED OUT</span>
+</ng-template>
