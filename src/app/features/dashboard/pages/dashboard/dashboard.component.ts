@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { UserService } from 'src/app/core/services/User.service';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DashboardPageComponent } from '../../components/dashboard-page/dashboard-page.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet,MatSidenavModule,DashboardPageComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

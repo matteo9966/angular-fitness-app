@@ -10,16 +10,16 @@ import {
   getFirestore,
   provideFirestore,
 } from '@angular/fire/firestore';
-import {
-  connectStorageEmulator,
-  getStorage,
-  provideStorage,
-} from '@angular/fire/storage';
-import {
-  connectFunctionsEmulator,
-  getFunctions,
-  provideFunctions,
-} from '@angular/fire/functions';
+// import {
+//   connectStorageEmulator,
+//   getStorage,
+//   provideStorage,
+// } from '@angular/fire/storage';
+// import {
+//   connectFunctionsEmulator,
+//   getFunctions,
+//   provideFunctions,
+// } from '@angular/fire/functions';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,20 +44,20 @@ export const appConfig: ApplicationConfig = {
         }
         return firestore;
       }),
-      provideFunctions(() => {
-        const functions = getFunctions();
-        if (location.hostname === 'localhost') {
-          connectFunctionsEmulator(functions, '127.0.0.1', 5001);
-        }
-        return functions;
-      }),
-      provideStorage(() => {
-        const storage = getStorage();
-        if (location.hostname === 'localhost') {
-          connectStorageEmulator(storage, '127.0.0.1', 5001);
-        }
-        return storage;
-      })
+      // provideFunctions(() => {
+      //   const functions = getFunctions();
+      //   if (location.hostname === 'localhost') {
+      //     connectFunctionsEmulator(functions, '127.0.0.1', 5001);
+      //   }
+      //   return functions;
+      // }),
+      // provideStorage(() => {
+      //   const storage = getStorage();
+      //   if (location.hostname === 'localhost') {
+      //     connectStorageEmulator(storage, '127.0.0.1', 5001);
+      //   }
+      //   return storage;
+      // })
     ),
   ],
 };

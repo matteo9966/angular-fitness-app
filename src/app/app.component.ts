@@ -2,7 +2,7 @@ import { Component,inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { UserService } from './core/services/User.service';
+// import { UserService } from './core/services/User.service';
 
 @Component({
   selector: 'app-root',
@@ -14,5 +14,5 @@ import { UserService } from './core/services/User.service';
 })
 export class AppComponent {
   constructor() {}
-  userService  = inject(UserService);
+  // userService  = inject(UserService);
 }

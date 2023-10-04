@@ -5,7 +5,7 @@ import {
   FormControl,
   FormGroup,
 } from '@angular/forms';
-import { map, Observable, Subject, merge, tap } from 'rxjs';
+import { map, Observable, Subject, merge, tap, startWith, shareReplay } from 'rxjs';
 import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { SignupService } from './signup.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,8 +18,17 @@ export class SignupFormService {
   fb = inject(FormBuilder);
   signupService = inject(SignupService);
   snackBarService = inject(MatSnackBar);
+  passwordValidationConfig={
+    lowercase: 2,
+    nospaces: true,
+    uppercase: 2,
+    symbol: 2,
+  };
+  passwordValidationLabels = Object.keys(this.passwordValidationConfig);
+  
 
   private _submit = new Subject();
+  private submit$ = this._submit.asObservable().pipe(shareReplay(1));
   form: FormGroup<{
     name: FormControl<string>;
     email: FormControl<string>;
@@ -31,9 +40,16 @@ export class SignupFormService {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.passwordErrorMessage$ = merge(
-      this._submit.asObservable(),
+      this.submit$,
       this.passwordControl.valueChanges
-    ).pipe(map(() => mapErrorObject(this.passwordControl.errors)));
+    ).pipe(startWith(''),map(() => mapErrorObject(this.passwordControl.errors)));
+
+    merge(
+      this.submit$,
+      this.passwordControl.valueChanges
+    ).subscribe(() => {
+      console.log(this.form);
+    });
   }
 
   createForm() {
@@ -48,7 +64,7 @@ export class SignupFormService {
       ]),
       password: this.fb.nonNullable.control('', [
         // Validators.required,
-        validatePassword,
+        validatePassword(this.passwordValidationConfig),
       ]),
     });
     return form;
@@ -66,16 +82,16 @@ export class SignupFormService {
 
   get nameErrorMessage$() {
     return merge(
-      this._submit.asObservable(),
+      this.submit$,
       this.nameControl.valueChanges
-    ).pipe(map(() => mapErrorObject(this.nameControl.errors)));
+    ).pipe(startWith(''),map(() => mapErrorObject(this.nameControl.errors)));
   }
 
   get emailErrorMessage$() {
     return merge(
-      this._submit.asObservable(),
+      this.submit$,
       this.emailControl.valueChanges
-    ).pipe(map(() => mapErrorObject(this.emailControl.errors)));
+    ).pipe(startWith(''),map(() => mapErrorObject(this.emailControl.errors)));
   }
 
   onSubmit() {
@@ -137,4 +153,14 @@ export class SignupFormService {
     this.form.markAsPristine();
     this.form.updateValueAndValidity();
   }
+
+  passwordErrors(){
+  
+    const passwordError =this.passwordControl?.errors?.['password'];
+    console.log(this.passwordControl?.errors?.['password'])
+    if(!passwordError) return [];
+    return passwordError
+  }
+
+
 }

@@ -19,6 +19,7 @@ import { AuthenticationFormContainerComponent } from 'src/app/shared/components/
 import { AddMobileClassDirective } from 'src/app/shared/directives/add-mobile-class.directive';
 import { SignupFormService } from '../../services/signup-form.service';
 import { SubmitButtonComponent } from 'src/app/shared/components/buttons/submit-button/submit-button.component';
+import { PasswordChipsComponent } from 'src/app/shared/components/password-chips/password-chips.component';
 
 
 @Component({
@@ -35,7 +36,8 @@ import { SubmitButtonComponent } from 'src/app/shared/components/buttons/submit-
     MatButtonModule,
     AuthenticationFormContainerComponent,
     AddMobileClassDirective,
-    SubmitButtonComponent
+    SubmitButtonComponent,
+    PasswordChipsComponent
   ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
@@ -51,7 +53,8 @@ export class FormComponent {
   emailErrorMessage$ = this.formService.emailErrorMessage$;
   passwordErrorMessage$ = this.formService.passwordErrorMessage$;
   submit = this.formService.onSubmit;
-
+  passwordLabels = this.formService.passwordValidationLabels;
+  passwordErrors = this.formService.passwordErrors
 
 
 }

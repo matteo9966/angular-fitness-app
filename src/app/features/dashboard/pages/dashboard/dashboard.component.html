@@ -1,3 +1,19 @@
+<mat-sidenav-container class="app-sidenav-container" [hasBackdrop]="false">
+  <mat-sidenav #sidenav [disableClose]="true" [opened]="true" mode="side">
+    <div class="dashboard-sidenav">
+      dashboard sidenav
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content> 
+    <div class="dashboard-content">
+
+      <app-dashboard-page></app-dashboard-page>
+    </div>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- <br /><br /><br /><br /><br />
 [dashboard navbar]
 <span *ngIf="loggedIn$ | async; else loggedout" style="background-color: green"
   >LOGGED IN!!!!</span
@@ -12,4 +28,4 @@
 
 <ng-template #loggedout>
   <span>LOGGED OUT</span>
-</ng-template>
+</ng-template> -->

@@ -21,15 +21,17 @@
         label="Email"
         [control]="emailControl"
       ></app-text-input>
-
-      <app-text-input
-        placeholder="Password"
-        hint="Insert a strong password"
-        [errorMessage]="(passwordErrorMessage$ | async)!"
-        label="Password"
-        [control]="passwordControl"
-        type="password"
-      ></app-text-input>
+      <div>
+        <app-text-input
+          placeholder="Password"
+          hint="Insert a strong password"
+          [errorMessage]="(passwordErrorMessage$ | async)!"
+          label="Password"
+          [control]="passwordControl"
+          type="password"
+        ></app-text-input>
+        <div><app-password-chips [chipLabels]="passwordLabels" [uncheckedChips]="passwordErrors()"> </app-password-chips></div>
+      </div>
     </div>
 
     <div class="action">

@@ -11,6 +11,9 @@
     @include mat.icon-theme($mat-theme);
     @include mat.input-theme($mat-theme);
     @include mat.form-field-theme($mat-theme);
+    @include mat.chips-theme($mat-theme);
+    @include mat.sidenav-theme($mat-theme);
+
   } @else {
     @include mat.core-color($mat-theme);
     @include mat.button-color($mat-theme);
@@ -19,5 +22,6 @@
     @include mat.icon-color($mat-theme);
     @include mat.input-color($mat-theme);
     @include mat.form-field-color($mat-theme);
+    @include mat.sidenav-color($mat-theme);
   }
 }

@@ -8,7 +8,7 @@ const errorMap = {
     return 'field min length is ' + min;
   },
   password: (errorObj: any) => {
-    return 'TODO: Invalid password'
+    return 'Invalid password'
   },
 };
 
