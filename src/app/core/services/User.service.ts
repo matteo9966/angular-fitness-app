@@ -49,4 +49,8 @@ export class UserService {
       return null;
     }
   }
+
+  get isAuthenticated(){
+    return this.isAuthenticated$.value;
+  }
 }

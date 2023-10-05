@@ -4,6 +4,7 @@ import { SignupFormService } from './features/signup/services/signup-form.servic
 import { LoginFormService } from './features/login/services/loginForm.service';
 import { SignupService } from './features/signup/services/signup.service';
 import { AuthenticationService } from './core/services/Authentication.service';
+import { canActivateDashboardGuard } from './features/dashboard/guards/can-activate-dashboard.guard';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,17 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/dashboard/pages/dashboard/dashboard.component').then(
         (d) => d.DashboardComponent
+      ),
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.routes').then((r) => r.routes),
+    providers: [AuthenticationService],
+    canActivate:[canActivateDashboardGuard]
+  },
+  {
+    path: 'unauthorized',
+    loadComponent: () =>
+      import('./shared/pages/unauthorized/unauthorized.component').then(
+        (d) => d.UnauthorizedComponent
       ),
     loadChildren: () =>
       import('./features/dashboard/dashboard.routes').then((r) => r.routes),

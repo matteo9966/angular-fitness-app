@@ -10,12 +10,14 @@ import { IUserSignup } from '../models/User/IUser.signup';
 import { catchError, concatMap, from, map, throwError } from 'rxjs';
 import { IUser } from '../models/User/IUser.interface';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
   auth = inject(Auth);
   authenticationState = authState(this.auth);
   firestore = inject(Firestore);
+  router = inject(Router)
 
   signupUser(user: IUserSignup) {
     const email = user.email;
@@ -54,6 +56,7 @@ export class AuthenticationService {
   }
 
   signOut() {
+    this.router.navigateByUrl('/');
     return from(signOut(this.auth));
   }
 }
