@@ -2,6 +2,7 @@
 @use './app/styles/normalize';
 @use './app/styles/material/material';
 @use './app/styles/fonts';
+@use './app/styles/material/snackbar';
 
 
 //TODO: al these themes must be lazy loaded using a service!!
@@ -20,3 +21,5 @@
     --home-difficulty-background-intermediate:rgb(42, 42, 195);
     --home-difficulty-background-advanced:rgba(176, 0, 0, 0.823);
 }
+
+

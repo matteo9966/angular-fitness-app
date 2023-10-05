@@ -10,11 +10,13 @@ import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { SignupService } from './signup.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { validatePassword } from 'src/app/core/utils/formValidators/passwordValidator.validator';
+import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 /**
  * All the business logic goes inside here!
  */
 @Injectable()
 export class SignupFormService {
+  snackbarService = inject(SnackbarService);
   fb = inject(FormBuilder);
   signupService = inject(SignupService);
   snackBarService = inject(MatSnackBar);
@@ -104,18 +106,12 @@ export class SignupFormService {
     const value = this.form.value;
     const { email, password, name } = value;
     if (!email || !password || !name) {
-      this.snackBarService.open('Missing email, password or name', 'Close', {
-        politeness: 'assertive',
-
-        duration: 3000,
-      });
+      this.snackbarService.errorSnackbar('Missing email, password or name','Close');
       return;
     }
 
     if (this.form.invalid) {
-      this.snackBarService.open('Invalid form.', 'Close', {
-        duration: 3000,
-      });
+      this.snackbarService.successSnackbar('Invalid form.', 'Close');
       return;
     }
 
@@ -133,10 +129,10 @@ export class SignupFormService {
       .subscribe({
         next: (user) => {
           console.log(user.id, user.path);
-          this.snackBarService.open('You succesfully subscribed!', 'close');
+          this.snackbarService.successSnackbar('You succesfully subscribed!', 'close');
         },
         error: () => {
-          this.snackBarService.open('Error while signing up', 'close');
+          this.snackbarService.successSnackbar('Error while signing up', 'close');
         },
       });
   }

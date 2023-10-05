@@ -1,17 +1,22 @@
 import { Injectable, inject } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { map, Subject, merge } from 'rxjs';
+import { map, Subject, merge, switchMap, from } from 'rxjs';
 import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/core/services/User.service';
+import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 @Injectable()
 export class LoginFormService {
   fb = inject(FormBuilder);
-  router = inject(Router)
+  router = inject(Router);
+
   authenticationService = inject(AuthenticationService);
+  userService = inject(UserService);
   snackbar = inject(MatSnackBar);
+  snackbarService = inject(SnackbarService);
   private _submit = new Subject();
   form = this.fb.nonNullable.group({
     email: this.fb.nonNullable.control('', [
@@ -53,10 +58,23 @@ export class LoginFormService {
       this.snackbar.open('Login form is invalid', 'close', { duration: 3000 });
       return;
     }
-    this.authenticationService.signIn(email, password).subscribe((user) => {
-      this.clearForm();
-      this.router.navigateByUrl('/dashboard')
-    });
+    this.authenticationService
+      .signIn(email, password)
+      .pipe(
+        switchMap((userCredentials) => {
+          return from(this.userService.getUser(userCredentials.user.uid));
+        })
+      )
+      .subscribe((user) => {
+        if (!user) {
+          this.snackbarService.errorSnackbar('No user data', 'close');
+          return;
+        }
+
+        this.clearForm();
+        this.userService.user$.next(user); //TODO replace with a method!
+        this.router.navigateByUrl('/dashboard');
+      });
   }
   clearForm() {
     this.form.reset();
