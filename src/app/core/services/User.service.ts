@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
-import { Auth, User, authState } from '@angular/fire/auth';
+import { Auth, User, authState, onAuthStateChanged } from '@angular/fire/auth';
 import { Subscription, BehaviorSubject, Subject } from 'rxjs';
 import { IUser } from '../models/User/IUser.interface';
 
@@ -8,35 +8,18 @@ import { IUser } from '../models/User/IUser.interface';
 export class UserService {
   firestore = inject(Firestore);
   auth = inject(Auth);
-  authState$ = authState(this.auth);
   userId: string | null = null;
-  user$: Subject<IUser> = new Subject();
-  authStateSubscription!: Subscription;
   isAuthenticated$ = new BehaviorSubject(false);
   constructor() {
-    this.authStateSubscription = this.authState$.subscribe(
-      (aUser: User | null) => {
-        if (aUser) {
-          console.log({aUser})
-          this.isAuthenticated$.next(true);
-          this.userId = aUser.uid;
-        } else {
-          this.isAuthenticated$.next(false);
-          this.userId = null;
-        }
-      }
-    );
   }
 
-  ngOnDestroy() {
-    this.authStateSubscription && this.authStateSubscription.unsubscribe();
-  }
 
-  async getUser(userId:string) {
-    if (!this.userId) {
+
+  async getUser(userId: string) {
+    if (!userId) {
       return null;
     }
-    const docRef = doc(this.firestore, 'users', this.userId);
+    const docRef = doc(this.firestore, 'users', userId);
     try {
       const document = await getDoc(docRef);
       if (document.exists()) {
@@ -50,7 +33,7 @@ export class UserService {
     }
   }
 
-  get isAuthenticated(){
+  get isAuthenticated() {
     return this.isAuthenticated$.value;
   }
 }

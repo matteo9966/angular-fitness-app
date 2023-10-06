@@ -10,4 +10,6 @@ export const mockUser: IUser = {
   name: 'username',
   profileImg: 'userprofilePic',
   status: 'this is a short status',
+  backgroundImg: '',
+  socials: []
 };

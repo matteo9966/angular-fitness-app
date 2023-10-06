@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { map, Subject, merge, switchMap, from } from 'rxjs';
+import { map, Subject, merge, switchMap, from, tap } from 'rxjs';
 import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -60,19 +60,14 @@ export class LoginFormService {
     }
     this.authenticationService
       .signIn(email, password)
-      .pipe(
-        switchMap((userCredentials) => {
-          return from(this.userService.getUser(userCredentials.user.uid));
-        })
-      )
       .subscribe((user) => {
+        console.log({USERlogin:user});
         if (!user) {
           this.snackbarService.errorSnackbar('No user data', 'close');
           return;
         }
 
         this.clearForm();
-        this.userService.user$.next(user); //TODO replace with a method!
         this.router.navigateByUrl('/dashboard');
       });
   }

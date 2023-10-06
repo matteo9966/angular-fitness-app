@@ -1,17 +1,35 @@
-<mat-sidenav-container class="app-sidenav-container" [hasBackdrop]="false">
+<mat-sidenav-container
+  class="app-sidenav-container"
+  [hasBackdrop]="false"
+  [autosize]="true"
+>
   <mat-sidenav #sidenav [disableClose]="true" [opened]="true" mode="side">
     <div class="dashboard-sidenav">
-      dashboard sidenav
+      <div>
+        <button (click)="expanded = !expanded">[TO]</button>
+      </div>
+      <ul>
+        <li class="item">
+          <span>[icona]</span>
+          <span class="navitem" *ngIf="expanded" >IL contentueo</span>
+        </li>
+        <li class="item">
+          <span>[icona]</span>
+          <span class="navitem" *ngIf="expanded" >IL contentueo</span>
+        </li>
+        <li class="item">
+          <span>[icona]</span>
+          <span class="navitem" *ngIf="expanded">IL contentueo</span>
+        </li>
+      </ul>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content> 
+  <mat-sidenav-content>
     <div class="dashboard-content">
-
       <app-dashboard-page>
         <router-outlet></router-outlet>
       </app-dashboard-page>
     </div>
-    
   </mat-sidenav-content>
 </mat-sidenav-container>
 

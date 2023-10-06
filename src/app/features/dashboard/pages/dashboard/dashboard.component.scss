@@ -1,8 +1,23 @@
-.app-sidenav-container{
-    min-height: 100vh;
-    height: 100vh;
+.app-sidenav-container {
+  min-height: 100vh;
+  height: 100vh;
 }
 
-.dashboard-content{
-    padding:1rem;
+.dashboard-content {
+  padding: 1rem;
+}
+
+.navitem {
+  display: block;
+  max-width: 0px;
+  overflow: hidden;
+  transition: all 0.7s ease-out;
+  display: block;
+  transition: all 0.7s ease-out;
+  max-width: 300px;
+}
+
+
+.item{
+    display:flex;
 }

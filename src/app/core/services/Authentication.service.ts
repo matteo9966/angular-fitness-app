@@ -5,9 +5,18 @@ import {
   signInWithEmailAndPassword,
   authState,
   signOut,
+  onAuthStateChanged,
 } from '@angular/fire/auth';
 import { IUserSignup } from '../models/User/IUser.signup';
-import { catchError, concatMap, from, map, throwError } from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  from,
+  map,
+  throwError,
+  BehaviorSubject,
+  Subject,
+} from 'rxjs';
 import { IUser } from '../models/User/IUser.interface';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -17,7 +26,18 @@ export class AuthenticationService {
   auth = inject(Auth);
   authenticationState = authState(this.auth);
   firestore = inject(Firestore);
-  router = inject(Router)
+  router = inject(Router);
+  private isAuthenticated$ = new BehaviorSubject(false);
+
+  constructor() {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        sessionStorage.setItem('loggedIn','true')
+      } else {       
+        sessionStorage.removeItem('loggedIn');
+      }
+    });
+  }
 
   signupUser(user: IUserSignup) {
     const email = user.email;
@@ -40,6 +60,8 @@ export class AuthenticationService {
           name: user.name,
           profileImg: '',
           status: '',
+          backgroundImg:'',
+          socials:[]
         };
         const userDocRef = doc(this.firestore, 'users', uid);
         return from(setDoc(userDocRef, newUser)).pipe(map(() => userDocRef));
@@ -59,4 +81,18 @@ export class AuthenticationService {
     this.router.navigateByUrl('/');
     return from(signOut(this.auth));
   }
+
+  get isAuthenticated() {
+    return this.isAuthenticated$.value;
+  }
+
+  get currentUser() {
+    return this.auth.currentUser;
+  }
+
+  get isLoggedIn(){
+    return sessionStorage.getItem('loggedIn');
+  }
+
+
 }

@@ -5,18 +5,17 @@
       alt=""
     />
     <div class="toolbar">
-        <nav>
-            <ul>
-                <li>login</li>
-                <li>logout</li>
-            </ul>
-        </nav>
+      <nav class="toolbar-nav">
+        <ul class="actions">
+          <li class="action"><mat-icon>settings</mat-icon> Settings</li>
+          <li class="action" (click)="logout()"><mat-icon>logout</mat-icon>logout</li>
+        </ul>
+      </nav>
     </div>
   </div>
   <mat-card class="app-card-content">
-   <mat-card-content>
-      card content
-       <ng-content></ng-content>
-   </mat-card-content>
+    <mat-card-content>
+      <ng-content></ng-content>
+    </mat-card-content>
   </mat-card>
 </div>
