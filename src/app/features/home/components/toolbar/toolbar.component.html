@@ -9,18 +9,34 @@
       'scrolled-bg': scrolled$ | async
     }"
   >
-    <app-app-logo size="large" class="app-toolbarlogo"></app-app-logo>
+    <app-app-logo size="large" class="app-toolbarlogo" (click)="menuopen = false"></app-app-logo>
     <nav class="app-nav" *ngIf="!(isSmallDevice$ | async)">
       <ul class="app-navigation-links">
-        <li class="link">About us</li>
-        <li class="link">Contuct us</li>
-        <li class="link">Pricing</li>
-        <li class="link" [routerLink]="['blog']">Blogs</li>
+        <li
+          class="link"
+          *ngFor="let link of links"
+          [routerLink]="link.routerLink"
+        >
+          {{ link.label }}
+        </li>
       </ul>
     </nav>
     <span class="spacer" *ngIf="isSmallDevice$ | async"></span>
-    <button mat-button *ngIf="isSmallDevice$  | async " (click)="menuopen=!menuopen">
-      <mat-icon class="menu-icon">{{menuopen? 'menu_open':'menu' }}</mat-icon>
+    <button
+      mat-button
+      *ngIf="isSmallDevice$ | async"
+      (click)="menuopen = !menuopen"
+    >
+      <mat-icon class="menu-icon">{{
+        menuopen ? "menu_open" : "menu"
+      }}</mat-icon>
     </button>
   </div>
 </mat-toolbar>
+<app-mobile-toolbar-links
+  *ngIf="menuopen && (isSmallDevice$ | async)"
+  #mobilemenu
+  (clickedInItem)="menuopen = !menuopen"
+  (clickedOnDropdown)="menuopen = false"
+  [links]="links"
+></app-mobile-toolbar-links>

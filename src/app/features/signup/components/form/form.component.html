@@ -30,7 +30,11 @@
           [control]="passwordControl"
           type="password"
         ></app-text-input>
-        <div><app-password-chips [chipLabels]="passwordLabels" [uncheckedChips]="passwordErrors()"> </app-password-chips></div>
+        <div class="password-chips-section"><app-password-chips [chipLabels]="passwordLabels" [uncheckedChips]="passwordErrors()"> 
+        
+        </app-password-chips>
+          <mat-icon [matTooltip]="tooltipMessage">info</mat-icon>
+        </div>
       </div>
     </div>
 

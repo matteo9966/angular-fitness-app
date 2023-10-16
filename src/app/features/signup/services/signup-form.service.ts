@@ -5,7 +5,15 @@ import {
   FormControl,
   FormGroup,
 } from '@angular/forms';
-import { map, Observable, Subject, merge, tap, startWith, shareReplay } from 'rxjs';
+import {
+  map,
+  Observable,
+  Subject,
+  merge,
+  tap,
+  startWith,
+  shareReplay,
+} from 'rxjs';
 import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { SignupService } from './signup.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,14 +28,13 @@ export class SignupFormService {
   fb = inject(FormBuilder);
   signupService = inject(SignupService);
   snackBarService = inject(MatSnackBar);
-  passwordValidationConfig={
+  passwordValidationConfig = {
     lowercase: 2,
     nospaces: true,
     uppercase: 2,
     symbol: 2,
   };
   passwordValidationLabels = Object.keys(this.passwordValidationConfig);
-  
 
   private _submit = new Subject();
   private submit$ = this._submit.asObservable().pipe(shareReplay(1));
@@ -44,12 +51,12 @@ export class SignupFormService {
     this.passwordErrorMessage$ = merge(
       this.submit$,
       this.passwordControl.valueChanges
-    ).pipe(startWith(''),map(() => mapErrorObject(this.passwordControl.errors)));
+    ).pipe(
+      startWith(''),
+      map(() => mapErrorObject(this.passwordControl.errors))
+    );
 
-    merge(
-      this.submit$,
-      this.passwordControl.valueChanges
-    ).subscribe(() => {
+    merge(this.submit$, this.passwordControl.valueChanges).subscribe(() => {
       console.log(this.form);
     });
   }
@@ -83,17 +90,17 @@ export class SignupFormService {
   }
 
   get nameErrorMessage$() {
-    return merge(
-      this.submit$,
-      this.nameControl.valueChanges
-    ).pipe(startWith(''),map(() => mapErrorObject(this.nameControl.errors)));
+    return merge(this.submit$, this.nameControl.valueChanges).pipe(
+      startWith(''),
+      map(() => mapErrorObject(this.nameControl.errors))
+    );
   }
 
   get emailErrorMessage$() {
-    return merge(
-      this.submit$,
-      this.emailControl.valueChanges
-    ).pipe(startWith(''),map(() => mapErrorObject(this.emailControl.errors)));
+    return merge(this.submit$, this.emailControl.valueChanges).pipe(
+      startWith(''),
+      map(() => mapErrorObject(this.emailControl.errors))
+    );
   }
 
   onSubmit() {
@@ -106,7 +113,10 @@ export class SignupFormService {
     const value = this.form.value;
     const { email, password, name } = value;
     if (!email || !password || !name) {
-      this.snackbarService.errorSnackbar('Missing email, password or name','Close');
+      this.snackbarService.errorSnackbar(
+        'Missing email, password or name',
+        'Close'
+      );
       return;
     }
 
@@ -129,10 +139,16 @@ export class SignupFormService {
       .subscribe({
         next: (user) => {
           console.log(user.id, user.path);
-          this.snackbarService.successSnackbar('You succesfully subscribed!', 'close');
+          this.snackbarService.successSnackbar(
+            'You succesfully subscribed!',
+            'close'
+          );
         },
         error: () => {
-          this.snackbarService.successSnackbar('Error while signing up', 'close');
+          this.snackbarService.successSnackbar(
+            'Error while signing up',
+            'close'
+          );
         },
       });
   }
@@ -150,13 +166,20 @@ export class SignupFormService {
     this.form.updateValueAndValidity();
   }
 
-  passwordErrors(){
-  
-    const passwordError =this.passwordControl?.errors?.['password'];
-    console.log(this.passwordControl?.errors?.['password'])
-    if(!passwordError) return [];
-    return passwordError
+  passwordErrors() {
+    const passwordError = this.passwordControl?.errors?.['password'];
+    console.log(this.passwordControl?.errors?.['password']);
+    if (!passwordError) return [];
+    return passwordError;
   }
 
-
+  tooltipMessage = `The password must have: ${
+    this.passwordValidationConfig.lowercase
+  } lowercase characters, ${
+    this.passwordValidationConfig.uppercase
+  } uppercase letters, ${
+    this.passwordValidationConfig.symbol
+  } symbols i.e "- + @"${
+    this.passwordValidationConfig.nospaces ? ' and no spaces' : ''
+  }.`;
 }

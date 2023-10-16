@@ -5,6 +5,7 @@ import { LoginFormService } from './features/login/services/loginForm.service';
 import { SignupService } from './features/signup/services/signup.service';
 import { AuthenticationService } from './core/services/Authentication.service';
 import { canActivateDashboardGuard } from './features/dashboard/guards/can-activate-dashboard.guard';
+import { ToolbarService } from './features/home/services/toolbar.service';
 
 export const routes: Routes = [
   {
@@ -15,7 +16,7 @@ export const routes: Routes = [
       ),
     loadChildren: () =>
       import('./features/home/home.routes').then((r) => r.homeRoutes),
-    providers: [HomeService],
+    providers: [HomeService,ToolbarService],
   },
   {
     path: 'signup',
@@ -49,10 +50,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./shared/pages/unauthorized/unauthorized.component').then(
         (d) => d.UnauthorizedComponent
-      ),
-    loadChildren: () =>
-      import('./features/dashboard/dashboard.routes').then((r) => r.routes),
-    providers: [AuthenticationService],
+      )
   },
   { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];
