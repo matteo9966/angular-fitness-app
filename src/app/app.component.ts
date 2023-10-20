@@ -15,9 +15,6 @@ import { AuthenticationService } from './core/services/Authentication.service';
 })
 export class AppComponent {
   constructor() {}
-  // userService  = inject(UserService);
-  authService = inject(AuthenticationService);
-  logout() {
-    this.authService.signOut();
-  }
+
+
 }

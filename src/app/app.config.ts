@@ -21,10 +21,16 @@ import {
 //   provideFunctions,
 // } from '@angular/fire/functions';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AuthenticationService } from './core/services/Authentication.service';
 export const appConfig: ApplicationConfig = {
   providers: [
+    AuthenticationService,
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
+    importProvidersFrom(MatDialogModule),
+    importProvidersFrom(MatProgressSpinner),
     importProvidersFrom(MatSnackBarModule), // globally have a snackbar
     importProvidersFrom(
       provideFirebaseApp(() => initializeApp(environment.firebase)),

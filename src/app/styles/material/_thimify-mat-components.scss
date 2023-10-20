@@ -14,7 +14,9 @@
     @include mat.chips-theme($mat-theme);
     @include mat.sidenav-theme($mat-theme);
     @include mat.menu-theme($mat-theme);
-
+    @include mat.progress-spinner-theme($mat-theme);
+    @include mat.expansion-theme($mat-theme);
+    
   } @else {
     @include mat.core-color($mat-theme);
     @include mat.button-color($mat-theme);
@@ -25,5 +27,7 @@
     @include mat.form-field-color($mat-theme);
     @include mat.sidenav-color($mat-theme);
     @include mat.menu-color($mat-theme);
+    @include mat.progress-spinner-color($mat-theme);
+    @include mat.expansion-color($mat-theme);
   }
 }

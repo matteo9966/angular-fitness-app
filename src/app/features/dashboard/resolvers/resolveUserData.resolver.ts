@@ -1,26 +1,38 @@
-// import {
-//   ActivatedRouteSnapshot,
-//   ResolveFn,
-//   RouterStateSnapshot,
-//   Router,
-// } from '@angular/router';
-// import { inject } from '@angular/core';
-// import { UserService } from 'src/app/core/services/User.service';
-// import { EMPTY } from 'rxjs';
-// import { IUser } from 'src/app/core/models/User/IUser.interface';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+  Router,
+} from '@angular/router';
+import { switchMap, tap, Observable, take } from 'rxjs';
+import { inject } from '@angular/core';
+import { IUser } from 'src/app/core/models/User/IUser.interface';
 // import { SnackbarService } from 'src/app/core/services/Snackbar.service';
-// export const getUserDataResolver: ResolveFn<IUser> = async (
-//   route: ActivatedRouteSnapshot,
-//   state: RouterStateSnapshot
-// ) => {
-//   const userService = inject(UserService);
-//   const snackbarService = inject(SnackbarService);
-// //   const router = inject(Router);
+import { UserService } from '../services/User.service';
+import { AuthenticationService } from 'src/app/core/services/Authentication.service';
+export const getUserDataResolver: ResolveFn<Observable<IUser | null>> = (
+  _route: ActivatedRouteSnapshot,
+  _state: RouterStateSnapshot
+) => {
+  const authService = inject(AuthenticationService);
+  const userService = inject(UserService);
 
-//   const user = await userService.user$.val
-//   if (!user) {
-//     snackbarService.errorSnackbar('Error while fetching user data','Close');
-//     throw new Error('no user!');
-//   }
-//   return user;
-// };
+  const data$ = authService.authState$.pipe(
+    take(1),
+    switchMap(async (firebaseuser) => {
+      if (!firebaseuser) {
+        return null;
+      } else {
+        const user = await userService.getUser(firebaseuser.uid);
+        return user;
+      }
+    }),
+    tap((data) => {
+      if (!data) {
+        return;
+      }
+      userService.setUserData(data as IUser);
+    })
+  );
+  return data$;
+};

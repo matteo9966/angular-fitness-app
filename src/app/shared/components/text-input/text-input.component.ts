@@ -39,6 +39,7 @@ export class TextInputComponent implements OnInit {
   @Input() label!: string;
   @Input() type: 'text' | 'password' = 'text';
   @Input() errorStateMatcher!:ErrorStateMatcher;
+  @Input() asTextArea:boolean=false;
   submitted=false;
   
 

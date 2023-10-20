@@ -1,26 +1,32 @@
 <mat-form-field appearance="outline" class="field">
   <mat-label *ngIf="label">{{ label }}</mat-label>
+  <textarea
+    *ngIf="asTextArea"
+    [formControl]="control || null"
+    matInput
+    [placeholder]="placeholder"
+    [type]="type"
+  ></textarea>
   <input
     [formControl]="control || null"
     matInput
-    placeholder="Placeholder"
+    [placeholder]="placeholder"
     [type]="type"
+    *ngIf="!asTextArea"
   />
   <mat-icon matSuffix *ngIf="icon">{{ icon }}</mat-icon>
-  
-   <button
+
+  <button
     *ngIf="passwordInput"
     mat-icon-button
     matSuffix
-    (click)="type=='password'?type='text':type='password'"
+    (click)="type == 'password' ? (type = 'text') : (type = 'password')"
     [attr.aria-label]="'Hide password'"
     type="button"
   >
     <mat-icon>{{ passwordVisibilityIcon }}</mat-icon>
   </button>
-  
+
   <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
   <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
 </mat-form-field>
-
-

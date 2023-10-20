@@ -1,17 +1,19 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { map, tap } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
-import { UserService } from 'src/app/core/services/User.service';
-
+import { map } from 'rxjs';
+import { ROUTES } from 'src/app/core/shared/app-routes';
 export const canActivateDashboardGuard: CanActivateFn = (route, state) => {
- 
-  // const authService = inject(AuthenticationService);
-  // const router = inject(Router);
+  console.log('executing can activate dashboard');
+  const authService = inject(AuthenticationService);
+  const router = inject(Router);
 
-  // const isLoggedIn = authService.isLoggedIn;
-  // if(!isLoggedIn){
-  //   return router.createUrlTree(['/unauthorized'])
-  // }
-  return true
+  return authService.authState$.pipe(
+    map((user) => {
+      if (user) {
+        return true;
+      }
+      return router.createUrlTree([ROUTES.unauthorized.absolute]);
+    })
+  );
 };

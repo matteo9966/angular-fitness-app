@@ -95,3 +95,13 @@
     top: 10px;
     right: 20px;
 }
+
+.profile-menu{
+    display: flex;
+    gap:20px;
+
+    .item{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

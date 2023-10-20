@@ -145,7 +145,7 @@ export class SignupFormService {
           );
         },
         error: () => {
-          this.snackbarService.successSnackbar(
+          this.snackbarService.errorSnackbar(
             'Error while signing up',
             'close'
           );

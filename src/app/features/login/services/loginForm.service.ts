@@ -6,7 +6,6 @@ import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/core/services/User.service';
 import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 @Injectable()
 export class LoginFormService {
@@ -14,7 +13,7 @@ export class LoginFormService {
   router = inject(Router);
 
   authenticationService = inject(AuthenticationService);
-  userService = inject(UserService);
+
   snackbar = inject(MatSnackBar);
   snackbarService = inject(SnackbarService);
   private _submit = new Subject();
