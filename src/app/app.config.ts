@@ -24,9 +24,11 @@ import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AuthenticationService } from './core/services/Authentication.service';
+import { provideHttpClient } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     AuthenticationService,
+    provideHttpClient(),
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
     importProvidersFrom(MatDialogModule),

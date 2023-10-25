@@ -1,0 +1,17 @@
+$icon-size:25px;
+.content{
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.text-input-area{
+    flex:1;
+}
+
+.social-icon{
+    width: $icon-size;
+    height: $icon-size;
+    object-fit: contain;
+    object-position: center;
+}

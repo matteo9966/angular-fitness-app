@@ -4,13 +4,13 @@
   <form [formGroup]="form">
     <app-text-input
       label="Email"
-      [control]="emailControl"
+      [formControl]="emailControl"
       [errorMessage]="(emailErrorMsg$ | async)!"
     ></app-text-input>
     <app-text-input
       label="Password"
       type="password"
-      [control]="passwordControl"
+      [formControl]="passwordControl"
       [errorMessage]="(passwordErrorMsg$ | async)!"
     ></app-text-input>
     <app-submit-button (click)="submit()">Login</app-submit-button>

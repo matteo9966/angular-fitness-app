@@ -1,11 +1,8 @@
-<form [formGroup]="form" >
-
+<form [formGroup]="form">
   <mat-accordion class="example-headers-align" multi>
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          Personal data
-        </mat-panel-title>
+        <mat-panel-title> Personal data </mat-panel-title>
         <mat-panel-description>
           Type your name and age
           <mat-icon>account_circle</mat-icon>
@@ -14,43 +11,50 @@
       <ng-template matExpansionPanelContent>
         <div class="fields">
           <app-text-input
-          placeholder="Name"
-          icon="face"
-          hint="You can change your name here"
-          [errorMessage]="''"
-          label="Name"
-          [control]="nameControl"
+            placeholder="Name"
+            icon="face"
+            hint="You can change your name here"
+            [errorMessage]="''"
+            label="Name"
+            [formControl]="nameControl"
           ></app-text-input>
           <app-text-input
-          placeholder="Your bio..."
-          [errorMessage]="''"
-          label="Bio"
-          [control]="bioControl"
-          [asTextArea]="true"
+            placeholder="Your bio..."
+            [errorMessage]="''"
+            label="Bio"
+            [asTextArea]="true"
+            [formControl]="bioControl"
           ></app-text-input>
+          <app-gender-selector
+            [formControl]="genderControl"
+          ></app-gender-selector>
         </div>
       </ng-template>
-  
-    </mat-expansion-panel >
-   
-  
+    </mat-expansion-panel>
+
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          Day of the trip
-        </mat-panel-title>
+        <mat-panel-title> Social media </mat-panel-title>
         <mat-panel-description>
-          Inform the date you wish to travel
-          <mat-icon>date_range</mat-icon>
+          All your social media connections
+          <mat-icon>group</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-  
-  
+      <ng-template matExpansionPanelContent>
+        <app-social-media-form-input [formArray]="socialsArrayControl">
+          <app-social-media-input
+            *ngFor="let group of socialsArrayControl.controls"
+            [formGroup]="group"
+            [socials]="socials"
+          ></app-social-media-input>
+        </app-social-media-form-input>
+      </ng-template>
+
       <mat-datepicker #picker></mat-datepicker>
     </mat-expansion-panel>
   </mat-accordion>
   <div class="actions">
     <button mat-flat-button [routerLink]="[profileRoute]">Exit</button>
-    <button mat-flat-button color="primary"  (click)="submitform()">Save</button>
+    <button mat-flat-button color="primary" (click)="submitform()">Save</button>
   </div>
 </form>

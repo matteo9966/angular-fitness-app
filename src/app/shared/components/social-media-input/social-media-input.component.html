@@ -1,0 +1,20 @@
+<mat-list-item role="listitem">
+  <div class="content">
+    <mat-form-field appearance="outline">
+      <mat-label>Social media</mat-label>
+      <mat-select [formControl]="nameControl">
+        <mat-option *ngFor="let social of socials" [value]="social.name">
+          <div class="content">
+            <img [src]="social.iconUrl" alt="socialmediaurl" class="social-icon" />
+            <span>
+              {{ social.name }}
+            </span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="text-input-area">
+      <app-text-input [formControl]="urlControl"></app-text-input>
+    </div>
+  </div>
+</mat-list-item>

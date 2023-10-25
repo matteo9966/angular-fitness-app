@@ -16,8 +16,11 @@
     @include mat.menu-theme($mat-theme);
     @include mat.progress-spinner-theme($mat-theme);
     @include mat.expansion-theme($mat-theme);
+    @include mat.button-toggle-theme($mat-theme);
+    @include mat.select-theme($mat-theme);
     
   } @else {
+    @include mat.select-color($mat-theme);
     @include mat.core-color($mat-theme);
     @include mat.button-color($mat-theme);
     @include mat.toolbar-color($mat-theme);
@@ -29,5 +32,6 @@
     @include mat.menu-color($mat-theme);
     @include mat.progress-spinner-color($mat-theme);
     @include mat.expansion-color($mat-theme);
+    @include mat.button-toggle-color($mat-theme);
   }
 }

@@ -1,0 +1,20 @@
+<div class="your-gender">
+  <span>Gender</span>
+  <span class="separator"></span>
+  <mat-button-toggle-group
+    name="fontStyle"
+    aria-label="Font Style"
+    [(ngModel)]="value"
+    (change)="onChangeValue($event)"
+  >
+    <mat-button-toggle
+      *ngFor="let gender of genderConfig"
+      class="mat-button-toggle-background"
+      [value]="gender.value"
+      [ngClass]="{
+        'mat-button-toggle-background-custom selected': gender.value == value
+      }"
+      >{{ gender.label }}</mat-button-toggle
+    >
+  </mat-button-toggle-group>
+</div>

@@ -1,0 +1,22 @@
+@use "../../../material/themify-custom-component" as tc;
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "sass:color";
+
+@mixin gender-selector($theme) {
+  @include tc.themify-custom-component($theme) using ($palette) {
+    $primary-palette: map.get(
+      $map: $palette,
+      $key: "primary",
+    );
+    $selected-bg-color: mat.get-color-from-palette($primary-palette, 700);
+    $selected-text-color: mat.get-color-from-palette(
+      $primary-palette,
+      "700-contrast"
+    );
+    .mat-button-toggle-background-custom.selected {
+      background-color: $selected-bg-color !important;
+      color: $selected-text-color !important;
+    }
+  }
+}
