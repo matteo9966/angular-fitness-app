@@ -193,6 +193,10 @@ export class EditUserFormService implements OnDestroy {
     return groups;
   }
 
+  deleteSocialMedia(index:number){
+    this.form.controls.socials.removeAt(index);
+  }
+
   private clearFormArray = (formArray: FormArray) => {
     while (formArray.length !== 0) {
       formArray.removeAt(0);

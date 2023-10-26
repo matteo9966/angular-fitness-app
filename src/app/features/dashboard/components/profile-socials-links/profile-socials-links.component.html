@@ -1,0 +1,5 @@
+<div class="social-containers">
+  <a class="social-icon" [href]="social.url" *ngFor="let social of socials">
+    <img [src]="social | socialImage : socialConfig" alt="social-media icon" />
+  </a>
+</div>

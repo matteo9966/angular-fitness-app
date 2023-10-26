@@ -43,9 +43,10 @@
       <ng-template matExpansionPanelContent>
         <app-social-media-form-input [formArray]="socialsArrayControl">
           <app-social-media-input
-            *ngFor="let group of socialsArrayControl.controls"
+            *ngFor="let group of socialsArrayControl.controls;let i = index"
             [formGroup]="group"
             [socials]="socials"
+            (deleteSocial)="deleteSocialMedia(i)"
           ></app-social-media-input>
         </app-social-media-form-input>
       </ng-template>

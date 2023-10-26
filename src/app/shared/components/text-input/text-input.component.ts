@@ -102,7 +102,6 @@ export class TextInputComponent implements OnInit, OnDestroy,ControlValueAccesso
 
   private setComponentControl(): void {
     const injectedControl = this.injector.get(NgControl);
-
     switch (injectedControl.constructor) {
       case NgModel: {
         const { control, update } = injectedControl as NgModel;

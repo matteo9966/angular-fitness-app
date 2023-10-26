@@ -10,7 +10,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { EditUserFormService } from '../../services/edit-user-form.service';
 import { Router, RouterModule } from '@angular/router';
 import { ROUTES } from 'src/app/core/shared/app-routes';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { GenderSelectorComponent } from 'src/app/shared/components/gender-selector/gender-selector.component';
 import { SocialMediaFormInputComponent } from 'src/app/shared/components/social-media-form-input-container/social-media-form-input.component';
 import { NgForOf } from '@angular/common';
@@ -33,14 +33,14 @@ import { ConfigurationService } from 'src/app/core/services/configuration.servic
     GenderSelectorComponent,
     SocialMediaFormInputComponent,
     NgForOf,
-    SocialMediaInputComponent
+    SocialMediaInputComponent,
   ],
   templateUrl: './edit-user-form.component.html',
   styleUrls: ['./edit-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditUserFormComponent {
-  profileRoute = ROUTES.dashboard.children.profile.absolute
+  profileRoute = ROUTES.dashboard.children.profile.absolute;
   formService = inject(EditUserFormService);
   configService = inject(ConfigurationService);
   socials = this.configService.SOCIALS_CONFIG;
@@ -57,18 +57,19 @@ export class EditUserFormComponent {
     return this.form.controls.bio;
   }
 
-  get genderControl(){
+  get genderControl() {
     return this.form.controls.gender;
   }
 
-  get socialsArrayControl(){
+  get socialsArrayControl() {
     return this.form.controls.socials as unknown as FormArray<FormGroup<any>>;
   }
 
-  submitform(){
-    this.formService.submitForm();
+  deleteSocialMedia(i: number) {
+    this.formService.deleteSocialMedia(i);
   }
 
-
-
+  submitform() {
+    this.formService.submitForm();
+  }
 }

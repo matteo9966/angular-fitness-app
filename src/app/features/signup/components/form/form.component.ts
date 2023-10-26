@@ -49,8 +49,9 @@ export class FormComponent {
   passwordErrorMessage$ = this.formService.passwordErrorMessage$;
   submit = this.formService.onSubmit;
   passwordLabels = this.formService.passwordValidationLabels;
-  passwordErrors = this.formService.passwordErrors
+  // passwordErrors = this.formService.passwordErrors
   tooltipMessage = this.formService.tooltipMessage;
+  passwordErrors$ = this.formService.passwordErrors$;
 
 
 }

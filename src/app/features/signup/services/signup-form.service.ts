@@ -13,11 +13,16 @@ import {
   tap,
   startWith,
   shareReplay,
+  debounce,
+  debounceTime,
 } from 'rxjs';
 import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { SignupService } from './signup.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { validatePassword } from 'src/app/core/utils/formValidators/passwordValidator.validator';
+import {
+  validate,
+  validatePassword,
+} from 'src/app/core/utils/formValidators/passwordValidator.validator';
 import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 /**
  * All the business logic goes inside here!
@@ -38,14 +43,33 @@ export class SignupFormService {
 
   private _submit = new Subject();
   private submit$ = this._submit.asObservable().pipe(shareReplay(1));
-  form: FormGroup<{
-    name: FormControl<string>;
-    email: FormControl<string>;
-    password: FormControl<string>;
-  }>;
+  form = this.fb.nonNullable.group({
+    name: this.fb.nonNullable.control('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+    email: this.fb.nonNullable.control('', [
+      Validators.required,
+      Validators.email,
+    ]),
+    password: this.fb.nonNullable.control('', [
+      validatePassword(this.passwordValidationConfig),
+    ]),
+  });
   passwordErrorMessage$!: Observable<string>;
+
+  passwordErrors$ = this.form.controls.password.valueChanges.pipe(
+    startWith(validate('', this.passwordValidationConfig)),
+    debounceTime(300),
+    map((_value) => {
+      const passwordError = this.passwordControl?.errors?.['password'];
+      console.log(this.passwordControl?.errors?.['password']);
+      if (!passwordError) return [];
+      return passwordError;
+    })
+  );
+
   constructor() {
-    this.form = this.createForm();
     this.onSubmit = this.onSubmit.bind(this);
 
     this.passwordErrorMessage$ = merge(
@@ -56,27 +80,6 @@ export class SignupFormService {
       map(() => mapErrorObject(this.passwordControl.errors))
     );
 
-    merge(this.submit$, this.passwordControl.valueChanges).subscribe(() => {
-      console.log(this.form);
-    });
-  }
-
-  createForm() {
-    const form = this.fb.nonNullable.group({
-      name: this.fb.nonNullable.control('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      email: this.fb.nonNullable.control('', [
-        Validators.required,
-        Validators.email,
-      ]),
-      password: this.fb.nonNullable.control('', [
-        // Validators.required,
-        validatePassword(this.passwordValidationConfig),
-      ]),
-    });
-    return form;
   }
 
   get nameControl() {
@@ -145,10 +148,7 @@ export class SignupFormService {
           );
         },
         error: () => {
-          this.snackbarService.errorSnackbar(
-            'Error while signing up',
-            'close'
-          );
+          this.snackbarService.errorSnackbar('Error while signing up', 'close');
         },
       });
   }
@@ -166,12 +166,12 @@ export class SignupFormService {
     this.form.updateValueAndValidity();
   }
 
-  passwordErrors() {
-    const passwordError = this.passwordControl?.errors?.['password'];
-    console.log(this.passwordControl?.errors?.['password']);
-    if (!passwordError) return [];
-    return passwordError;
-  }
+  // passwordErrors() {
+  //   const passwordError = this.passwordControl?.errors?.['password'];
+  //   console.log(this.passwordControl?.errors?.['password']);
+  //   if (!passwordError) return [];
+  //   return passwordError;
+  // }
 
   tooltipMessage = `The password must have: ${
     this.passwordValidationConfig.lowercase

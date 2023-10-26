@@ -1,17 +1,27 @@
-$icon-size:25px;
-.content{
-    display: flex;
-    gap: 10px;
-    padding: 10px;
+$icon-size: 25px;
+$delete-bin-color: rgba(255, 0, 0, 0.558);
+.content {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
 }
 
-.text-input-area{
-    flex:1;
+.text-input-area {
+  flex: 1;
 }
 
-.social-icon{
-    width: $icon-size;
-    height: $icon-size;
-    object-fit: contain;
-    object-position: center;
+.social-icon {
+  width: $icon-size;
+  height: $icon-size;
+  object-fit: contain;
+  object-position: center;
+}
+
+.delete-bin {
+  color: $delete-bin-color;
+  position: relative;
+  top: 15px;
+  transform: scale(1.5);
+  margin-left: 10px;
+  cursor:pointer;
 }

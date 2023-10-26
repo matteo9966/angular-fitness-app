@@ -1,4 +1,4 @@
-<!-- <app-authentication-form-container appAddMobileClass>
+<app-authentication-form-container appAddMobileClass>
   <h2 title>Signup now!</h2>
   <p subtitle>Create your personal account and discover new features!</p>
 
@@ -10,7 +10,7 @@
         hint="Insert your name"
         [errorMessage]="(nameErrorMessage$ | async)!"
         label="Name"
-        [control]="nameControl"
+        [formControl]="nameControl"
       ></app-text-input>
 
       <app-text-input
@@ -19,7 +19,7 @@
         hint="Insert your email"
         [errorMessage]="(emailErrorMessage$ | async)!"
         label="Email"
-        [control]="emailControl"
+        [formControl]="emailControl"
       ></app-text-input>
       <div>
         <app-text-input
@@ -27,12 +27,15 @@
           hint="Insert a strong password"
           [errorMessage]="(passwordErrorMessage$ | async)!"
           label="Password"
-          [control]="passwordControl"
+          [formControl]="passwordControl"
           type="password"
         ></app-text-input>
-        <div class="password-chips-section"><app-password-chips [chipLabels]="passwordLabels" [uncheckedChips]="passwordErrors()"> 
-        
-        </app-password-chips>
+        <div class="password-chips-section">
+          <app-password-chips
+            [chipLabels]="passwordLabels"
+            [uncheckedChips]="(passwordErrors$|async)!|| []"
+          >
+          </app-password-chips>
           <mat-icon [matTooltip]="tooltipMessage">info</mat-icon>
         </div>
       </div>
@@ -42,4 +45,4 @@
       <app-submit-button (click)="submit()">Submit</app-submit-button>
     </div>
   </form>
-</app-authentication-form-container> -->
+</app-authentication-form-container>

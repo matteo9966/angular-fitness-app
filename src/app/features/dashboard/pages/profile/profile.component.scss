@@ -71,18 +71,11 @@
     }
 }
 
-.social-image{
-    width: 20px;
-    height: 20px;
-    fill: blue;
-}
-
-.socials-list{
+.socials{
     display: flex;
-    gap:10px;
-    padding-block: 20px;
+    flex-direction: column;
+    gap:20px;
 }
-
 
 .mini-apps{
     display: flex;

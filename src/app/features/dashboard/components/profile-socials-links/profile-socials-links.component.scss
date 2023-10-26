@@ -1,0 +1,24 @@
+.social-containers {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  flex-wrap: wrap;
+ 
+}
+
+.social-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+
+  img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 18px;
+    height: 18px;
+  }
+}
