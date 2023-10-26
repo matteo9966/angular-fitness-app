@@ -3,7 +3,14 @@
   [hasBackdrop]="false"
   [autosize]="true"
 >
-  <mat-sidenav #sidenav [disableClose]="true" [opened]="true" mode="side">
+<!-- todo _ the sidenav -->
+  <mat-sidenav
+    #sidenav
+    [disableClose]="false"
+    [opened]="false"
+    mode="side"
+    *ngIf="!(isSmallDevice$ | async)"
+  >
     <div class="dashboard-sidenav">
       <div>
         <button (click)="expanded = !expanded">[TO]</button>
@@ -11,11 +18,11 @@
       <ul>
         <li class="item">
           <span>[icona]</span>
-          <span class="navitem" *ngIf="expanded" >IL contentueo</span>
+          <span class="navitem" *ngIf="expanded">IL contentueo</span>
         </li>
         <li class="item">
           <span>[icona]</span>
-          <span class="navitem" *ngIf="expanded" >IL contentueo</span>
+          <span class="navitem" *ngIf="expanded">IL contentueo</span>
         </li>
         <li class="item">
           <span>[icona]</span>
@@ -32,20 +39,3 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-<!-- <br /><br /><br /><br /><br />
-[dashboard navbar]
-<span *ngIf="loggedIn$ | async; else loggedout" style="background-color: green"
-  >LOGGED IN!!!!</span
->
-<br />
-<router-outlet></router-outlet>
-<br />
-<button style="background-color: blue; padding: 1rem" (click)="logout()">
-  LOGOUT
-</button>
-[dashboard footer]
-
-<ng-template #loggedout>
-  <span>LOGGED OUT</span>
-</ng-template> -->

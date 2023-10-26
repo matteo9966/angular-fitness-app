@@ -15,13 +15,15 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 /**
  * @description this component is used in conjunction with social-media-input component, it is the only accepted projected component
  */
 @Component({
   selector: 'app-social-media-form-input',
   standalone: true,
-  imports: [CommonModule, MatListModule, ReactiveFormsModule],
+  imports: [CommonModule, MatListModule, ReactiveFormsModule,MatIconModule,MatButtonModule],
   templateUrl: './social-media-form-input.component.html',
   styleUrls: ['./social-media-form-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

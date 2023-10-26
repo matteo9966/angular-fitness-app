@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 import {ROUTES} from '../../../../core/shared/app-routes';
 import { ProfileSocialsLinksComponent } from '../../components/profile-socials-links/profile-socials-links.component';
 import { ConfigurationService } from 'src/app/core/services/configuration.service';
+import { ResponsiveLayoutService } from 'src/app/core/services/responsive-layout.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,9 +27,10 @@ export class ProfileComponent {
   editUserRoute = ROUTES.dashboard.children.editUser.absolute;
   configService = inject(ConfigurationService);
   userService = inject(UserService);
+  responsiveService = inject(ResponsiveLayoutService);
   user$ = this.userService.userData$;
   socialsConfig = this.configService.SOCIALS_CONFIG;
-  
+  isSmallDevice$ = this.responsiveService.isSmallDevice$;
   ngOnInit() {}
 
   get name$() {

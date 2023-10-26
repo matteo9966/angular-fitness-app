@@ -3,4 +3,14 @@
     <ng-content select="app-social-media-input"></ng-content>
   </mat-list>
 </mat-list>
-<button (click)="addControl()">Add Social media</button>
+<div class="action">
+  <button
+    class="button"
+    (click)="addControl()"
+    mat-fab
+    color="primary"
+    aria-label="Example icon button with a delete icon"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

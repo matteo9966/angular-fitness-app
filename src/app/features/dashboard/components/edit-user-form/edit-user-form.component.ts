@@ -16,6 +16,7 @@ import { SocialMediaFormInputComponent } from 'src/app/shared/components/social-
 import { NgForOf } from '@angular/common';
 import { SocialMediaInputComponent } from 'src/app/shared/components/social-media-input/social-media-input.component';
 import { ConfigurationService } from 'src/app/core/services/configuration.service';
+import { PictureUploadComponent } from 'src/app/shared/components/picture-upload/picture-upload.component';
 @Component({
   selector: 'app-edit-user-form',
   standalone: true,
@@ -34,6 +35,7 @@ import { ConfigurationService } from 'src/app/core/services/configuration.servic
     SocialMediaFormInputComponent,
     NgForOf,
     SocialMediaInputComponent,
+    PictureUploadComponent,
   ],
   templateUrl: './edit-user-form.component.html',
   styleUrls: ['./edit-user-form.component.scss'],
@@ -71,5 +73,9 @@ export class EditUserFormComponent {
 
   submitform() {
     this.formService.submitForm();
+  }
+
+  pictureChange(file: File | undefined) {
+    this.formService.pictureChange(file);
   }
 }

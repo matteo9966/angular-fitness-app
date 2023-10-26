@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/core/services/Authentication.serv
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DashboardPageComponent } from '../../components/dashboard-page/dashboard-page.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { ResponsiveLayoutService } from 'src/app/core/services/responsive-layout.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -36,6 +37,9 @@ import { animate, style, transition, trigger } from '@angular/animations';
 export class DashboardComponent {
   authService = inject(AuthenticationService);
   router = inject(Router);
+  responsiveService = inject(ResponsiveLayoutService);
+
+  isSmallDevice$ = this.responsiveService.isSmallDevice$;
 
   logout() {
     this.authService.signout().subscribe((x) => {

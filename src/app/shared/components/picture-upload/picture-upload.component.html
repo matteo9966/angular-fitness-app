@@ -1,0 +1,20 @@
+<input
+  type="file"
+  class="file-upload"
+  (change)="onChangePicture($event)"
+  #fileupload
+  accept="image/png, image/jpeg, .png, .jpg, .jpeg" 
+/>
+<div class="picture-upload-container" [ngClass]="{ mobile: isMobile$ | async }">
+  <div class="preview-area">
+    <!-- USE THIS AS BOTH PREVIEW AND DRAGGABLE AREA! -->
+    <span>Choose an image</span>
+    <img src="" alt="" />
+  </div>
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="fileupload.click()">
+      choose
+    </button>
+    <button mat-raised-button color="warn">delete</button>
+  </div>
+</div>

@@ -22,6 +22,7 @@ import {
 import { IUser } from 'src/app/core/models/User/IUser.interface';
 import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 import { isPrimitive } from 'src/app/core/utils/isPrimitive';
+import { FileUploadService } from 'src/app/core/services/FileUpload.service';
 @Injectable()
 export class EditUserFormService implements OnDestroy {
   filterKeys = {
@@ -34,6 +35,7 @@ export class EditUserFormService implements OnDestroy {
   fb = inject(FormBuilder);
   user = inject(UserService);
   snackBarService = inject(SnackbarService);
+  fileUploadService = inject(FileUploadService);
   private destroy$ = new Subject();
   form = this.fb.group({
     name: this.fb.control('', [Validators.required]),
@@ -193,7 +195,36 @@ export class EditUserFormService implements OnDestroy {
     return groups;
   }
 
-  deleteSocialMedia(index:number){
+  pictureChange(file: File | undefined) {
+    if (!file) return;
+    const mimeType = file.type;
+    const isImage = /^image\/.*$/.test(mimeType);
+    if (!isImage) {
+      //show the toastr
+      return;
+    }
+
+    this.fileUploadService
+      .uploadFile(file, 'images/' + file.name)
+      .pipe(
+        debounceTime(200), // debounce changes
+        catchError((error) => {
+          console.log(error);
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next(value) {
+          console.log(value);
+        },
+        complete() {
+          console.log('upload completed successfully!!');
+          //hide spinner
+        },
+      });
+  }
+
+  deleteSocialMedia(index: number) {
     this.form.controls.socials.removeAt(index);
   }
 

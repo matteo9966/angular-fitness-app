@@ -10,11 +10,11 @@ import {
   getFirestore,
   provideFirestore,
 } from '@angular/fire/firestore';
-// import {
-//   connectStorageEmulator,
-//   getStorage,
-//   provideStorage,
-// } from '@angular/fire/storage';
+import {
+  connectStorageEmulator,
+  getStorage,
+  provideStorage,
+} from '@angular/fire/storage';
 // import {
 //   connectFunctionsEmulator,
 //   getFunctions,
@@ -59,13 +59,13 @@ export const appConfig: ApplicationConfig = {
       //   }
       //   return functions;
       // }),
-      // provideStorage(() => {
-      //   const storage = getStorage();
-      //   if (location.hostname === 'localhost') {
-      //     connectStorageEmulator(storage, '127.0.0.1', 5001);
-      //   }
-      //   return storage;
-      // })
+      provideStorage(() => {
+        const storage = getStorage();
+        if (location.hostname === 'localhost') {
+          connectStorageEmulator(storage, '127.0.0.1', 9199);
+        }
+        return storage;
+      })
     ),
   ],
 };

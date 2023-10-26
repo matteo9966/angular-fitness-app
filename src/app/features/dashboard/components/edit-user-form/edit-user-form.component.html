@@ -50,8 +50,19 @@
           ></app-social-media-input>
         </app-social-media-form-input>
       </ng-template>
+    </mat-expansion-panel>
 
-      <mat-datepicker #picker></mat-datepicker>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Your images </mat-panel-title>
+        <mat-panel-description>
+          Edit your profile pictures
+          <mat-icon>photo_camera</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+         <app-picture-upload (pictureChange)="pictureChange($event)"></app-picture-upload>
+      </ng-template>
     </mat-expansion-panel>
   </mat-accordion>
   <div class="actions">
