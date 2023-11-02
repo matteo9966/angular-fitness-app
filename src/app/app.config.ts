@@ -1,4 +1,8 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  ErrorHandler,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { routes } from './app.routes';
@@ -20,14 +24,16 @@ import {
 //   getFunctions,
 //   provideFunctions,
 // } from '@angular/fire/functions';
-import { MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AuthenticationService } from './core/services/Authentication.service';
 import { provideHttpClient } from '@angular/common/http';
+import { CustomErrorHandler } from './core/errors/CustomErrorHandler';
 export const appConfig: ApplicationConfig = {
   providers: [
     AuthenticationService,
+    { provide: ErrorHandler, useClass: CustomErrorHandler },
     provideHttpClient(),
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
@@ -52,13 +58,7 @@ export const appConfig: ApplicationConfig = {
         }
         return firestore;
       }),
-      // provideFunctions(() => {
-      //   const functions = getFunctions();
-      //   if (location.hostname === 'localhost') {
-      //     connectFunctionsEmulator(functions, '127.0.0.1', 5001);
-      //   }
-      //   return functions;
-      // }),
+
       provideStorage(() => {
         const storage = getStorage();
         if (location.hostname === 'localhost') {

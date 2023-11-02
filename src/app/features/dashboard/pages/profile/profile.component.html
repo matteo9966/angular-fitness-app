@@ -1,10 +1,10 @@
-<ng-container *ngIf="user$ | async as user; else nouser">
+<ng-container *ngIf="user()as user; else nouser">
   <section class="header-section">
     <div class="avatar">
-      <img [src]="profileImg$ | async" alt="" />
+      <img [src]="profileImg" alt="" />
     </div>
     <div class="header-text">
-      <h2>{{ name$ | async }}</h2>
+      <h2>{{ name }}</h2>
       <p>Your dashboard</p>
     </div>
   </section>
@@ -13,30 +13,30 @@
       <h2>Profile data</h2>
       <div>
         <h3 class="profile-data-title">Your Bio</h3>
-        <p class="bio" *ngIf="bio$ | async as bio">
+        <p class="bio" *ngIf="bio as bio">
           {{ bio }}
         </p>
       </div>
       <ul class="personal-data">
-        <li class="entry" *ngIf="name$ | async as name">
+        <li class="entry" *ngIf="name as name">
           <span>Name: </span>
           <span>{{ name }}</span>
         </li>
-        <li class="entry" *ngIf="email$ | async as email">
+        <li class="entry" *ngIf="email">
           <span>Email: </span>
           <span>{{ email }}</span>
         </li>
         <li class="entry">
           <span>ID: </span>
-          <span>{{ uid$ | async }}</span>
+          <span>{{ uid }}</span>
         </li>
-        <li class="entry" *ngIf="gender$ | async as gender">
+        <li class="entry" *ngIf="gender">
           <span>Gender: </span>
           <span>{{ gender }}</span>
         </li>
       </ul>
 
-      <div class="socials" *ngIf="socials$ | async as socials">
+      <div class="socials" *ngIf="socials">
         <h3 class="profile-data-title">Socials</h3>
         <app-profile-socials-links
           [socialConfig]="socialsConfig"

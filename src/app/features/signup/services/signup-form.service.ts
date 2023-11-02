@@ -2,8 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import {
   FormBuilder,
   Validators,
-  FormControl,
-  FormGroup,
+  FormControl
 } from '@angular/forms';
 import {
   map,
@@ -13,12 +12,11 @@ import {
   tap,
   startWith,
   shareReplay,
-  debounce,
   debounceTime,
 } from 'rxjs';
 import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { SignupService } from './signup.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 import {
   validate,
   validatePassword,
@@ -32,7 +30,6 @@ export class SignupFormService {
   snackbarService = inject(SnackbarService);
   fb = inject(FormBuilder);
   signupService = inject(SignupService);
-  snackBarService = inject(MatSnackBar);
   passwordValidationConfig = {
     lowercase: 2,
     nospaces: true,
@@ -146,10 +143,7 @@ export class SignupFormService {
             'You succesfully subscribed!',
             'close'
           );
-        },
-        error: () => {
-          this.snackbarService.errorSnackbar('Error while signing up', 'close');
-        },
+        }
       });
   }
 
@@ -165,14 +159,6 @@ export class SignupFormService {
     this.form.markAsPristine();
     this.form.updateValueAndValidity();
   }
-
-  // passwordErrors() {
-  //   const passwordError = this.passwordControl?.errors?.['password'];
-  //   console.log(this.passwordControl?.errors?.['password']);
-  //   if (!passwordError) return [];
-  //   return passwordError;
-  // }
-
   tooltipMessage = `The password must have: ${
     this.passwordValidationConfig.lowercase
   } lowercase characters, ${

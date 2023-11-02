@@ -21,7 +21,9 @@ export class SnackbarService {
   ) {
     this.snackbar.open(message, actionLabel, {
       duration: this.snackbarDuration,
-      panelClass: panelClass,
+      panelClass:[ panelClass],
+      verticalPosition:'bottom',
+      horizontalPosition:'center',
     });
   }
 }

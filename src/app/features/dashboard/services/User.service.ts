@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
+import {  Observable } from 'rxjs';
 import {
   Firestore,
   collection,
@@ -12,7 +12,8 @@ import { IUser } from 'src/app/core/models/User/IUser.interface';
 export class UserService {
   firestore = inject(Firestore);
   userCollection = collection(this.firestore, 'users');
-  private user$ = new BehaviorSubject<IUser | null>(null);
+
+  user = signal<IUser | null>(null);
 
   async getUser(id: string) {
     try {
@@ -27,17 +28,15 @@ export class UserService {
     }
   }
 
-  get userData$() {
-    return this.user$.asObservable();
-  }
+  
 
   setUserData(data: IUser) {
-    this.user$.next(data);
+
+    this.user.set(data);
   }
 
   patchUserData(patch: (data: IUser | null) => IUser) {
-    const updated = patch(this.user$?.value);
-    this.user$.next(updated);
+    this.user.update((user) => patch(user));
   }
 
   udateUserDocument(partialUser: Partial<IUser>) {
@@ -59,7 +58,7 @@ export class UserService {
   }
 
   get userDoc() {
-    if (!this.user$.value?.id) return null;
-    return doc(this.firestore, 'users', this.user$.value?.id);
+    if (!this.user()?.id) return null;
+    return doc(this.firestore, 'users', this.user()!.id);
   }
 }

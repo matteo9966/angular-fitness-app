@@ -1,0 +1,18 @@
+{
+  "auth/invalid-password": "Invalid password, please retry",
+  "auth/email-already-in-use": "The email address is already in use by an existing user.",
+  "auth/invalid-email": "The email address is not valid.",
+  "auth/operation-not-allowed": "This operation is not allowed. You may have disabled this feature in the Firebase console, or you may have reached a quota limit.",
+  "auth/weak-password": "The password is too weak.",
+  "auth/user-disabled": "The user account has been disabled by an administrator.",
+  "auth/user-not-found": "The user account cannot be found.",
+  "auth/wrong-password": "The password is incorrect.",
+  "auth/invalid-credential": "The credential used to sign in is invalid.",
+  "auth/user-mismatch": "The credential used to sign in does not correspond to the current user.",
+  "auth/invalid-verification-code": "The verification code is invalid.",
+  "auth/invalid-action-code": "The action code is invalid.",
+  "auth/expired-action-code": "The action code has expired.",
+  "auth/invalid-phone-number": "The phone number is not valid.",
+  "auth/invalid-verification-id": "The verification ID is invalid.",
+  "auth/captcha-check-failed": "The reCAPTCHA challenge failed. Make sure you've completed the challenge correctly."
+}

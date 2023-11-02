@@ -1,20 +1,15 @@
-import { Injectable, inject, OnDestroy } from '@angular/core';
+import { Injectable, inject, OnDestroy, Injector } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from './User.service';
 import type { SocialMediaFormGroupType } from 'src/app/core/models/SocialMediaFormGroup.interface';
 import {
   Subject,
-  debounce,
   debounceTime,
   map,
   takeUntil,
-  combineLatest,
   shareReplay,
   take,
   switchMap,
-  fromEvent,
-  tap,
-  BehaviorSubject,
   EMPTY,
   finalize,
   catchError,
@@ -23,6 +18,7 @@ import { IUser } from 'src/app/core/models/User/IUser.interface';
 import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 import { isPrimitive } from 'src/app/core/utils/isPrimitive';
 import { FileUploadService } from 'src/app/core/services/FileUpload.service';
+import { toObservable } from '@angular/core/rxjs-interop';
 @Injectable()
 export class EditUserFormService implements OnDestroy {
   filterKeys = {
@@ -33,9 +29,10 @@ export class EditUserFormService implements OnDestroy {
     socials: true,
   };
   fb = inject(FormBuilder);
-  user = inject(UserService);
+  userService = inject(UserService);
   snackBarService = inject(SnackbarService);
   fileUploadService = inject(FileUploadService);
+  injector = inject(Injector)
   private destroy$ = new Subject();
   form = this.fb.group({
     name: this.fb.control('', [Validators.required]),
@@ -43,12 +40,9 @@ export class EditUserFormService implements OnDestroy {
     status: this.fb.control(''),
     gender: this.fb.control(''),
     socials: this.fb.array<FormGroup<{}>>([]),
-
-    // backgroundImg: this.fb.control(''),
-    // profileImg: this.fb.control(''),
   });
   constructor() {
-    const userEditableData$ = this.user.userData$.pipe(
+    const userEditableData$ = toObservable(this.userService.user).pipe(
       takeUntil(this.destroy$),
       map((data) => {
         if (!data) return {};
@@ -93,7 +87,7 @@ export class EditUserFormService implements OnDestroy {
       return; //show the toaster
     }
     this.submitted = true;
-    this.user.userData$
+    toObservable(this.userService.user,{injector:this.injector})
       .pipe(
         take(1),
         switchMap((data) => {
@@ -106,7 +100,7 @@ export class EditUserFormService implements OnDestroy {
 
           // return EMPTY;
 
-          return this.user
+          return this.userService
             .udateUserDocument(patchObject)
             .pipe(map(() => patchObject));
         }),
@@ -118,7 +112,7 @@ export class EditUserFormService implements OnDestroy {
             'Personal data updated successfully',
             'close'
           );
-          this.user.patchUserData((user) => {
+          this.userService.patchUserData((user) => {
             const freshUser: IUser = {
               name: '',
               birthdate: '',

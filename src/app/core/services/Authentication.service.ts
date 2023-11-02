@@ -15,14 +15,13 @@ import {
   from,
   map,
   throwError,
-  // BehaviorSubject,
-  // Subject,
   Observable,
-  shareReplay
+  shareReplay,
 } from 'rxjs';
 import { IUser } from '../models/User/IUser.interface';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { CustomServerError } from '../errors/CustomServerError';
 
 @Injectable()
 export class AuthenticationService implements OnDestroy {
@@ -31,44 +30,28 @@ export class AuthenticationService implements OnDestroy {
   firestore = inject(Firestore);
   router = inject(Router);
   userId = null;
-  user!:FirebaseUser;
+  user!: FirebaseUser;
 
-  private _authState$ = new Observable<FirebaseUser|null>(observer=>{
-    onAuthStateChanged(this.auth, async (user) => { 
+  private _authState$ = new Observable<FirebaseUser | null>((observer) => {
+    onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         observer.next(user);
       } else {
-        observer.next(null);        
+        observer.next(null);
       }
     });
-  })
-
-  // private isAuthenticated$ = new BehaviorSubject(false);
-
-  authState$ = this._authState$.pipe(shareReplay(1))
+  });
+  authState$ = this._authState$.pipe(shareReplay(1));
 
   constructor() {
-    this.authState$.subscribe(user=>{
-      if(user){
-        sessionStorage.setItem('loggedIn','true')
-        // this.isAuthenticated$.next(true)
-
-      }else{
+    this.authState$.subscribe((user) => {
+      if (user) {
+        sessionStorage.setItem('loggedIn', 'true');
+      } else {
         sessionStorage.removeItem('loggedIn');
-        // this.isAuthenticated$.next(false);
       }
-    })
+    });
 
-    // onAuthStateChanged(this.auth, async (user) => {
-    //   console.log('executing onAuthStateChanged')
-    //   if (user) {
-    //     // todo fix the bug on the user!!
-    //     this.user=user;
-    //   } else {       
-    //     sessionStorage.removeItem('loggedIn');
-    //     // this.isAuthenticated$.next(false);
-    //   }
-    // });
   }
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
@@ -94,18 +77,26 @@ export class AuthenticationService implements OnDestroy {
           name: user.name,
           profileImg: '',
           status: '',
-          backgroundImg:'',
-          socials:[],
-          bodyStats:{
-            height:0,
-            weight:0,
-          }
+          backgroundImg: '',
+          socials: [],
+          bodyStats: {
+            height: 0,
+            weight: 0,
+          },
         };
         const userDocRef = doc(this.firestore, 'users', uid);
         return from(setDoc(userDocRef, newUser)).pipe(map(() => userDocRef));
       }),
       catchError((error) => {
-        console.log(error);
+        if (error?.code) {
+          return throwError(
+            () =>
+              new CustomServerError(
+                error?.message || 'Server error',
+                error.code
+              )
+          );
+        }
         return throwError(() => new Error(error));
       })
     );
@@ -119,17 +110,12 @@ export class AuthenticationService implements OnDestroy {
     return from(signOut(this.auth));
   }
 
-  // get isAuthenticated() {
-  //   return this.isAuthenticated$.value;
-  // }
 
   get currentUser() {
     return this.auth.currentUser;
   }
 
-  get isLoggedIn(){
+  get isLoggedIn() {
     return sessionStorage.getItem('loggedIn');
   }
-
-
 }
