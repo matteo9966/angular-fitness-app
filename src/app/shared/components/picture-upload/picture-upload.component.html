@@ -3,18 +3,28 @@
   class="file-upload"
   (change)="onChangePicture($event)"
   #fileupload
-  accept="image/png, image/jpeg, .png, .jpg, .jpeg" 
+  accept="image/png, image/jpeg, .png, .jpg, .jpeg"
 />
 <div class="picture-upload-container" [ngClass]="{ mobile: isMobile$ | async }">
   <div class="preview-area">
     <!-- USE THIS AS BOTH PREVIEW AND DRAGGABLE AREA! -->
-    <span>Choose an image</span>
-    <img src="" alt="" />
+    <span *ngIf="!imageUrl">Choose an image</span>
+    <img
+      [src]="imageUrl()"
+      alt="chosen-image"
+      #image
+      [ngClass]="{ hidden: !imageUrl }"
+    />
   </div>
   <div class="actions">
     <button mat-raised-button color="primary" (click)="fileupload.click()">
       choose
     </button>
-    <button mat-raised-button color="warn">delete</button>
+    <button mat-raised-button color="accent" (click)="uploadImage()" [disabled]="disableSaveButton()">
+      save
+    </button>
+    <button mat-raised-button color="warn" (click)="deleteSelectedImage()">
+      delete
+    </button>
   </div>
 </div>

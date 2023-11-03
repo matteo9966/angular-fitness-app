@@ -1,5 +1,17 @@
-import { Injectable, inject, OnDestroy, Injector } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  Injectable,
+  inject,
+  OnDestroy,
+  Injector,
+  computed,
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { UserService } from './User.service';
 import type { SocialMediaFormGroupType } from 'src/app/core/models/SocialMediaFormGroup.interface';
 import {
@@ -13,12 +25,16 @@ import {
   EMPTY,
   finalize,
   catchError,
+  of,
+  tap,
+  Observable,
 } from 'rxjs';
 import { IUser } from 'src/app/core/models/User/IUser.interface';
 import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 import { isPrimitive } from 'src/app/core/utils/isPrimitive';
 import { FileUploadService } from 'src/app/core/services/FileUpload.service';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { getDiffValues } from '../utils/getDiffValues';
 @Injectable()
 export class EditUserFormService implements OnDestroy {
   filterKeys = {
@@ -32,7 +48,7 @@ export class EditUserFormService implements OnDestroy {
   userService = inject(UserService);
   snackBarService = inject(SnackbarService);
   fileUploadService = inject(FileUploadService);
-  injector = inject(Injector)
+  injector = inject(Injector);
   private destroy$ = new Subject();
   form = this.fb.group({
     name: this.fb.control('', [Validators.required]),
@@ -41,8 +57,18 @@ export class EditUserFormService implements OnDestroy {
     gender: this.fb.control(''),
     socials: this.fb.array<FormGroup<{}>>([]),
   });
+
+  currentUserBgImage = computed(() => this.userService.user()?.backgroundImg);
+  currentUserProfileImage = computed(() => this.userService.user()?.profileImg);
+
   constructor() {
-    const userEditableData$ = toObservable(this.userService.user).pipe(
+    this.getUserEditableData().subscribe((data) => {
+      this.form.patchValue(data);
+    });
+  }
+
+  getUserEditableData() {
+    return toObservable(this.userService.user).pipe(
       takeUntil(this.destroy$),
       map((data) => {
         if (!data) return {};
@@ -76,18 +102,24 @@ export class EditUserFormService implements OnDestroy {
       }),
       shareReplay(1)
     );
-    userEditableData$.subscribe((data) => {
-      this.form.patchValue(data);
-    });
   }
 
   submitted = false;
+
+  patchUserState(key: keyof IUser, value: any) {
+    this.userService.patchUserData((user) => {
+      if (!user) return null;
+      user[key] = value;
+      return user;
+    });
+  }
+
   submitForm() {
     if (this.form.invalid || this.submitted) {
       return; //show the toaster
     }
     this.submitted = true;
-    toObservable(this.userService.user,{injector:this.injector})
+    toObservable(this.userService.user, { injector: this.injector })
       .pipe(
         take(1),
         switchMap((data) => {
@@ -116,7 +148,7 @@ export class EditUserFormService implements OnDestroy {
             const freshUser: IUser = {
               name: '',
               birthdate: '',
-              gender: 'M',
+              gender: 'other',
               profileImg: '',
               id: '',
               email: '',
@@ -150,27 +182,8 @@ export class EditUserFormService implements OnDestroy {
     this.destroy$.complete();
   }
 
-  /**
-   * @description pass current store data, pass form Group, use the filter keys to get a patch object to update the user
-   * @param data
-   * @param form
-   * @returns
-   */
   getDiffValues(data: IUser, form: typeof this.form) {
-    const formValue = form.value;
-    const result: Record<string, any> = {};
-    for (let key of Object.keys(this.filterKeys)) {
-      const entry = key as keyof typeof formValue;
-      if (
-        formValue?.[entry] !== data?.[entry] &&
-        !Array.isArray(formValue?.[entry])
-      ) {
-        result[entry] = formValue[entry];
-      } else if (Array.isArray(formValue?.[entry])) {
-        result[entry] = formValue[entry];
-      }
-    }
-    return result as Partial<IUser>;
+    return getDiffValues(data, form, this.filterKeys);
   }
 
   /**
@@ -189,33 +202,77 @@ export class EditUserFormService implements OnDestroy {
     return groups;
   }
 
-  pictureChange(file: File | undefined) {
-    if (!file) return;
-    const mimeType = file.type;
-    const isImage = /^image\/.*$/.test(mimeType);
-    if (!isImage) {
-      //show the toastr
-      return;
+  uploadBackgroundImage(file: File | undefined) {
+    this.uploadFile(file)
+      .pipe(this.updateUserImagesOperator('backgroundImg'))
+      .subscribe(() => {
+        this.snackBarService.successSnackbar(
+          'Background image updated succesfully',
+          'close'
+        );
+      });
+  }
+
+  updateProfileImage(file: File | undefined) {
+    this.uploadFile(file)
+      .pipe(this.updateUserImagesOperator('profileImg'))
+      .subscribe(() => {
+        this.snackBarService.successSnackbar(
+          'Profile image updated succesfully',
+          'close'
+        );
+      });
+  }
+
+  private updateUserImagesOperator(
+    keyToUpdate: 'backgroundImg' | 'profileImg'
+  ) {
+    return (pathObs: Observable<string>) => {
+      return pathObs.pipe(
+        switchMap((imageUrl) => {
+          return this.userService
+            .udateUserDocument({
+              [keyToUpdate]: imageUrl,
+            })
+            .pipe(map(() => imageUrl));
+        }),
+        tap((downloadUrl) => {
+          this.userService.patchUserData((user) => {
+            if (!user || !downloadUrl) return user;
+            user[keyToUpdate] = downloadUrl;
+            return user;
+          });
+        })
+      );
+    };
+  }
+
+  private uploadFile(file: File | undefined) {
+    function isImageType(file: File) {
+      const mimeType = file.type;
+      return /^image\/.*$/.test(mimeType);
     }
 
-    this.fileUploadService
-      .uploadFile(file, 'images/' + file.name)
-      .pipe(
-        debounceTime(200), // debounce changes
-        catchError((error) => {
-          console.log(error);
+    if (!file) return EMPTY;
+
+    if (!isImageType(file)) {
+      return EMPTY;
+    }
+
+    return this.fileUploadService.uploadFile(file, 'images/' + file.name).pipe(
+      debounceTime(200),
+      switchMap((data) => {
+        if (!data.downloadUrl) {
           return EMPTY;
-        })
-      )
-      .subscribe({
-        next(value) {
-          console.log(value);
-        },
-        complete() {
-          console.log('upload completed successfully!!');
-          //hide spinner
-        },
-      });
+        } else {
+          return of(data.downloadUrl);
+        }
+      }),
+      catchError((error) => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
   }
 
   deleteSocialMedia(index: number) {

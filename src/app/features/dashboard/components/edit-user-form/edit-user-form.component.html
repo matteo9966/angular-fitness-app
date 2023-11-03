@@ -43,7 +43,7 @@
       <ng-template matExpansionPanelContent>
         <app-social-media-form-input [formArray]="socialsArrayControl">
           <app-social-media-input
-            *ngFor="let group of socialsArrayControl.controls;let i = index"
+            *ngFor="let group of socialsArrayControl.controls; let i = index"
             [formGroup]="group"
             [socials]="socials"
             (deleteSocial)="deleteSocialMedia(i)"
@@ -61,7 +61,20 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-         <app-picture-upload (pictureChange)="pictureChange($event)"></app-picture-upload>
+        <!--  -->
+        <h3>Your background image</h3>
+        <app-picture-upload
+          [pictureName]="'background-image'"
+          (fileSave)="uploadBackgroundImageFile($event)"
+          [currentImageURL]="profileBackground() || ''"
+        ></app-picture-upload>
+        <h3>Your profile picture</h3>
+        <app-picture-upload
+          [pictureName]="'profile-image'"
+          (fileSave)="uploadProfileImageFile($event)"
+          [currentImageURL]="profileImg() || ''"
+        ></app-picture-upload>
+
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>

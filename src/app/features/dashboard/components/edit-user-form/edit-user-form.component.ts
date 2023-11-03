@@ -17,6 +17,7 @@ import { NgForOf } from '@angular/common';
 import { SocialMediaInputComponent } from 'src/app/shared/components/social-media-input/social-media-input.component';
 import { ConfigurationService } from 'src/app/core/services/configuration.service';
 import { PictureUploadComponent } from 'src/app/shared/components/picture-upload/picture-upload.component';
+import { UserService } from '../../services/User.service';
 @Component({
   selector: 'app-edit-user-form',
   standalone: true,
@@ -46,6 +47,8 @@ export class EditUserFormComponent {
   formService = inject(EditUserFormService);
   configService = inject(ConfigurationService);
   socials = this.configService.SOCIALS_CONFIG;
+  profileBackground = this.formService.currentUserBgImage;
+  profileImg = this.formService.currentUserProfileImage;
 
   get form() {
     return this.formService.form;
@@ -75,7 +78,12 @@ export class EditUserFormComponent {
     this.formService.submitForm();
   }
 
-  pictureChange(file: File | undefined) {
-    this.formService.pictureChange(file);
+  uploadBackgroundImageFile(file: File | undefined | null) {
+    if (!file) return;
+    this.formService.uploadBackgroundImage(file);
+  }
+  uploadProfileImageFile(file: File | undefined | null) {
+    if (!file) return;
+    this.formService.updateProfileImage(file);
   }
 }

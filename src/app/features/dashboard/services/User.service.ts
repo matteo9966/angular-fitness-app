@@ -35,10 +35,17 @@ export class UserService {
     this.user.set(data);
   }
 
-  patchUserData(patch: (data: IUser | null) => IUser) {
+  /**
+   * @description patch the current user data!
+   * @param patch 
+   */
+  patchUserData(patch: (data: IUser | null) => IUser|null) {
     this.user.update((user) => patch(user));
   }
 
+  /**
+   * @description update the user document on firestore db
+   */
   udateUserDocument(partialUser: Partial<IUser>) {
     return new Observable((observer) => {
       const userDoc = this.userDoc;

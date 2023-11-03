@@ -23,4 +23,7 @@ export class DashboardPageComponent {
   logout() {
     this.dashboardPageService.logout();
   }
+
+  backgroundImg = this.dashboardPageService.profileBackgroundPicture;
+  
 }

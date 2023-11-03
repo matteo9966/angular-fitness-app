@@ -22,6 +22,8 @@ import {
   validatePassword,
 } from 'src/app/core/utils/formValidators/passwordValidator.validator';
 import { SnackbarService } from 'src/app/core/services/Snackbar.service';
+import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/core/shared/app-routes';
 /**
  * All the business logic goes inside here!
  */
@@ -30,6 +32,7 @@ export class SignupFormService {
   snackbarService = inject(SnackbarService);
   fb = inject(FormBuilder);
   signupService = inject(SignupService);
+  router = inject(Router);
   passwordValidationConfig = {
     lowercase: 2,
     nospaces: true,
@@ -143,6 +146,8 @@ export class SignupFormService {
             'You succesfully subscribed!',
             'close'
           );
+          this.router.navigateByUrl(ROUTES.dashboard.absolute)
+
         }
       });
   }
