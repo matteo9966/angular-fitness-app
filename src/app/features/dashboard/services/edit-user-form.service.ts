@@ -236,6 +236,7 @@ export class EditUserFormService implements OnDestroy {
             })
             .pipe(map(() => imageUrl));
         }),
+        // TODO: delete previous background image when updating!!
         tap((downloadUrl) => {
           this.userService.patchUserData((user) => {
             if (!user || !downloadUrl) return user;

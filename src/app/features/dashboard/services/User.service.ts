@@ -1,5 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
-import {  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   Firestore,
   collection,
@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { IUser } from 'src/app/core/models/User/IUser.interface';
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserService {
   firestore = inject(Firestore);
   userCollection = collection(this.firestore, 'users');
@@ -28,18 +28,15 @@ export class UserService {
     }
   }
 
-  
-
   setUserData(data: IUser) {
-
     this.user.set(data);
   }
 
   /**
    * @description patch the current user data!
-   * @param patch 
+   * @param patch
    */
-  patchUserData(patch: (data: IUser | null) => IUser|null) {
+  patchUserData(patch: (data: IUser | null) => IUser | null) {
     this.user.update((user) => patch(user));
   }
 

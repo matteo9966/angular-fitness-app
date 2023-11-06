@@ -7,7 +7,6 @@ import { canActivateDashboardGuard } from './features/dashboard/guards/can-activ
 import { ToolbarService } from './features/home/services/toolbar.service';
 import { DashboardPageService } from './features/dashboard/services/Dashboard-page.service';
 import { isUnAuthenticatedGuard } from './core/guards/is-UnAuthenticated.guard';
-import { UserService } from './features/dashboard/services/User.service';
 import { ROUTES } from './core/shared/app-routes';
 import { getUserDataResolver } from './features/dashboard/resolvers/resolveUserData.resolver';
 export const routes: Routes = [
@@ -49,9 +48,16 @@ export const routes: Routes = [
       ),
     loadChildren: () =>
       import('./features/dashboard/dashboard.routes').then((r) => r.routes),
-    providers: [DashboardPageService, UserService],
+    providers: [DashboardPageService],
     canActivate: [canActivateDashboardGuard],
     resolve: { user: getUserDataResolver },
+  },
+  {
+    path: ROUTES.workout.path,
+    loadComponent: () =>
+      import('./features/workout/pages/workout/workout.component').then(
+        (t) => t.WorkoutComponent
+      ),
   },
   {
     path: ROUTES.unauthorized.path,

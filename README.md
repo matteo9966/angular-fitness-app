@@ -1,6 +1,8 @@
 # ANGULAR FITNESS APP 
 
-this app uses Angular material
+This is a demo application created using Angular v.16, firebase firestore, and angular material.
+It uses angular's new feature `Signals` as a state management system.
+
 
 ### Angular material theming guide for this app:
 Use angular material theming sistem to generate the colors etc for this app:
@@ -9,3 +11,4 @@ Use angular material theming sistem to generate the colors etc for this app:
 -  call the create-material-theme-from-palette and pass it the primary and accent, optionally warn palette. 
 -  app/styles/themes define inside here the themes using the themify-mat-components function
 -  import the theme you created inside the styles.scss folder (Ideally you should lazy load the style from the code);  
+  

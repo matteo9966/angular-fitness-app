@@ -1,0 +1,10 @@
+<mat-chip-set aria-label="Fish selection">
+  <mat-chip
+    [ngClass]="{'withAction':withAction}"
+    [disabled]="uncheckedChips.includes(chip)"
+    [highlighted]="true"
+    *ngFor="let chip of chipLabels"
+    (click)="onChipClick(chip)"
+    >{{ chip }}</mat-chip
+  >
+</mat-chip-set>

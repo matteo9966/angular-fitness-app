@@ -13,7 +13,7 @@ import { AuthenticationFormContainerComponent } from 'src/app/shared/components/
 import { AddMobileClassDirective } from 'src/app/shared/directives/add-mobile-class.directive';
 import { SignupFormService } from '../../services/signup-form.service';
 import { SubmitButtonComponent } from 'src/app/shared/components/buttons/submit-button/submit-button.component';
-import { PasswordChipsComponent } from 'src/app/shared/components/password-chips/password-chips.component';
+import { ChipsComponent } from 'src/app/shared/components/chips/chips.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
@@ -31,7 +31,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AuthenticationFormContainerComponent,
     AddMobileClassDirective,
     SubmitButtonComponent,
-    PasswordChipsComponent,
+    ChipsComponent,
     MatTooltipModule
   ],
   templateUrl: './form.component.html',

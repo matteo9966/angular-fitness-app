@@ -1,7 +1,20 @@
-mat-card-content{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+:host {
+  transition: all 0.2s ease;
+  will-change: transform;
+  &:hover {
+    transform: scale(1.02);
+  }
+  &:active{
+    transform: scale(1);
+  }
+}
+mat-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 40px;
+  cursor: pointer;
 }
 .img-container {
   width: 60px;
@@ -15,32 +28,12 @@ mat-card-content{
     object-fit: contain;
   }
 }
-
-h2,h3{
-    padding: 0;
-    margin: 0;
+.description {
+  flex-grow: 1;
 }
 
-
-.go-button{
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // background-color: ;
-}
-
-.go-button-colors{
-    background-color: green;
-    color:darkgreen;
-    border-width: 4px;
-    border-style: solid;
-    border-color:darkgreen;
-}
-
-.action{
-    display: flex;
-    align-items: center;
+h2,
+h3 {
+  padding: 0;
+  margin: 0;
 }

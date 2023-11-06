@@ -31,11 +31,11 @@
           type="password"
         ></app-text-input>
         <div class="password-chips-section">
-          <app-password-chips
+          <app-chips
             [chipLabels]="passwordLabels"
             [uncheckedChips]="(passwordErrors$|async)!|| []"
           >
-          </app-password-chips>
+          </app-chips>
           <mat-icon [matTooltip]="tooltipMessage">info</mat-icon>
         </div>
       </div>

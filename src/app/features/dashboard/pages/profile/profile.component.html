@@ -1,4 +1,4 @@
-<ng-container *ngIf="user()as user; else nouser">
+<ng-container *ngIf="user() as user; else nouser">
   <section class="header-section">
     <div class="avatar">
       <img [src]="profileImg" alt="" />
@@ -9,7 +9,7 @@
     </div>
   </section>
   <section class="profile-body" [ngClass]="{ mobile: isSmallDevice$ | async }">
-    <div class="profile-data" >
+    <div class="profile-data">
       <h2>Profile data</h2>
       <div>
         <h3 class="profile-data-title">Your Bio</h3>
@@ -45,9 +45,12 @@
       </div>
     </div>
     <div class="mini-apps">
-      <app-mini-app-card></app-mini-app-card>
-      <app-mini-app-card></app-mini-app-card>
-      <app-mini-app-card></app-mini-app-card>
+      <app-mini-app-card
+        title="Workout page"
+        description="All your workouts are here!"
+        cardIconUrl="https://www.svgrepo.com/show/475554/gym.svg"
+        linkToPage="/workout"
+      ></app-mini-app-card>
     </div>
   </section>
 </ng-container>
