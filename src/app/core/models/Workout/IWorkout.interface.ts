@@ -22,6 +22,7 @@ interface Exercise {
   exerciseRef: string; //id to the exercise ref
   series: number;
   repetitions: number;
+  weight:number;
   rest: number;
   notes: string;
 }

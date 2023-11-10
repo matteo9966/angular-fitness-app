@@ -9,6 +9,7 @@ import { DashboardPageService } from './features/dashboard/services/Dashboard-pa
 import { isUnAuthenticatedGuard } from './core/guards/is-UnAuthenticated.guard';
 import { ROUTES } from './core/shared/app-routes';
 import { getUserDataResolver } from './features/dashboard/resolvers/resolveUserData.resolver';
+import { WorkoutService } from './features/workout/services/workout.service';
 export const routes: Routes = [
   {
     path: ROUTES.home.path,
@@ -53,11 +54,13 @@ export const routes: Routes = [
     resolve: { user: getUserDataResolver },
   },
   {
-    path: ROUTES.workout.path,
+    path: ROUTES.apps.path,
     loadComponent: () =>
-      import('./features/workout/pages/workout/workout.component').then(
-        (t) => t.WorkoutComponent
-      ),
+      import('./features/apps/apps.component').then((c) => c.AppsComponent),
+    loadChildren: () =>
+      import('./features/apps/apps.routes').then((r) => r.routes),
+    canActivate: [],
+    providers: [WorkoutService],
   },
   {
     path: ROUTES.unauthorized.path,

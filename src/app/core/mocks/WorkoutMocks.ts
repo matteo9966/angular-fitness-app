@@ -16,37 +16,16 @@ export const workout: Workout = {
               repetitions: 2,
               rest: 2,
               series: 3,
+              weight:20
             },
-            {
-              exerciseRef: 'military-press-id',
-              name: 'm. press',
-              notes: 'shoulder press slow down reps',
-              repetitions: 2,
-              rest: 2,
-              series: 3,
-            },
-            {
-              exerciseRef: 'leg-press-id',
-              name: 'leg. press',
-              notes: 'shoulder press slow down reps',
-              repetitions: 12,
-              rest: 2,
-              series: 3,
-            },
+          
           ],
           notes: 'some random notes on the exercise',
         },
         {
           dayNumber: 2,
           exercises: [
-            {
-              exerciseRef: 'shoulder-press-id',
-              name: 'sh. press',
-              notes: 'shoulder press slow down reps',
-              repetitions: 2,
-              rest: 2,
-              series: 3,
-            },
+          
             {
               exerciseRef: 'military-press-id',
               name: 'm. press',
@@ -54,6 +33,7 @@ export const workout: Workout = {
               repetitions: 2,
               rest: 2,
               series: 3,
+              weight:20
             },
             {
               exerciseRef: 'leg-press-id',
@@ -62,6 +42,7 @@ export const workout: Workout = {
               repetitions: 12,
               rest: 2,
               series: 3,
+              weight:20
             },
           ],
           notes: 'some random notes on the exercise',
@@ -71,26 +52,21 @@ export const workout: Workout = {
           exercises: [
             {
               exerciseRef: 'shoulder-press-id',
-              name: 'sh. press',
-              notes: 'shoulder press slow down reps',
+              name: 'squat',
+              notes: 'squat slow reps',
               repetitions: 2,
               rest: 2,
               series: 3,
+              weight:20
             },
-            {
-              exerciseRef: 'military-press-id',
-              name: 'm. press',
-              notes: 'shoulder press slow down reps',
-              repetitions: 2,
-              rest: 2,
-              series: 3,
-            },
+          
             {
               exerciseRef: 'leg-press-id',
               name: 'leg. press',
               notes: 'shoulder press slow down reps',
               repetitions: 12,
               rest: 2,
+              weight:20,
               series: 3,
             },
           ],

@@ -2,9 +2,15 @@
   padding: 20px;
   display: flex;
   justify-content: center;
+  display: block;
+  flex-direction: column;
 }
 
 app-widget-container{
     flex-grow: 1;
     max-width: 1000px;
+}
+
+.day-selector{
+  padding-block: 20px;
 }

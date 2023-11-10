@@ -31,10 +31,16 @@ export const ROUTES = {
       },
     },
   },
-  workout: {
-    path: 'workout',
-    absolute: '/workout',
-    children: {},
+  apps: {
+    path: 'apps',
+    absolute: '/apps',
+    children: {
+      workout: {
+        path: 'workout',
+        absolute: '/apps/workout',
+        children: {},
+      },
+    },
   },
   signup: {
     path: 'signup',
