@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  computed,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WidgetContainerComponent } from 'src/app/shared/components/widget-container/widget-container.component';
 import { WorkoutsTableComponent } from '../../components/workouts-table/workouts-table.component';
@@ -24,33 +29,44 @@ import { filter, map } from 'rxjs';
 export class WorkoutComponent {
   workoutComponentService = inject(WorkoutComponentService);
 
-  avalableWeekNumbers$ =
-    this.workoutComponentService.availableWeeksNumbers$.pipe(
-      map((weeks) => {
-        return weeks.map((n) => ({
-          label: `Week ${n}`,
-          value: n,
-        }));
-      }),
-      filter(Boolean)
-    );
+  // avalableWeekNumbers$ =
+  //   this.workoutComponentService.availableWeeksNumbers$.pipe(
+  //     map((weeks) => {
+  //       return weeks.map((n) => ({
+  //         label: `Week ${n}`,
+  //         value: n,
+  //       }));
+  //     }),
+  //     filter(Boolean)
+  //   );
 
-  availableDayNumbers$ =
-    this.workoutComponentService.availableDayNumbersSelectedWeek$.pipe(
-      map((days) => {
-        return days.map((n) => ({
-          label: `Day ${n}`,
-          value: n,
-        }));
-      }),
-      filter(Boolean)
-    );
+  avalableWeekNumbers = computed(() =>
+    this.workoutComponentService.availableWeeksNumbers().map((n) => ({
+      label: `Week ${n}`,
+      value: n,
+    }))
+  );
 
-    dayTableData$ = this.workoutComponentService.selectedDayTableDataSource$;
+  // availableDayNumbers$ =
+  //   this.workoutComponentService.availableDayNumbersSelectedWeek$.pipe(
+  //     map((days) => {
+  //       return days.map((n) => ({
+  //         label: `Day ${n}`,
+  //         value: n,
+  //       }));
+  //     }),
+  //     filter(Boolean)
+  //   );
 
+  dayTableData = this.workoutComponentService.selectedDayTableDataSource;
 
+  availableDayNumbers = computed(() =>
+    this.workoutComponentService.availableDayNumbersSelectedWeek().map((n) => ({
+      label: `Day ${n}`,
+      value: n,
+    }))
+  );
 
-  selectWeek = this.workoutComponentService.selectWeek
-  selectDay = this.workoutComponentService.selectDay
-
+  selectWeek = this.workoutComponentService.updateSelectedWeekNumber;
+  selectDay = this.workoutComponentService.updateSelectedDayNumber;
 }

@@ -1,14 +1,14 @@
-<app-workouts-table />
+<!-- <app-workouts-table /> -->
 <div class="day-selector">
   <app-button-toggle
-    [items]="(avalableWeekNumbers$ | async)!"
+    [items]="avalableWeekNumbers() || []"
     (change)="selectWeek($event)"
   ></app-button-toggle>
   <app-button-toggle
-    [items]="(availableDayNumbers$ | async)!"
+    [items]="availableDayNumbers() || []"
     (change)="selectDay($event)"
   ></app-button-toggle>
 </div>
 <app-week-workout-table
-  [dataSource]="(dayTableData$ | async) || []"
+  [dataSource]="dayTableData() || []"
 ></app-week-workout-table>

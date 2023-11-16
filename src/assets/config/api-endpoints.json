@@ -1,0 +1,5 @@
+{
+  "get-workout": "/assets/moks/current-month-workout.json",
+  "update-workout": "",
+  "delete-workout": ""
+}
