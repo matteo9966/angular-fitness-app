@@ -1,0 +1,26 @@
+<mat-accordion class="example-headers-align" multi displayMode="flat">
+  @for(exercise of exerciseList;track exercise.name){
+  <mat-expansion-panel expanded hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ exercise.name }} </mat-panel-title>
+      <mat-checkbox
+        class="example-margin"
+        [(ngModel)]="exercise.completed"
+        (click)="$event.stopPropagation()"
+        (change)="onChange($event,exercise)"
+        >Completed</mat-checkbox
+      >
+    </mat-expansion-panel-header>
+    <div class="panel-body">
+      <app-exercise-table [staticSets]="exercise"></app-exercise-table>
+      @if(exercise.notes){
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title> Notes </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>{{ exercise.notes }}</mat-card-content> </mat-card
+      >}
+    </div>
+  </mat-expansion-panel>
+  }
+</mat-accordion>

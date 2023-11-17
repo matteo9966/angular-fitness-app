@@ -1,12 +1,17 @@
 {
   "month": 11,
   "notes": "Notes on the november workout....",
-  "year":2023,
+  "year": 2023,
+  "completed": false,
+  "userNotes": "",
   "weeks": [
     {
+      "completed": false,
+      "userNotes": "",
       "days": [
         {
           "dayNumber": 1,
+          "completed": false,
           "exercises": [
             {
               "exerciseRef": "shoulder-press-id",
@@ -15,13 +20,16 @@
               "repetitions": 21,
               "rest": 12,
               "series": 4,
-              "weight": 34
+              "weight": 34,
+              "completed": false,
+              "userNotes": ""
             }
           ],
           "notes": "this is the day 1 note. nothing to say just grind"
         },
         {
           "dayNumber": 2,
+          "completed": false,
           "exercises": [
             {
               "exerciseRef": "military-press-id",
@@ -30,7 +38,9 @@
               "repetitions": 22,
               "rest": 3,
               "series": 3,
-              "weight": 50
+              "weight": 50,
+              "completed": false,
+              "userNotes": ""
             },
             {
               "exerciseRef": "leg-press-id",
@@ -39,7 +49,9 @@
               "repetitions": 12,
               "rest": 2,
               "series": 3,
-              "weight": 20
+              "weight": 20,
+              "completed": false,
+              "userNotes": ""
             },
             {
               "exerciseRef": "leg-press-id",
@@ -48,13 +60,16 @@
               "repetitions": 12,
               "rest": 12,
               "series": 3,
-              "weight": 20
+              "weight": 20,
+              "completed": false,
+              "userNotes": ""
             }
           ],
           "notes": "some random notes on the exercise"
         },
         {
           "dayNumber": 3,
+          "completed": false,
           "exercises": [
             {
               "exerciseRef": "shoulder-press-id",
@@ -63,7 +78,9 @@
               "repetitions": 2,
               "rest": 2,
               "series": 3,
-              "weight": 20
+              "weight": 20,
+              "completed": false,
+              "userNotes": ""
             },
             {
               "exerciseRef": "leg-press-id",
@@ -72,7 +89,9 @@
               "repetitions": 12,
               "rest": 2,
               "weight": 20,
-              "series": 3
+              "series": 3,
+              "completed": false,
+              "userNotes": ""
             }
           ],
           "notes": "some random notes on the exercise"
@@ -80,241 +99,6 @@
       ],
       "notes": "notes on this week",
       "weekNumber": 1
-    },
-    {
-        "days": [
-          {
-            "dayNumber": 1,
-            "exercises": [
-              {
-                "exerciseRef": "shoulder-press-id",
-                "name": "Shoulder press",
-                "notes": "slow your reps to maximize gainz",
-                "repetitions": 21,
-                "rest": 12,
-                "series": 4,
-                "weight": 34
-              }
-            ],
-            "notes": "this is the day 1 note. nothing to say just grind"
-          },
-          {
-            "dayNumber": 2,
-            "exercises": [
-              {
-                "exerciseRef": "military-press-id",
-                "name": "Military press",
-                "notes": "Slow reps for this exercise",
-                "repetitions": 22,
-                "rest": 3,
-                "series": 3,
-                "weight": 50
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "Leg press",
-                "notes": "Leg press workout",
-                "repetitions": 12,
-                "rest": 2,
-                "series": 3,
-                "weight": 20
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "Lat pulldown",
-                "notes": "Train your back with this great exercise",
-                "repetitions": 12,
-                "rest": 12,
-                "series": 3,
-                "weight": 20
-              }
-            ],
-            "notes": "some random notes on the exercise"
-          },
-          {
-            "dayNumber": 3,
-            "exercises": [
-              {
-                "exerciseRef": "shoulder-press-id",
-                "name": "Squat",
-                "notes": "Squat great value",
-                "repetitions": 2,
-                "rest": 2,
-                "series": 3,
-                "weight": 20
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "leg. press",
-                "notes": "shoulder press slow down reps",
-                "repetitions": 12,
-                "rest": 2,
-                "weight": 20,
-                "series": 3
-              }
-            ],
-            "notes": "some random notes on the exercise"
-          }
-        ],
-        "notes": "notes on this week",
-        "weekNumber": 2
-      },
-      {
-        "days": [
-          {
-            "dayNumber": 1,
-            "exercises": [
-              {
-                "exerciseRef": "shoulder-press-id",
-                "name": "Shoulder press",
-                "notes": "slow your reps to maximize gainz",
-                "repetitions": 21,
-                "rest": 12,
-                "series": 4,
-                "weight": 34
-              }
-            ],
-            "notes": "this is the day 1 note. nothing to say just grind"
-          },
-          {
-            "dayNumber": 2,
-            "exercises": [
-              {
-                "exerciseRef": "military-press-id",
-                "name": "Military press",
-                "notes": "Slow reps for this exercise",
-                "repetitions": 22,
-                "rest": 3,
-                "series": 3,
-                "weight": 50
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "Leg press",
-                "notes": "Leg press workout",
-                "repetitions": 12,
-                "rest": 2,
-                "series": 3,
-                "weight": 20
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "Lat pulldown",
-                "notes": "Train your back with this great exercise",
-                "repetitions": 12,
-                "rest": 12,
-                "series": 3,
-                "weight": 20
-              }
-            ],
-            "notes": "some random notes on the exercise"
-          },
-          {
-            "dayNumber": 3,
-            "exercises": [
-              {
-                "exerciseRef": "shoulder-press-id",
-                "name": "Squat",
-                "notes": "Squat great value",
-                "repetitions": 2,
-                "rest": 2,
-                "series": 3,
-                "weight": 20
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "leg. press",
-                "notes": "shoulder press slow down reps",
-                "repetitions": 12,
-                "rest": 2,
-                "weight": 20,
-                "series": 3
-              }
-            ],
-            "notes": "some random notes on the exercise"
-          }
-        ],
-        "notes": "notes on this week",
-        "weekNumber": 3
-      },
-      {
-        "days": [
-          {
-            "dayNumber": 1,
-            "exercises": [
-              {
-                "exerciseRef": "shoulder-press-id",
-                "name": "Shoulder press",
-                "notes": "slow your reps to maximize gainz",
-                "repetitions": 21,
-                "rest": 12,
-                "series": 4,
-                "weight": 34
-              }
-            ],
-            "notes": "this is the day 1 note. nothing to say just grind"
-          },
-          {
-            "dayNumber": 2,
-            "exercises": [
-              {
-                "exerciseRef": "military-press-id",
-                "name": "Military press",
-                "notes": "Slow reps for this exercise",
-                "repetitions": 22,
-                "rest": 3,
-                "series": 3,
-                "weight": 50
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "Leg press",
-                "notes": "Leg press workout",
-                "repetitions": 12,
-                "rest": 2,
-                "series": 3,
-                "weight": 20
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "Lat pulldown",
-                "notes": "Train your back with this great exercise",
-                "repetitions": 12,
-                "rest": 12,
-                "series": 3,
-                "weight": 20
-              }
-            ],
-            "notes": "some random notes on the exercise"
-          },
-          {
-            "dayNumber": 3,
-            "exercises": [
-              {
-                "exerciseRef": "shoulder-press-id",
-                "name": "Squat",
-                "notes": "Squat great value",
-                "repetitions": 2,
-                "rest": 2,
-                "series": 3,
-                "weight": 20
-              },
-              {
-                "exerciseRef": "leg-press-id",
-                "name": "leg. press",
-                "notes": "shoulder press slow down reps",
-                "repetitions": 12,
-                "rest": 2,
-                "weight": 20,
-                "series": 3
-              }
-            ],
-            "notes": "some random notes on the exercise"
-          }
-        ],
-        "notes": "notes on this week",
-        "weekNumber": 4
-      }
-
+    }
   ]
 }

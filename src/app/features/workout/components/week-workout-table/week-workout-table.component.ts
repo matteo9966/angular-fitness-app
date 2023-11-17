@@ -21,7 +21,7 @@ export class WeekWorkoutTableComponent {
   @Input() dataSource: Exercise[] = [];
   ngOnInit() {}
 
-  displayedColumns: (keyof Exercise)[] = [
+  displayedColumns = [
     'exerciseRef',
     'name',
     'weight',
