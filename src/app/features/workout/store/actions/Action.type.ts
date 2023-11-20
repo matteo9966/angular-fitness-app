@@ -1,5 +1,3 @@
 import { createAction } from './actionCreator';
-import { updateExercise, deleteExercise } from './workoutActions';
-export type Action =
-  | ReturnType<typeof updateExercise>
-  | ReturnType<typeof deleteExercise>;
+import { DeleteExerciseAction,UpdateExerciseAction } from './workoutActions';
+export type Action = DeleteExerciseAction | UpdateExerciseAction

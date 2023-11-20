@@ -1,17 +1,17 @@
-interface ActionCreator{
-  type: string;
+interface ActionCreator<T>{
+  type: T;
 }
 
-interface ActionCreatorWithPayload<P> extends ActionCreator {
-  (payload: P): { type: string; payload: P };
+interface ActionCreatorWithPayload<T,P> extends ActionCreator<T> {
+  (payload: P): { type: T; payload: P };
 }
 
-export function createAction(type: string): ActionCreator;
-export function createAction<P>(
-  type: string
-): ActionCreatorWithPayload<P>;
+export function createAction<T>(type: T): ActionCreator<T>;
+export function createAction<T,P>(
+  type: T
+): ActionCreatorWithPayload<T,P>;
 
-export function createAction<P>(type: string) {
+export function createAction<T,P>(type: T) {
   const creator = (payload: P) => ({
     type,
     payload,

@@ -1,6 +1,7 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { WorkoutService } from './workout.service';
 import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
+import { updateExercise } from '../store/actions/workoutActions';
 @Injectable()
 export class WorkoutComponentService {
   workoutService = inject(WorkoutService);
@@ -63,7 +64,35 @@ export class WorkoutComponentService {
     this.selectedDayNumber.set(dayNumber);
   }
 
-  updateExercise(exercise:Exercise){
+  updateExercise(exercise: Exercise) {
+    const selectedDayNumber = this.selectedDayNumber();
+    const selectedWeekNumber = this.selectedWeekNumber();
+    const selectedMonthNumber = this.currentMonthWorkout()?.month;
+    const selectedYearNumber = this.currentMonthWorkout()?.year;
+    console.log({
+      selectedDayNumber,
+      selectedMonthNumber,
+      selectedYearNumber,
+      selectedWeekNumber,
+    });
+
+    if (
+      !selectedDayNumber ||
+      !selectedWeekNumber ||
+      !selectedMonthNumber ||
+      !selectedYearNumber
+    ) {
+      return;
+    }
+    this.workoutService.dispatch(
+      updateExercise({
+        year: selectedYearNumber,
+        dayNumber: selectedDayNumber,
+        month: selectedMonthNumber,
+        weekNumber: selectedWeekNumber,
+        exercise,
+      })
+    );
     // this.workoutService.updateExercise(exercise)
   }
 
