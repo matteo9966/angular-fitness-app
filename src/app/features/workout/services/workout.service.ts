@@ -3,8 +3,6 @@ import {
   inject,
   signal,
   computed,
-  Signal,
-  effect,
 } from '@angular/core';
 import {
   Exercise,
@@ -13,30 +11,19 @@ import {
 import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { of, map, catchError, Subject, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
-const UPDATE_EXERCISE = 'update exercise' as const;
-const REMOVE_EXERCISE = 'remove exercise' as const;
-type UpdateExercise = typeof UPDATE_EXERCISE;
-type RemoveExercise = typeof UPDATE_EXERCISE;
-type ActionExercises = UpdateExercise | RemoveExercise;
-
-type ActionTypes = UpdateExercise;
-
-type Action<T> = { action: ActionTypes; data: T };
+import type { Action } from '../store/actions/Action.type';
+import { updateExercise,deleteExercise } from '../store/actions/workoutActions';
 
 type State = Record<number, Workout[]>;
-
-//TODO: create a createAction function (check chatgpt answer)
-//TODO: create a effect handler 
 
 @Injectable()
 export class WorkoutService {
   httpClient = inject(HttpClient);
   GET_WORKOUT_API = '/assets/mocks/current-month-workout.json';
 
-  exerciseAction$ = new Subject<Action<Exercise>>();
+  // exerciseAction$ = new Subject<Action<Exercise>>();
 
-  action$ = new Subject<Action<Exercise> | Action<Workout>>();
+  action$ = new Subject<Action>();
 
   currentMonthWorkout$ = this.httpClient
     .get<Workout>(this.GET_WORKOUT_API)
@@ -53,35 +40,42 @@ export class WorkoutService {
       })
     );
 
-  #workouts = signal<Record<number, Workout[]>>({});
+  #workouts = signal<Record<number, Workout[]>>({}); //this will be the STATE
 
   public workouts = computed(this.#workouts);
 
-  exerciseReducer(state: State, action: Action<Exercise>): State {
-    switch (action.action) {
-      case UPDATE_EXERCISE:
-        const freshState = {...state};
-        // const exerciseToUpdate = freshState.
-        return freshState;
-
+  exerciseReducer(state: State, action: Action): State {
+    switch (action.type) {
+      case updateExercise.type:
+        {
+          const freshState = {...state};
+          const payload = action.payload ;
+          payload.month
+          return freshState;
+        }
+      case deleteExercise.type: {
+        const payload = action.payload;  
+        return state
+      }
       default:
         return state;
     }
   }
 
-  workoutReducer(state: State, action: Action<Workout>) {
-    return state;
-  }
-
-  combinedReducer = combineReducers(this.exerciseReducer, this.workoutReducer);
+  combinedReducer = combineReducers(this.exerciseReducer);
 
   constructor() {
-    //load current month workout
+    this.loadCurrentMonthWorkout();
+    this.listenToActions();
+  }
+
+  loadCurrentMonthWorkout(){
     this.currentMonthWorkout$.pipe(take(1)).subscribe((wo) => {
       this.#workouts.set(wo);
     });
+  }
 
-    //FIXME: not  exercise action but action
+  listenToActions(){
     this.action$.pipe(takeUntilDestroyed()).subscribe((action) => {
       this.#workouts.update((wo) => {
         return this.combinedReducer(wo, action);
@@ -89,16 +83,21 @@ export class WorkoutService {
     });
   }
 
-  updateExercise(exercise: Exercise) {
-    this.action$.next({ action: UPDATE_EXERCISE, data: exercise });
+  // updateExercise(exercise: Exercise) {
+  //   this.action$.next({ action: UPDATE_EXERCISE, data: exercise });
+  // }
+
+  dispatch(action:Action){
+      this.action$.next(action)
   }
+
 }
 
 //a function to combine all the reducers:
 function combineReducers<S>(
-  ...reducers: ((state: S, action: Action<any>) => S)[]
+  ...reducers: ((state: S, action: Action) => S)[]
 ) {
-  return (state: S, action: Action<any>) => {
+  return (state: S, action: Action) => {
     return reducers.reduce((currentState, reducer) => {
       return reducer(currentState, action);
     }, state);

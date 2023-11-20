@@ -64,7 +64,7 @@ export class WorkoutComponentService {
   }
 
   updateExercise(exercise:Exercise){
-    this.workoutService.updateExercise(exercise)
+    // this.workoutService.updateExercise(exercise)
   }
 
   constructor() {
