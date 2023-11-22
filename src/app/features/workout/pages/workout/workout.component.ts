@@ -30,6 +30,11 @@ import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutComponent {
+
+  constructor(){
+    this.workoutComponentService.workoutService.getMonthWorkout();
+  }
+   
   workoutComponentService = inject(WorkoutComponentService);
 
   avalableWeekNumbers = computed(() =>
