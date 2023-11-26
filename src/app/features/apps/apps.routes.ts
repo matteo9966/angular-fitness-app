@@ -10,6 +10,8 @@ export const routes: Routes = [
       import('../workout/pages/workout/workout.component').then(
         (c) => c.WorkoutComponent
       ),
+    loadChildren: () =>
+      import('../workout/workout.routes').then((r) => r.routes),
   },
   {
     path: '',

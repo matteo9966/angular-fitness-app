@@ -13,6 +13,8 @@ import { WorkoutComponentService } from '../../services/workout-component.servic
 import { filter, map } from 'rxjs';
 import { WorkoutPanelComponent } from '../../components/workout-panel/workout-panel.component';
 import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
+import { FullMonthTableComponent } from '../../components/full-month-table/full-month-table.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-workout',
@@ -23,7 +25,9 @@ import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
     WorkoutsTableComponent,
     WeekWorkoutTableComponent,
     ButtonToggleComponent,
-    WorkoutPanelComponent
+    WorkoutPanelComponent,
+    FullMonthTableComponent,
+    RouterOutlet
   ],
   templateUrl: './workout.component.html',
   styleUrls: ['./workout.component.scss'],
@@ -32,32 +36,10 @@ import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
 export class WorkoutComponent {
 
   constructor(){
-    this.workoutComponentService.workoutService.getMonthWorkout();
+    // this.workoutComponentService.workoutService.getMonthWorkout();
   }
    
   workoutComponentService = inject(WorkoutComponentService);
+  days = this.workoutComponentService.days; // this is the table data
 
-  avalableWeekNumbers = computed(() =>
-    this.workoutComponentService.availableWeeksNumbers().map((n) => ({
-      label: `Week ${n}`,
-      value: n,
-    }))
-  );
-
-  dayExercises = this.workoutComponentService.selectedDayTableDataSource;
-
-  availableDayNumbers = computed(() =>
-    this.workoutComponentService.availableDayNumbersSelectedWeek().map((n) => ({
-      label: `Day ${n}`,
-      value: n,
-    }))
-  );
-
-  exerciseUpdated(exercise:Exercise){
-    console.log(exercise)
-    this.workoutComponentService.updateExercise(exercise)
-  }
-
-  selectWeek = this.workoutComponentService.updateSelectedWeekNumber;
-  selectDay = this.workoutComponentService.updateSelectedDayNumber;
 }

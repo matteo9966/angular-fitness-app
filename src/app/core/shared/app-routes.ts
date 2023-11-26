@@ -38,7 +38,16 @@ export const ROUTES = {
       workout: {
         path: 'workout',
         absolute: '/apps/workout',
-        children: {},
+        children: {
+          viewWorkout: {
+            path: 'view',
+            absolute: '/apps/workout/view',
+          },
+          editWorkout: {
+            path: 'edit-workout',
+            absolute: '/apps/workout/edit-workout',
+          },
+        },
       },
     },
   },

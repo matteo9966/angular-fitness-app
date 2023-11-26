@@ -1,0 +1,48 @@
+<!-- 
+
+   // ['week', 'day', 'exercise', 'weight', 'sets', 'reps', 'rest', 'notes']
+ -->
+<table mat-table [dataSource]="days" class="mat-elevation-z8">
+  <!-- WEEK COLUMN -->
+  <ng-container matColumnDef="week">
+    <th mat-header-cell *matHeaderCellDef>Week</th>
+    <td mat-cell *matCellDef="let element">{{ element.week }}</td>
+  </ng-container>
+  <!-- Day COLUMN -->
+  <ng-container matColumnDef="day">
+    <th mat-header-cell *matHeaderCellDef>Day</th>
+    <td mat-cell *matCellDef="let element">{{ element.day }}</td>
+  </ng-container>
+  <!-- Exercise -->
+  <ng-container matColumnDef="exercise">
+    <th mat-header-cell *matHeaderCellDef>Exercise</th>
+    <td mat-cell *matCellDef="let element">{{ element.exercise }}</td>
+  </ng-container>
+  <!-- WEIGHT -->
+  <ng-container matColumnDef="weight">
+    <th mat-header-cell *matHeaderCellDef>Weight</th>
+    <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+  </ng-container>
+  <!-- SETS -->
+  <ng-container matColumnDef="sets">
+    <th mat-header-cell *matHeaderCellDef>Sets</th>
+    <td mat-cell *matCellDef="let element">{{ element.sets }}</td>
+  </ng-container>
+  <!-- REPS -->
+  <ng-container matColumnDef="reps">
+    <th mat-header-cell *matHeaderCellDef>Reps</th>
+    <td mat-cell *matCellDef="let element">{{ element.reps }}</td>
+  </ng-container>
+  <!-- REST -->
+  <ng-container matColumnDef="rest">
+    <th mat-header-cell *matHeaderCellDef>Rest</th>
+    <td mat-cell *matCellDef="let element">{{ element.rest }}</td>
+  </ng-container>
+  <!-- notes -->
+  <ng-container matColumnDef="notes">
+    <th mat-header-cell *matHeaderCellDef>Notes</th>
+    <td mat-cell *matCellDef="let element">{{ element.notes }}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

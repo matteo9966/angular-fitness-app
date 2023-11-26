@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label>Month</mat-label>
+  <mat-select [(ngModel)]="selectedValue" name="food">
+    @for (month of months;track month; let index = $index) {
+    <mat-option [value]="index">{{ month }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

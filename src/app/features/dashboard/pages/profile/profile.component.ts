@@ -32,7 +32,8 @@ export class ProfileComponent {
   responsiveService = inject(ResponsiveLayoutService);
   user = this.userService.user;
   socialsConfig = this.configService.SOCIALS_CONFIG;
-  workoutPagePath = ROUTES.apps.children.workout.absolute;
+  workoutPagePath = ROUTES.apps.children.workout.children.viewWorkout.absolute;
+  workoutEditorPath= ROUTES.apps.children.workout.children.editWorkout.absolute;
   isSmallDevice$ = this.responsiveService.isSmallDevice$;
   ngOnInit() {}
 

@@ -10,6 +10,7 @@ import {
   filter,
   concatMap,
   mergeMap,
+  tap,
 } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import type { Action } from '../store/actions/Action.type';
@@ -39,12 +40,13 @@ export class WorkoutService {
   firestore = inject(Firestore);
   userService = inject(UserService);
 
-  GET_WORKOUT_API = '/assets/mocks/current-month-workout.json';
+  GET_WORKOUT_API = '/assets/mocks/current-month-workout-v2.json';
   #action$ = new Subject<Action>();
 
   currentMonthWorkout$ = this.httpClient
     .get<Workout>(this.GET_WORKOUT_API)
     .pipe(
+      tap(wo=>console.log({wo})),
       map((workout) => {
         const initial: State = {
           [+workout.year]: [workout],
@@ -56,6 +58,9 @@ export class WorkoutService {
         return of({});
       })
     );
+  
+    
+
 
   #workouts = signal<Record<number, Workout[]>>({}); //this will be the STATE
 

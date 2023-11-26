@@ -1,12 +1,23 @@
 import { Injectable, inject } from '@angular/core';
 import { Validators, FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { map, Subject, merge, switchMap, from, tap } from 'rxjs';
+import {
+  map,
+  Subject,
+  merge,
+  switchMap,
+  from,
+  tap,
+  catchError,
+  EMPTY,
+} from 'rxjs';
 import { mapErrorObject } from 'src/app/core/utils/formsErrorMap';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/core/services/Snackbar.service';
+import { FirebaseError } from '@angular/fire/app';
+import { ConfigurationService } from 'src/app/core/services/configuration.service';
 @Injectable()
 export class LoginFormService {
   fb = inject(FormBuilder);
@@ -16,6 +27,7 @@ export class LoginFormService {
 
   snackbar = inject(MatSnackBar);
   snackbarService = inject(SnackbarService);
+  configService = inject(ConfigurationService);
   private _submit = new Subject();
   form = this.fb.nonNullable.group({
     email: this.fb.nonNullable.control('', [
@@ -59,13 +71,24 @@ export class LoginFormService {
     }
     this.authenticationService
       .signIn(email, password)
+      .pipe(
+        catchError((error) => {
+          let errorMessage = 'Sorry, login error';
+          if (error instanceof FirebaseError) {
+            const messageFromConfiguration =
+              this.configService?.SERVER_ERRORS?.[error.code];
+            errorMessage = messageFromConfiguration
+              ? messageFromConfiguration
+              : errorMessage;
+          }
+          this.snackbarService.errorSnackbar(errorMessage, 'Close');
+          return EMPTY;
+        })
+      )
       .subscribe((user) => {
-        console.log({USERlogin:user});
         if (!user) {
-          this.snackbarService.errorSnackbar('No user data', 'close');
           return;
         }
-
         this.clearForm();
         this.router.navigateByUrl('/dashboard');
       });

@@ -19,42 +19,13 @@ export class WorkoutComponentService {
     return currentMonth;
   });
 
-  availableWeeks = computed(() => {
-    return this.currentMonthWorkout()?.weeks || [];
-  });
+  days  = computed(()=>{
+    return this.currentMonthWorkout()?.workout || []
+  })
 
-  availableWeeksNumbers = computed(() => {
-    return this.availableWeeks()
-      .map((w) => w.weekNumber)
-      .sort((a, b) => a - b);
-  });
+  // ok now i can map this in a simplified table
 
-  selectedWeek = computed(() => {
-    return this.availableWeeks().find(
-      (w) => w.weekNumber == this.selectedWeekNumber()
-    );
-  });
 
-  availableDaysSelectedWeek = computed(() => {
-    return this.selectedWeek()?.days || [];
-  });
-
-  availableDayNumbersSelectedWeek = computed(() => {
-    return this.availableDaysSelectedWeek()
-      .map((w) => w.dayNumber)
-      .sort((a, b) => a - b);
-  });
-
-  selectedDay = computed(() => {
-    return this.availableDaysSelectedWeek().find(
-      (d) => d.dayNumber === this.selectedDayNumber()
-    );
-  });
-
-  selectedDayTableDataSource = computed(() => {
-    const selecteDay = this.selectedDay();
-    return selecteDay?.exercises || [];
-  });
 
   updateSelectedWeekNumber(weekNumber: number) {
     this.selectedWeekNumber.set(weekNumber);

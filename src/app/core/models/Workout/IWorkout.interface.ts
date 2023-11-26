@@ -1,11 +1,12 @@
 interface Workout {
   month: number;
   year: number;
-  weeks: Week[];
   notes: string;
   completed: boolean;
   userNotes: string;
+  workout:Day[]
 }
+
 
 interface Week {
   weekNumber: number;
@@ -15,12 +16,32 @@ interface Week {
   userNotes?: string;
 }
 
+/* 
+ {
+      "week": 4,
+      "day": 4,
+      "exercise": "abs",
+      "weight": 10,
+      "sets": 5,
+      "reps": 45,
+      "rest": "",
+      "notes": "no rest, just carry on"
+    }
+
+*/
+
 interface Day {
+  week:number;
+  day:number;
+  exercise:string;
+  sets:number;
+  reps:number;
+  rest:number;
+  notes:string;
   exercises: VariableExercise[];
   dayNumber: number;
-  notes: string;
-  completed: boolean;
   userNotes?: string;
+  exerciseRef:string;
 }
 
 interface Exercise {

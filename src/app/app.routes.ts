@@ -10,6 +10,7 @@ import { isUnAuthenticatedGuard } from './core/guards/is-UnAuthenticated.guard';
 import { ROUTES } from './core/shared/app-routes';
 import { getUserDataResolver } from './features/dashboard/resolvers/resolveUserData.resolver';
 import { WorkoutService } from './features/workout/services/workout.service';
+import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
 export const routes: Routes = [
   {
     path: ROUTES.home.path,
@@ -42,6 +43,7 @@ export const routes: Routes = [
     providers: [LoginFormService],
   },
   {
+    // DASHBOARD
     path: ROUTES.dashboard.path,
     loadComponent: () =>
       import('./features/dashboard/pages/dashboard/dashboard.component').then(
@@ -54,6 +56,7 @@ export const routes: Routes = [
     resolve: { user: getUserDataResolver },
   },
   {
+    // APPS
     path: ROUTES.apps.path,
     loadComponent: () =>
       import('./features/apps/apps.component').then((c) => c.AppsComponent),
@@ -70,4 +73,5 @@ export const routes: Routes = [
       ),
   },
   { path: '', pathMatch: 'full', redirectTo: '/home' },
+  { path: '**', component: NotFoundComponent },
 ];
