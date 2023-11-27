@@ -7,13 +7,10 @@ export const canActivateDashboardGuard: CanActivateFn = (route, state) => {
   console.log('executing can activate dashboard');
   const authService = inject(AuthenticationService);
   const router = inject(Router);
-
-  return authService.authState$.pipe(
-    map((user) => {
-      if (user) {
-        return true;
-      }
-      return router.createUrlTree([ROUTES.unauthorized.absolute]);
-    })
-  );
+  const firebaseUser = authService.authState();
+  if (firebaseUser) {
+    return true;
+  } else {
+    return router.createUrlTree([ROUTES.unauthorized.absolute]);
+  }
 };

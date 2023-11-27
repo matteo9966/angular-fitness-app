@@ -19,8 +19,10 @@
     @include mat.button-toggle-theme($mat-theme);
     @include mat.select-theme($mat-theme);
     @include mat.table-theme($mat-theme);
+    @include mat.fab-theme($mat-theme);
     
   } @else {
+    @include mat.fab-color($mat-theme);
     @include mat.select-color($mat-theme);
     @include mat.core-color($mat-theme);
     @include mat.button-color($mat-theme);

@@ -45,7 +45,7 @@ export class ExerciseTableComponent {
     map((isSmall) => (isSmall ? 'small' : ''))
   );
 
-  @Input() staticSets: Exercise | null = staticSets;
+  // @Input() staticSets: Exercise | null = staticSets;
   @Input() variableSets: Exercise | null = null;
   @Input() displayedColumns: string[] = [
     'repetitions',
@@ -56,9 +56,9 @@ export class ExerciseTableComponent {
 
   // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
 
-  dataSource = this.staticSets
-    ? [this.staticSets]
-    : this.variableSets
-    ? [this.variableSets]
-    : [];
+  // dataSource = this.staticSets
+  //   ? [this.staticSets]
+  //   : this.variableSets
+  //   ? [this.variableSets]
+  //   : [];
 }

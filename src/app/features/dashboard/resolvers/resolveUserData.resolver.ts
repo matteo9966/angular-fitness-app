@@ -4,35 +4,24 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { switchMap, tap, Observable, take } from 'rxjs';
 import { inject } from '@angular/core';
 import { IUser } from 'src/app/core/models/User/IUser.interface';
 // import { SnackbarService } from 'src/app/core/services/Snackbar.service';
 import { UserService } from '../services/User.service';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
-export const getUserDataResolver: ResolveFn<Observable<IUser | null>> = (
+import { STORAGE_TOKEN } from 'src/app/core/tokens/Storage.injectionToken';
+export const getUserDataResolver: ResolveFn<Promise<IUser | null>> = async (
   _route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot
 ) => {
-  const authService = inject(AuthenticationService);
   const userService = inject(UserService);
-
-  const data$ = authService.authState$.pipe(
-    take(1),
-    switchMap(async (firebaseuser) => {
-      if (!firebaseuser) {
-        return null;
-      } else {
-        const user = await userService.getUser(firebaseuser.uid);
-        return user;
-      }
-    }),
-    tap((data) => {
-      if (!data) {
-        return;
-      }
-      userService.setUserData(data as IUser);
-    })
-  );
-  return data$;
+  const storage = inject(STORAGE_TOKEN);
+  const userId = storage.getItem('userId');
+  if (userId) {
+    const user = await userService.getUser(userId);
+    userService.setUserData(user as IUser);
+    return user;
+  } else {
+    return null;
+  }
 };

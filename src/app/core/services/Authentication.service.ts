@@ -1,9 +1,15 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import {
+  Injectable,
+  OnDestroy,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  authState,
   signOut,
   onAuthStateChanged,
   User as FirebaseUser,
@@ -26,33 +32,35 @@ import { CustomServerError } from '../errors/CustomServerError';
 @Injectable()
 export class AuthenticationService implements OnDestroy {
   auth = inject(Auth);
-  authenticationState = authState(this.auth);
   firestore = inject(Firestore);
   router = inject(Router);
   userId = null;
   user!: FirebaseUser;
+  isLoading = signal(false);
 
-  private _authState$ = new Observable<FirebaseUser | null>((observer) => {
-    onAuthStateChanged(this.auth, async (user) => {
-      if (user) {
-        observer.next(user);
-      } else {
-        observer.next(null);
-      }
-    });
-  });
+  #authState = signal<FirebaseUser | null>(null);
+  authState = computed(() => this.#authState());
+
+  private _authState$ = new Observable<FirebaseUser | null>((observer) => {});
   authState$ = this._authState$.pipe(shareReplay(1));
 
   constructor() {
-    this.authState$.subscribe((user) => {
+    this.isLoading.set(true);
+    onAuthStateChanged(this.auth, async (user) => {
       if (user) {
-        sessionStorage.setItem('loggedIn', 'true');
+        this.#authState.set(user);
       } else {
-        sessionStorage.removeItem('loggedIn');
+        this.#authState.set(null);
       }
     });
 
+    effect(() => {
+      const user = this.#authState();
+      if (user) sessionStorage.setItem('userId', user.uid);
+      else sessionStorage.removeItem('userId');
+    });
   }
+
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
   }
@@ -109,7 +117,6 @@ export class AuthenticationService implements OnDestroy {
   signout() {
     return from(signOut(this.auth));
   }
-
 
   get currentUser() {
     return this.auth.currentUser;

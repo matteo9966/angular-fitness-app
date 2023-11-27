@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class SnackbarService {
-  snackbarDuration = 154000;
+  snackbarDuration = 5000;
   snackbar = inject(MatSnackBar);
 
   successSnackbar(message: string, actionLabel: string) {

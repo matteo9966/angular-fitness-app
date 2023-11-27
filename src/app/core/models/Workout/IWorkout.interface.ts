@@ -4,17 +4,17 @@ interface Workout {
   notes: string;
   completed: boolean;
   userNotes: string;
-  workout:Day[]
+  workout:Exercise[]
 }
 
 
-interface Week {
-  weekNumber: number;
-  days: Day[];
-  notes: string;
-  completed: boolean;
-  userNotes?: string;
-}
+// interface Week {
+//   weekNumber: number;
+//   days: Exercise[];
+//   notes: string;
+//   completed: boolean;
+//   userNotes?: string;
+// }
 
 /* 
  {
@@ -30,7 +30,7 @@ interface Week {
 
 */
 
-interface Day {
+interface Exercise {
   week:number;
   day:number;
   exercise:string;
@@ -38,30 +38,29 @@ interface Day {
   reps:number;
   rest:number;
   notes:string;
-  exercises: VariableExercise[];
-  dayNumber: number;
   userNotes?: string;
   exerciseRef:string;
+  id:string;
 }
 
-interface Exercise {
-  name: string;
-  exerciseRef: string; //id to the exercise ref
-  notes: string;
-  completed: boolean;
-  userNotes?: string;
-}
+// interface Exercise {
+//   name: string;
+//   exerciseRef: string; //id to the exercise ref
+//   notes: string;
+//   completed: boolean;
+//   userNotes?: string;
+// }
 
-type VariableExercise =
-  | (Exercise & {
-      variableSets?: [number, number, number][]; //weigth reps rest
-    })
-  | (Exercise & {
-      sets: number | null;
-      repetitions: number | null;
-      weight: number | null;
-      rest: number | null;
-    });
+// type VariableExercise =
+//   | (Exercise & {
+//       variableSets?: [number, number, number][]; //weigth reps rest
+//     })
+//   | (Exercise & {
+//       sets: number | null;
+//       repetitions: number | null;
+//       weight: number | null;
+//       rest: number | null;
+//     });
 
 interface ExerciseRef {
   groupMuscle: string;
@@ -72,4 +71,4 @@ interface ExerciseRef {
   description: string;
 }
 
-export { Workout, Day, VariableExercise as Exercise, ExerciseRef, Week };
+export { Workout, Exercise, ExerciseRef };
