@@ -34,6 +34,7 @@ interface Exercise {
   week:number;
   day:number;
   exercise:string;
+  weight:number;
   sets:number;
   reps:number;
   rest:number;

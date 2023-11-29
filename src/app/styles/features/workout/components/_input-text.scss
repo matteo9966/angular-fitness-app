@@ -1,0 +1,30 @@
+@use "../../../material/themify-custom-component" as tc;
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "sass:color";
+
+
+@mixin input-text($theme) {
+  @include tc.themify-custom-component($theme) using ($palette) {
+    $primary-palette: map.get(
+      $map: $palette,
+      $key: "primary",
+    );
+
+    $accent-palette: map.get(
+      $map: $palette,
+      $key: "accent",
+    );
+
+    $outline-color: mat.get-color-from-palette($primary-palette, 400);
+
+    $bg-focus-color: mat.get-color-from-palette($primary-palette, 500);
+
+    .input-field-color {
+      outline-color: $outline-color;
+      &:focus {
+        background-color: transparentize(lighten($bg-focus-color,20%),0.8);
+      }
+    }
+  }
+}

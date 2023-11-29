@@ -3,6 +3,7 @@
 @use "../features/home/components/news-card" as nc;
 @use "../features/home/components/tabs" as tabs;
 @use "../features/home/components/gender-selector" as gender;
+@use '../features/workout/components/input-text' as it;
 
 @mixin all-components($mat-theme){
     
@@ -11,5 +12,6 @@
     @include nc.news-card($mat-theme);
     @include tabs.tabs($mat-theme);
     @include gender.gender-selector($mat-theme);
+    @include it.input-text($mat-theme);
 
 }

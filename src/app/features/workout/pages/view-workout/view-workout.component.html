@@ -1,0 +1,17 @@
+<app-workouts-table />
+
+<div class="day-selector">
+  <app-button-toggle
+    [items]="[]"
+    (change)="0"
+  ></app-button-toggle>
+  <app-button-toggle
+    [items]="[]"
+    (change)="0"
+  ></app-button-toggle>
+</div>
+
+<app-workout-panel [exerciseList]="[]" (exerciseUpdated)="0"></app-workout-panel>
+<app-week-workout-table
+  [dataSource]="[]"
+></app-week-workout-table>

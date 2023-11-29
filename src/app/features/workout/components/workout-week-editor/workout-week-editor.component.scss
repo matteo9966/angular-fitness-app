@@ -1,3 +1,21 @@
 :host {
   display: block;
 }
+
+.input-field {
+  font-size: 20px;
+  padding: 5px;
+  outline-width: 1px;
+  outline-style: solid;
+  border-radius: 6px;
+}
+
+
+.mat-column-delete{
+  text-align: center;
+}
+
+mat-icon{
+  color: red;
+  cursor: pointer;
+}

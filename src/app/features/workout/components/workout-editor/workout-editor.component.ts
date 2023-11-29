@@ -39,13 +39,6 @@ export class WorkoutEditorComponent  {
   }
 
   addWeekEditor() {
-    // const { viewContainerRef }: ComponentHostDirective = this.hostDirective;
-    // const componentRef = viewContainerRef.createComponent(
-    //   WorkoutWeekEditorComponent,{
-
-    //   }
-    //   );
-    // componentRef.setInput('weekNumber', this.weekCount + 1);
     this.weekCount += 1;
     this.weeks[this.weekCount] = [exerciseFactory(this.weekCount)];
   }
@@ -54,10 +47,18 @@ export class WorkoutEditorComponent  {
     return Object.entries(this.weeks);
   }
 
+  /**
+   * @description listens to the add event on the week editor to add to an element
+   * @param week 
+   */
   addExercise(week: number) {
-    console.log(this.weeks);
-    // this.weeks[week]=[...this.weeks[week],exerciseFactory(week)];
-    this.weeks[week].push(exerciseFactory(week))
+    const weekExList = this.weeks[week];
+    weekExList.push(exerciseFactory(week))
+    this.weeks[week] = [...weekExList];
+  }
+
+  removeExercise(exercise:Exercise){
+    console.log("DELETE THIS:",exercise)
   }
 }
 
@@ -70,6 +71,7 @@ function exerciseFactory(week: number) {
     reps: 0,
     rest: 0,
     sets: 0,
+    weight:0,
     week: week,
     userNotes: '',
     id: Math.random().toString(16).slice(2),
