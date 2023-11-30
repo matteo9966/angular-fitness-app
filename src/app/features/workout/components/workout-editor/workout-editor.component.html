@@ -5,7 +5,7 @@
   <section>
     <ng-container appComponentHost></ng-container>
     @for( week of weeksExercisesList;track week?.[0];let i = $index;){
-       <app-workout-week-editor [weekNumber]="week?.[1]?.[0]?.week || 0" [week]="week[1]" (addExercise)="addExercise($event)" (removeExercise)="removeExercise($event)"></app-workout-week-editor>
+       <app-workout-week-editor [weekNumber]="+(week[0][0])!" [week]="week[1]" (addExercise)="addExercise($event)" (removeExercise)="removeExercise($event)"></app-workout-week-editor>
      }
      
     <div class="add-button-container">

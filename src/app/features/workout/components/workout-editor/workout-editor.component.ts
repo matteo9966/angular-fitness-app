@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MonthSelectComponent } from 'src/app/shared/components/month-select/month-select.component';
 import { FormsModule } from '@angular/forms';
-import { ComponentHostDirective } from 'src/app/core/directives/component-host.directive';
 import { WorkoutWeekEditorComponent } from '../workout-week-editor/workout-week-editor.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
+
 @Component({
   selector: 'app-workout-editor',
   standalone: true,
@@ -14,7 +14,6 @@ import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
     CommonModule,
     MonthSelectComponent,
     FormsModule,
-    ComponentHostDirective,
     MatButtonModule,
     MatIconModule,
     WorkoutWeekEditorComponent,
@@ -23,9 +22,7 @@ import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
   styleUrl: './workout-editor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WorkoutEditorComponent  {
-  @ViewChild(ComponentHostDirective, { static: true })
-  hostDirective!: ComponentHostDirective;
+export class WorkoutEditorComponent {
   _month = new Date().getMonth();
 
   weeks: Record<number, Exercise[]> = {};
@@ -49,16 +46,21 @@ export class WorkoutEditorComponent  {
 
   /**
    * @description listens to the add event on the week editor to add to an element
-   * @param week 
+   * @param week
    */
   addExercise(week: number) {
     const weekExList = this.weeks[week];
-    weekExList.push(exerciseFactory(week))
+    weekExList.push(exerciseFactory(week));
     this.weeks[week] = [...weekExList];
   }
 
-  removeExercise(exercise:Exercise){
-    console.log("DELETE THIS:",exercise)
+  removeExercise(exercise: Exercise) {
+    const week = this.weeks[exercise.week];
+    week.splice(
+      week.findIndex((ex) => ex.id === exercise.id),
+      1
+    );
+   this.weeks[exercise.week] = [...week];
   }
 }
 
@@ -71,7 +73,7 @@ function exerciseFactory(week: number) {
     reps: 0,
     rest: 0,
     sets: 0,
-    weight:0,
+    weight: 0,
     week: week,
     userNotes: '',
     id: Math.random().toString(16).slice(2),

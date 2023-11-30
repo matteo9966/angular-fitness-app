@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @Component({
   selector: 'app-workout-week-editor',
   standalone: true,
@@ -31,7 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatAutocompleteModule
   ],
   templateUrl: './workout-week-editor.component.html',
   styleUrl: './workout-week-editor.component.scss',
@@ -59,6 +61,7 @@ export class WorkoutWeekEditorComponent
 
   restIntervals = Array(10).fill(null).map((_,i)=>15*i)
 
+  options=['dogo1','gato2','tarty3']
   /*   
   week:number;
   day:number;

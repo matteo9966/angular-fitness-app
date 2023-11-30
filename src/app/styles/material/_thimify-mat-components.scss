@@ -20,8 +20,9 @@
     @include mat.select-theme($mat-theme);
     @include mat.table-theme($mat-theme);
     @include mat.fab-theme($mat-theme);
-    
+    @include mat.autocomplete-theme($mat-theme);
   } @else {
+    @include mat.autocomplete-theme($mat-theme);
     @include mat.fab-color($mat-theme);
     @include mat.select-color($mat-theme);
     @include mat.core-color($mat-theme);
