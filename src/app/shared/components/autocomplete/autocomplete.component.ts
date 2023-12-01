@@ -26,7 +26,7 @@ import { of, BehaviorSubject } from 'rxjs';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useValue: forwardRef(() => AutocompleteComponent),
+      useExisting: forwardRef(() => AutocompleteComponent),
       multi: true,
     },
   ],

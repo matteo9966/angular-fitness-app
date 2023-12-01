@@ -3,12 +3,29 @@
     <app-month-select [(ngModel)]="month"></app-month-select>
   </section>
   <section>
-    <ng-container appComponentHost></ng-container>
-    @for( week of weeksExercisesList;track week?.[0];let i = $index;){
-       <app-workout-week-editor [weekNumber]="+(week[0][0])!" [week]="week[1]" (addExercise)="addExercise($event)" (removeExercise)="removeExercise($event)"></app-workout-week-editor>
-     }
-     
-    <div class="add-button-container">
+    <mat-tab-group>
+
+      @for( week of weeksExercisesList;track week?.[0];let i = $index;){
+        <mat-tab [label]="'Week '+week[0][0]!"> 
+          <div class="week-table-container">
+            <app-workout-week-editor
+              [weekNumber]="+week[0][0]!"
+              [week]="week[1]"
+              (removeExercise)="removeExercise($event)"
+            ></app-workout-week-editor>
+          </div>  
+        </mat-tab>
+  
+      }
+
+    </mat-tab-group>
+
+
+    <section>
+      <app-exercise-form (addExercise)="addExercise($event)"></app-exercise-form>
+    </section>
+
+    <!-- <div class="add-button-container">
       <button
         (click)="addWeekEditor()"
         mat-fab
@@ -18,6 +35,6 @@
       >
         <mat-icon>add</mat-icon>
       </button>
-    </div>
+    </div> -->
   </section>
 </div>

@@ -1,5 +1,13 @@
 :host {
   display: block;
+  padding: 10px;
+}
+
+.table-container{
+  overflow-x: auto;
+  padding: 10px;
+
+
 }
 
 .input-field {
@@ -18,4 +26,10 @@
 mat-icon{
   color: red;
   cursor: pointer;
+}
+
+.form{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }

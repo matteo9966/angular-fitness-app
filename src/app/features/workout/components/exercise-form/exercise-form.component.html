@@ -1,0 +1,67 @@
+<form (formValueChange)="formValueChanged($event)" class="form">
+  <mat-form-field>
+    <mat-label>Week</mat-label>
+    <mat-select name="week" [ngModel]="formValue().week">
+      @for (i of days;track i;){
+      <mat-option [value]="i">Week {{ i }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Exercise</mat-label>
+    <input
+      matInput
+      appearance="outline"
+      type="text"
+      name="exercise"
+      [ngModel]="formValue().exercise"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Day</mat-label>
+    <mat-select name="day" [ngModel]="formValue().day">
+      @for (i of days;track i;){
+      <mat-option [value]="i">DAY {{ i }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Weight</mat-label>
+    <mat-select panelWidth="200" name="weight" [ngModel]="formValue().weight">
+      @for (i of weightList;track i;){
+      <mat-option [value]="i">{{ i }} KG</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Sets</mat-label>
+    <mat-select panelWidth="300" [ngModel]="formValue().sets" name="sets">
+      @for (i of numberList;track i;){
+
+      <mat-option [value]="i">{{ i }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Reps</mat-label>
+    <mat-select panelWidth="300" name="reps" [ngModel]="formValue().reps">
+      @for (i of numberList;track i;){
+
+      <mat-option [value]="i">{{ i }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Rest</mat-label>
+    <mat-select [ngModel]="formValue().rest" name="rest">
+      @for (i of restIntervals;track i;){
+
+      <mat-option [value]="i">{{ i }} sec</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onAddExercise()">
+    Add exercise
+  </button>
+</form>
