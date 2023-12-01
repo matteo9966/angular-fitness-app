@@ -1,7 +1,15 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import { ISocial } from '../models/ISocial.interface';
-import { Subject, takeUntil, catchError, EMPTY } from 'rxjs';
+import {
+  Subject,
+  takeUntil,
+  catchError,
+  EMPTY,
+  shareReplay,
+  of,
+  map,
+} from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,6 +21,7 @@ export class ConfigurationService implements OnDestroy {
   SERVER_ERRORS: Record<string, string> | null = null;
   SOCIALS_CONFIG_URL = '/assets/config/socials-list.json';
   SERVER_ERRORS_MAP_URL = '/assets/config/server-errors-map.json'; // key value pair of errors for firebase;
+  WORKOUT_EXERCISES_LIST_URL = `/assets/config/exercise-list.json`;
   private http = inject(HttpClient);
   private destroy$ = new Subject();
 
@@ -50,6 +59,20 @@ export class ConfigurationService implements OnDestroy {
       .subscribe((errors) => {
         this.SERVER_ERRORS = errors;
       });
+  }
+
+  loadExercises() {
+    return this.http
+      .get<{ exercises: string[] }>(this.WORKOUT_EXERCISES_LIST_URL)
+      .pipe(
+        takeUntil(this.destroy$),
+        shareReplay(1),
+        map((x) => x.exercises || []),
+        catchError((e) => {
+          console.log(e);
+          return of([]);
+        })
+      );
   }
 
   loadAllConfigurations() {

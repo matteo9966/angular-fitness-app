@@ -20,7 +20,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/autocomplete.component';
+import { WorkoutService } from '../../services/workout.service';
+
 @Component({
   selector: 'app-workout-week-editor',
   standalone: true,
@@ -33,7 +35,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
-    MatAutocompleteModule
+
+    AutocompleteComponent,
   ],
   templateUrl: './workout-week-editor.component.html',
   styleUrl: './workout-week-editor.component.scss',
@@ -46,11 +49,15 @@ export class WorkoutWeekEditorComponent
     this.exerciseCount = this.week.length;
   }
   cdr = inject(ChangeDetectorRef);
+  workoutService = inject(WorkoutService);
   exerciseCount = 0;
   @Input() week: Exercise[] = [];
   @Input() weekNumber!: number;
   @Output() addExercise = new EventEmitter();
   @Output() removeExercise = new EventEmitter<Exercise>();
+
+  exerciseList$ = this.workoutService.exerciseList$;
+
   numberList = Array(29)
     .fill('')
     .map((a, i) => i + 1);
@@ -59,9 +66,11 @@ export class WorkoutWeekEditorComponent
     .fill(null)
     .map((_, i) => i + 1);
 
-  restIntervals = Array(10).fill(null).map((_,i)=>15*i)
+  restIntervals = Array(10)
+    .fill(null)
+    .map((_, i) => 15 * i);
 
-  options=['dogo1','gato2','tarty3']
+  options = ['dogo1', 'gato2', 'tarty3'];
   /*   
   week:number;
   day:number;
@@ -74,7 +83,7 @@ export class WorkoutWeekEditorComponent
   exerciseRef:string;
   id:string; 
   */
-  displayColumns = ['exercise', 'weight', 'sets', 'reps', 'rest',"delete"];
+  displayColumns = ['exercise', 'weight', 'sets', 'reps', 'rest', 'delete'];
 
   ngDoCheck(): void {
     if (this.exerciseCount !== this.week.length) {
@@ -99,7 +108,7 @@ export class WorkoutWeekEditorComponent
     this.addExercise.emit(this.weekNumber);
   }
 
-  onRemoveExercise(exercise:Exercise) {
+  onRemoveExercise(exercise: Exercise) {
     this.removeExercise.emit(exercise);
   }
 }

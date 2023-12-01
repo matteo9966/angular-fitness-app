@@ -1,0 +1,8 @@
+<div>
+  <input matInput [matAutocomplete]="auto" [(ngModel)]="value"  />
+  <mat-autocomplete #auto="matAutocomplete">
+    @for (option of autocompleteOptions$|async; track option) {
+    <mat-option [value]="option">{{ option }}</mat-option>
+    }
+  </mat-autocomplete>
+</div>

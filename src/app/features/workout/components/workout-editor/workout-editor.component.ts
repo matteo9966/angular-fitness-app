@@ -24,10 +24,8 @@ import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
 })
 export class WorkoutEditorComponent {
   _month = new Date().getMonth();
-
   weeks: Record<number, Exercise[]> = {};
 
-  weekCount = 0;
   get month() {
     return this._month;
   }
@@ -36,8 +34,8 @@ export class WorkoutEditorComponent {
   }
 
   addWeekEditor() {
-    this.weekCount += 1;
-    this.weeks[this.weekCount] = [exerciseFactory(this.weekCount)];
+    const weekNumber = Object.entries(this.weeks).length + 1;
+    this.weeks[weekNumber] = [exerciseFactory(weekNumber)];
   }
 
   get weeksExercisesList() {
@@ -60,7 +58,11 @@ export class WorkoutEditorComponent {
       week.findIndex((ex) => ex.id === exercise.id),
       1
     );
-   this.weeks[exercise.week] = [...week];
+    if (week.length == 0) {
+      delete this.weeks[exercise.week];
+      return;
+    }
+    this.weeks[exercise.week] = [...week];
   }
 }
 

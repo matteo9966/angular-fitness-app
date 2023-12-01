@@ -31,6 +31,7 @@ import {
   collection,
 } from '@angular/fire/firestore';
 import { UserService } from '../../dashboard/services/User.service';
+import { ConfigurationService } from 'src/app/core/services/configuration.service';
 type State = Record<number, Workout[]>;
 
 @Injectable()
@@ -39,14 +40,16 @@ export class WorkoutService {
   authService = inject(AuthenticationService);
   firestore = inject(Firestore);
   userService = inject(UserService);
+  configService = inject(ConfigurationService);
 
   GET_WORKOUT_API = '/assets/mocks/current-month-workout-v2.json';
   #action$ = new Subject<Action>();
+  exerciseList$ = this.configService.loadExercises();
 
   currentMonthWorkout$ = this.httpClient
     .get<Workout>(this.GET_WORKOUT_API)
     .pipe(
-      tap(wo=>console.log({wo})),
+      tap((wo) => console.log({ wo })),
       map((workout) => {
         const initial: State = {
           [+workout.year]: [workout],
@@ -58,9 +61,6 @@ export class WorkoutService {
         return of({});
       })
     );
-  
-    
-
 
   #workouts = signal<Record<number, Workout[]>>({}); //this will be the STATE
 
@@ -95,14 +95,11 @@ export class WorkoutService {
     const year = 2023;
     if (!uid) return;
 
-    // const woQuery = query(collection(this.firestore, 'users'));
-    // const getWorkoutQuery = query(
-    //   collectionGroup(this.firestore, 'workouts'),
-    //   where('year', '==', year)
-    // );
-
     const querySnapshot = await getDocs(
-      query(collection(this.firestore, 'users', uid, 'workouts'),where('year','==',year))
+      query(
+        collection(this.firestore, 'users', uid, 'workouts'),
+        where('year', '==', year)
+      )
     );
     const result: any[] = [];
     querySnapshot.forEach((d) => {
@@ -113,15 +110,16 @@ export class WorkoutService {
   constructor() {
     this.loadCurrentMonthWorkout();
     this.listenToActions();
+
     effect(() => {
       console.log('store got updated!!!!', this.#workouts());
     });
   }
 
-  getWorkouts(){
+  getWorkouts() {
     this.getMonthWorkout()
-    .then((wo) => console.log(wo))
-    .catch((err) => console.log(err));
+      .then((wo) => console.log(wo))
+      .catch((err) => console.log(err));
   }
 
   loadCurrentMonthWorkout() {
