@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { courseDataResolver } from './resolvers/course-data.resolver';
 import { blogPreviewsResolver } from './resolvers/blog-previews.resolver';
+import { ROUTES } from 'src/app/core/shared/app-routes';
 
 export const homeRoutes: Routes = [
   {
@@ -12,12 +13,17 @@ export const homeRoutes: Routes = [
       ),
   },
   {
-    path: 'blog',
+    path: ROUTES.home.children.blog.path,
     loadComponent: () =>
       import('./pages/blog/blog.component').then((b) => b.BlogComponent),
     resolve: {
       blogPostPreviews: blogPreviewsResolver,
     },
+  },
+  {
+    path: ROUTES.home.children.review.path,
+    loadComponent: () =>
+      import('./pages/review/review.component').then((c) => c.ReviewComponent),
   },
   {
     path: ':id',

@@ -1,0 +1,12 @@
+@use "../../styles/variables/components/toolbar" as t;
+$padding-top: t.$toolbar-height;
+:host {
+  display: block;
+  padding-top: $padding-top;
+}
+
+.review-container{
+  padding: 10vh;
+  min-height:100vh ;
+}
+

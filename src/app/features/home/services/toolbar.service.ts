@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-
+import { ROUTES } from 'src/app/core/shared/app-routes';
 @Injectable()
 export class ToolbarService {
   menuopen = false;
@@ -10,7 +10,7 @@ export class ToolbarService {
         },
         {
           label: 'Contuct us',
-          routerLink: ['no_'],
+          routerLink: [ROUTES.home.children.review.absolute],
         },
         {
           label: 'Pricing',

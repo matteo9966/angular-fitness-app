@@ -1,0 +1,46 @@
+<form #form="ngForm" class="form" (ngSubmit)="submit()">
+  <mat-form-field appearance="outline">
+    <mat-label for="email">Email</mat-label>
+    <input
+      matInput
+      type="email"
+      id="email"
+      name="email"
+      [ngModel]="vm.review.email"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label for="name">Your name</mat-label>
+    <input
+      matInput
+      type="text"
+      id="name"
+      name="name"
+      [ngModel]="vm.review.name"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label for="nation">Your name</mat-label>
+    <input
+      matInput
+      type="text"
+      id="nation"
+      name="nation"
+      [ngModel]="vm.review.nation"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label for="description">Description</mat-label>
+    <textarea
+      matInput
+      name="description"
+      id="description"
+      [ngModel]="vm.review.description"
+    ></textarea>
+  </mat-form-field>
+  <div>
+    <button>Submit</button>
+  </div>
+</form>

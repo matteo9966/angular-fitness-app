@@ -12,3 +12,7 @@ Use angular material theming sistem to generate the colors etc for this app:
 -  app/styles/themes define inside here the themes using the themify-mat-components function
 -  import the theme you created inside the styles.scss folder (Ideally you should lazy load the style from the code);  
   
+
+  # Review-Form
+  - using a view model logic pattern for a template driven form : only need to use one way binding and keep form state in sync using valueChanges
+  - 

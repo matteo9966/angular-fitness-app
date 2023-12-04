@@ -15,6 +15,10 @@ export const ROUTES = {
         path: ':id',
         absolute: '/home/:id',
       },
+      review:{
+        path:'review',
+        absolute:'/home/review',
+      },
     },
   },
   dashboard: {
