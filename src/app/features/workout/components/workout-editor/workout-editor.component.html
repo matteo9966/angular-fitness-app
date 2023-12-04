@@ -4,25 +4,32 @@
   </section>
   <section>
     <mat-tab-group>
-
       @for( week of weeksExercisesList;track week?.[0];let i = $index;){
-        <mat-tab [label]="'Week '+week[0][0]!"> 
-          <div class="week-table-container">
-            <app-workout-week-editor
-              [weekNumber]="+week[0][0]!"
-              [week]="week[1]"
-              (removeExercise)="removeExercise($event)"
-            ></app-workout-week-editor>
-          </div>  
-        </mat-tab>
-  
-      }
+      <mat-tab [label]="'Week ' + week[0][0]!">
+        <div class="week-table-container">
+          <app-workout-week-editor
+            [weekNumber]="+week[0][0]!"
+            [week]="week[1]"
+            (removeExercise)="removeExercise($event)"
+            (editExercise)="editExercise($event)"
+            [formState]="formState"
+          ></app-workout-week-editor>
+        </div>
+      </mat-tab>
 
+      }
     </mat-tab-group>
 
-
     <section>
-      <app-exercise-form (addExercise)="addExercise($event)"></app-exercise-form>
+      <app-exercise-form
+        (saveExercise)="saveExercise()"
+        (formChange)="formValueChanged($event)"
+        (makeCopyOfWeek)="addWeekWithSameExercisesOfPrevWeek()"
+        (discardChanges)="discardChanges()"
+        [autocompleteOptions]="(autocompleteOptions$ | async) || []"
+        [formValue]="formValue()"
+        [formState]="formState"
+      ></app-exercise-form>
     </section>
 
     <!-- <div class="add-button-container">

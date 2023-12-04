@@ -5,62 +5,54 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  DoCheck,
   inject,
   ChangeDetectorRef,
   OnChanges,
-  signal,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-import { ControlValueAccessor, FormsModule } from '@angular/forms';
 import { Exercise } from '../../../../core/models/Workout/IWorkout.interface';
-import { TextInputComponent } from 'src/app/shared/components/text-input/text-input.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/autocomplete.component';
-import { WorkoutService } from '../../services/workout.service';
-import { FormDirective } from 'src/app/core/directives/forms.directive';
 
 @Component({
   selector: 'app-workout-week-editor',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
-    FormDirective,
-    AutocompleteComponent,
-  ],
+  imports: [CommonModule, MatTableModule, MatIconModule],
   templateUrl: './workout-week-editor.component.html',
   styleUrl: './workout-week-editor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutWeekEditorComponent
-  implements ControlValueAccessor, OnInit
+  implements  OnInit, OnChanges
 {
   ngOnInit(): void {
     this.exerciseCount = this.week.length;
   }
+  ngOnChanges(simpleChanges: SimpleChanges) {
+    console.log({simpleChanges})
+    if(simpleChanges?.['formState']?.currentValue==='edit'){
+      this.disableDelete=true
+    }else{
+      this.disableDelete=false;
+    }
+  }
+  
   cdr = inject(ChangeDetectorRef);
-  workoutService = inject(WorkoutService);
   exerciseCount = 0;
-  formValue = signal<Partial<Exercise>>({});
+
+  disableDelete=false;
   @Input() week: Exercise[] = [];
   @Input() weekNumber!: number;
+  @Input() formState: 'edit' | 'add' = 'add';
   @Output() addExercise = new EventEmitter();
   @Output() removeExercise = new EventEmitter<Exercise>();
+  @Output() editExercise = new EventEmitter<Exercise>();
   @Output() exerciseUpdated = new EventEmitter<Exercise>();
+  
 
-  exerciseList$ = this.workoutService.exerciseList$;
+
+
 
   numberList = Array(5)
     .fill('')
@@ -76,7 +68,6 @@ export class WorkoutWeekEditorComponent
 
   days = [1, 2, 3, 4, 5, 6, 7];
 
-  options = ['dogo1', 'gato2', 'tarty3'];
   /*   
   week:number;
   day:number;
@@ -96,6 +87,7 @@ export class WorkoutWeekEditorComponent
     'sets',
     'reps',
     'rest',
+    'edit',
     'delete',
   ];
 
@@ -105,22 +97,9 @@ export class WorkoutWeekEditorComponent
     }
   }
 
-  writeValue(obj: any): void {
-    // throw new Error('Method not implemented.');
-  }
-  registerOnChange(fn: any): void {
-    // throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    // throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    // throw new Error('Method not implemented.');
-  }
 
-  onAddExercise() {
-    this.addExercise.emit({...this.formValue()});
-  }
+
+
 
   onRemoveExercise(exercise: Exercise) {
     this.removeExercise.emit(exercise);
@@ -135,25 +114,10 @@ export class WorkoutWeekEditorComponent
     }, 0);
   }
 
-  updateExercise(exercise: Exercise, partialUpdate: Partial<Exercise>) {
-    const updatedExercise = { ...exercise, ...partialUpdate };
-    this.exerciseUpdated.emit(updatedExercise);
-  }
+ 
 
-  exerciseChange(exercise: Exercise) {
-    return (value: any) => {
-      console.log(value);
-      // this.updateExercise(exercise, { exercise: value });
-    };
+  
+  onEditExercise(exercise: Exercise) {
+    this.editExercise.emit(exercise);
   }
-
-  #value = '';
-  get value() {
-    return this.#value;
-  }
-
-  formValueChanged(val: any) {
-    this.formValue.set({ week: this.weekNumber, ...val });
-  }
-
 }

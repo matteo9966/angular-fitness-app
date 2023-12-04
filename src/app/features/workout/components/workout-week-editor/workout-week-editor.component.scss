@@ -18,14 +18,27 @@
   border-radius: 6px;
 }
 
+mat-icon{
+
+  cursor: pointer;
+}
 
 .mat-column-delete{
   text-align: center;
+  mat-icon{
+    color: red;
+  }
+}
+.mat-column-edit{
+  text-align: center;
+  mat-icon{
+    color: black;
+    cursor: pointer;
+  }
 }
 
-mat-icon{
-  color: red;
-  cursor: pointer;
+.disabled{
+  color: gray;
 }
 
 .form{

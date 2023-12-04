@@ -3,6 +3,7 @@ import {
   Component,
   signal,
   computed,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MonthSelectComponent } from 'src/app/shared/components/month-select/month-select.component';
@@ -12,7 +13,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Exercise } from 'src/app/core/models/Workout/IWorkout.interface';
 import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { WorkoutService } from '../../services/workout.service';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  of,
+  startWith,
+  tap,
+  combineLatest,
+} from 'rxjs';
 @Component({
   selector: 'app-workout-editor',
   standalone: true,
@@ -24,17 +37,38 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatIconModule,
     WorkoutWeekEditorComponent,
     ExerciseFormComponent,
-    MatTabsModule
+    MatTabsModule,
   ],
   templateUrl: './workout-editor.component.html',
   styleUrl: './workout-editor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkoutEditorComponent {
+  workoutService = inject(WorkoutService);
   _month = new Date().getMonth();
   weeks: Record<number, Exercise[]> = {};
   exerciseList = signal<Exercise[]>([]);
+  formState: 'edit' | 'add' = 'add'; //on edit delete is disabled
 
+  formValue = signal<Partial<Exercise>>({});
+
+  exercise$ = toObservable(computed(() => this.formValue().exercise));
+  exerciseList$ = this.workoutService.exerciseList$;
+  exerciseAndExercuseListCombined$ = combineLatest<
+    [string | undefined, string[]]
+  >([
+    this.exercise$.pipe(filter((s) => typeof s === 'string')),
+    this.exerciseList$.pipe(startWith([])),
+  ]);
+  autocompleteOptions$ = this.exerciseAndExercuseListCombined$.pipe(
+    debounceTime(200),
+    map(([exercise, options]) => {
+      if (!exercise || !options) return [];
+      return options.filter((o) =>
+        o.toLowerCase().includes((exercise || '').toLowerCase())
+      );
+    })
+  );
   weeksRecord = computed<Record<number, Exercise[]>>(() => {
     return this.exerciseList().reduce<Record<number, Exercise[]>>(
       (rec, cur) => {
@@ -70,16 +104,66 @@ export class WorkoutEditorComponent {
 
   /**
    * @description listens to the add event on the week editor to add to an element
-   * @param week
    */
-  addExercise(exercise: Exercise) {
-    if (this.weeks[exercise.week]) {
-      const weekExList = this.weeks[exercise.week];
-      weekExList.push({ ...exercise });
-      this.weeks[exercise.week] = [...weekExList];
-    } else {
-      this.weeks[exercise.week] = [{ ...exercise }];
+  addExercise(id = Math.random().toString(16).slice(2)) {
+    const exerciseFormValue = this.formValue() as Exercise;
+    exerciseFormValue.id = id; //ADD ID TO EXERCISE
+    const week = exerciseFormValue?.week;
+    if (!week) {
+      return;
     }
+    if (this.weeks[week]) {
+      const weekExList = this.weeks[week];
+      weekExList.push({ ...exerciseFormValue });
+      this.weeks[week] = [...weekExList];
+    } else {
+      this.weeks[week] = [{ ...exerciseFormValue }];
+    }
+  }
+
+  updateExercise() {
+    const updatedExerciseFormValue = this.formValue() as Exercise;
+    //it has an id
+    if (!this.previousExerciseValue) {
+      return;
+    }
+
+    const week = this.weeks[this.previousExerciseValue?.week];
+
+    if (!week) {
+      return;
+    }
+
+    const indexOfExInWeek = week.findIndex(
+      (ex) => ex.id === this.previousExerciseValue?.id
+    );
+    if (indexOfExInWeek < 0) return;
+
+    week.splice(indexOfExInWeek, 1); //remove
+    this.addExercise(updatedExerciseFormValue.id); // readd
+  }
+
+  saveExercise() {
+    if (this.formState === 'add') {
+      this.addExercise();
+    } else {
+      this.updateExercise();
+    }
+    this.formState = 'add'; // always back to add
+  }
+
+  /**
+   * @description makes a copy of the previous week in a new week
+   */
+  addWeekWithSameExercisesOfPrevWeek() {
+    //get last week
+    const weekNumbers = Object.keys(this.weeks);
+    const lastWeek = Math.max(...weekNumbers.map((wn) => +wn));
+    if (!lastWeek) return;
+    this.weeks[lastWeek + 1] = [];
+    this.weeks[lastWeek].forEach((exercise) => {
+      this.weeks[lastWeek + 1].push({ ...exercise, week: lastWeek + 1 });
+    });
   }
 
   removeExercise(exercise: Exercise) {
@@ -94,21 +178,24 @@ export class WorkoutEditorComponent {
     }
     this.weeks[exercise.week] = [...week];
   }
-}
 
-function exerciseFactory(week: number, day: number) {
-  const exercise: Exercise = {
-    day: day,
-    exercise: '',
-    exerciseRef: '',
-    notes: '',
-    reps: 0,
-    rest: 0,
-    sets: 0,
-    weight: 0,
-    week: week,
-    userNotes: '',
-    id: Math.random().toString(16).slice(2),
-  };
-  return exercise;
+  previousExerciseValue: Exercise | null = null;
+  editExercise(exercise: Exercise) {
+    this.formValueChanged(exercise);
+    this.previousExerciseValue = { ...exercise };
+    this.formState = 'edit';
+
+    //disable remove
+    //change form state to editing and not insert
+  }
+  discardChanges() {
+    this.formState = 'add';
+    this.previousExerciseValue = null;
+    this.formValue.set({});
+  }
+
+  formValueChanged(val: any) {
+    console.log(val);
+    this.formValue.set({ ...val });
+  }
 }
