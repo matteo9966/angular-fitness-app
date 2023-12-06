@@ -2,8 +2,24 @@
   display: block;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.checkbox-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 5px;
+
+  .label {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  .description {
+    font-size: 0.7rem;
+    line-height: 0.6rem;
+  }
 }

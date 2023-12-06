@@ -30,7 +30,6 @@ export class WorkoutWeekEditorComponent
     this.exerciseCount = this.week.length;
   }
   ngOnChanges(simpleChanges: SimpleChanges) {
-    console.log({simpleChanges})
     if(simpleChanges?.['formState']?.currentValue==='edit'){
       this.disableDelete=true
     }else{

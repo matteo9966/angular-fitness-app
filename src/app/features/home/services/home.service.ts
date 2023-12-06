@@ -26,7 +26,7 @@ export class HomeService {
   };
 
   constructor() {
-    console.log('home service initialized');
+
   }
 
   //this is like an http

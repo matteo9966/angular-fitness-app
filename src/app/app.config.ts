@@ -30,6 +30,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AuthenticationService } from './core/services/Authentication.service';
 import { provideHttpClient } from '@angular/common/http';
 import { CustomErrorHandler } from './core/errors/CustomErrorHandler';
+import { VALIDATION_MESSAGES } from './core/tokens/ValidationMessages.injectionToken';
 export const appConfig: ApplicationConfig = {
   providers: [
     AuthenticationService,
@@ -67,5 +68,19 @@ export const appConfig: ApplicationConfig = {
         return storage;
       })
     ),
+    {
+      provide: VALIDATION_MESSAGES,
+      useValue: {
+        required: () => 'This field is required',
+      },
+      multi: true,
+    },
+    {
+      provide: VALIDATION_MESSAGES,
+      multi: true,
+      useValue: {
+      
+      },
+    },
   ],
 };

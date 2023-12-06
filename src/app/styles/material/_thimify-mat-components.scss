@@ -22,7 +22,9 @@
     @include mat.fab-theme($mat-theme);
     @include mat.autocomplete-theme($mat-theme);
     @include mat.tabs-theme($mat-theme);
+    @include mat.checkbox-theme($mat-theme);
   } @else {
+    @include mat.checkbox-color($mat-theme);
     @include mat.tabs-color($mat-theme);
     @include mat.autocomplete-color($mat-theme);
     @include mat.fab-color($mat-theme);

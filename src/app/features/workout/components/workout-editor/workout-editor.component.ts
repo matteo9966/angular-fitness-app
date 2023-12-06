@@ -195,7 +195,7 @@ export class WorkoutEditorComponent {
   }
 
   formValueChanged(val: any) {
-    console.log(val);
+
     this.formValue.set({ ...val });
   }
 }

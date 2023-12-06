@@ -63,7 +63,7 @@ export class SignupFormService {
     debounceTime(300),
     map((_value) => {
       const passwordError = this.passwordControl?.errors?.['password'];
-      console.log(this.passwordControl?.errors?.['password']);
+
       if (!passwordError) return [];
       return passwordError;
     })
@@ -141,7 +141,7 @@ export class SignupFormService {
       )
       .subscribe({
         next: (user) => {
-          console.log(user.id, user.path);
+
           this.snackbarService.successSnackbar(
             'You succesfully subscribed!',
             'close'

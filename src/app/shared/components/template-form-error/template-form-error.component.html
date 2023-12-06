@@ -1,0 +1,4 @@
+<div class="error-container" [hidden]="hidden">
+  {{ controlErrors | validate }}
+  {{log(control?.touched)}}
+</div>
