@@ -1,11 +1,19 @@
 <form #form="ngForm" class="form" (ngSubmit)="submit()">
   <mat-form-field appearance="outline">
-    <mat-select [ngModel]="vm.review.reason" name="reason">
+    <mat-select
+      #reasonV="ngModel"
+      [ngModel]="vm.review.reason"
+      name="reason"
+      required
+    >
       @for (reason of contactReasons;track reason.value){
       <mat-option [value]="reason.value">{{ reason.description }}</mat-option>
       }
     </mat-select>
+    <mat-label>Why are you contacting us?</mat-label>
+    <mat-error>{{ reasonV.control.errors | validate }}</mat-error>
   </mat-form-field>
+
   <mat-form-field appearance="outline">
     <mat-label for="email">Email</mat-label>
     <input
@@ -15,11 +23,15 @@
       name="email"
       [ngModel]="vm.review.email"
       required
+      email
+      #emailV="ngModel"
     />
+    <mat-error>{{ emailV.control.errors | validate }}</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label for="email">Confirm Email</mat-label>
     <input
+      email
       matInput
       type="email"
       id="confirm-email"
@@ -41,17 +53,9 @@
       name="name"
       [ngModel]="vm.review.name"
       required
+      #nameV="ngModel"
     />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label for="nation">Your name</mat-label>
-    <input
-      matInput
-      type="text"
-      id="nation"
-      name="nation"
-      [ngModel]="vm.review.nation"
-    />
+    <mat-error>{{ nameV.control.errors | validate }}</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label for="description">Description</mat-label>
@@ -60,7 +64,14 @@
       name="description"
       id="description"
       [ngModel]="vm.review.description"
+      minlength="10"
+      #descriptionV="ngModel"
+      required
+      [ngModelOptions]="{updateOn:'blur'}"
+      profanity
     ></textarea>
+    <mat-error>{{ descriptionV.control.errors | validate }}</mat-error>
+    <mat-hint>{{descriptionV.control.statusChanges|async|statusChanges}}</mat-hint>
   </mat-form-field>
   <div
     ngModelGroup="privacyAndMarketing"
@@ -69,6 +80,7 @@
   >
     @for(checkbox of checkboxes;track checkbox.label;let i = $index){
     <mat-checkbox
+      [matTooltip]="checkbox.description"
       [name]="checkbox.name"
       [ngModel]="vm.review.privacyAndMarketing?.[checkbox.name]"
       (change)="privacyControl?.control?.markAsTouched()"

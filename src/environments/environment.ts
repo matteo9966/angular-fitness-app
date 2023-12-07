@@ -8,4 +8,8 @@ export const environment = {
     authDomain: 'angular-fire-app-4a0b4.firebaseapp.com',
     messagingSenderId: '360187315158',
   },
+  profanity:{
+    profanityAPIKey:'Fgpdj06dmINloPNJSVNk7fietF85LNPb',
+    APIURL:'https://api.apilayer.com/bad_words'
+  }
 };

@@ -23,7 +23,9 @@ import { ValidatePipe } from 'src/app/shared/pipes/validate.pipe';
 import { CrossFieldValidator } from 'src/app/core/validators/crossFieldValue.validator';
 import { MatButtonModule } from '@angular/material/button';
 import { TemplateFormErrorComponent } from 'src/app/shared/components/template-form-error/template-form-error.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ProfanityValidator } from 'src/app/core/validators/profanity.validator';
+import { StatusChangesPipe } from 'src/app/shared/pages/status-change/status-changes.pipe';
 type ReviewForm = Partial<{
   email: string;
   name: string;
@@ -54,6 +56,9 @@ type ReviewForm = Partial<{
     CrossFieldValidator,
     MatButtonModule,
     TemplateFormErrorComponent,
+    MatTooltipModule,
+    ProfanityValidator,
+    StatusChangesPipe
   ],
   templateUrl: './review-form.component.html',
   styleUrl: './review-form.component.scss',
@@ -73,6 +78,16 @@ type ReviewForm = Partial<{
         validateCheckboxes: (requiredfields: string) =>
           requiredfields + ' checkbox is required',
         required: () => 'Field is required',
+        email: () => 'Invalid email format',
+        minlength: (value: any) => {
+          console.log(value);
+          return `Insert at least ${value?.requiredLength} letters!`;
+        },
+        profanity: (profanities: string[]) =>
+          profanities?.reduce(
+            (message, cur) => message + ` ${cur}`,
+            'These words are not allowed:'
+          ),
       },
     },
   ],
@@ -94,9 +109,7 @@ export class ReviewFormComponent implements AfterViewInit, OnDestroy {
   }
   touchedForm = false;
 
-  constructor() {
-   
-  }
+  constructor() {}
   @ViewChild('form') ngForm!: NgForm;
 
   private destroy$$ = new Subject();
@@ -125,6 +138,8 @@ export class ReviewFormComponent implements AfterViewInit, OnDestroy {
   }
 
   submit() {
+    this.ngForm.form.markAllAsTouched();
+    this.ngForm.form.markAsDirty();
     console.log(this.ngForm);
   }
 
