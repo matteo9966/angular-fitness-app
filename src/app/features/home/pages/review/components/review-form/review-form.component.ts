@@ -91,17 +91,6 @@ type ReviewForm = Partial<{
       },
     },
   ],
-  /*   providers: [
-    {
-      provide: VALIDATION_MESSAGES,
-      multi: true,
-      useValue: {
-        validateCheckboxes: (requiredfields: string) =>
-          requiredfields + ' checkbox is required',
-        required: () => 'Field is required',
-      },
-    },
-  ], */
 })
 export class ReviewFormComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {

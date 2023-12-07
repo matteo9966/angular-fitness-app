@@ -13,6 +13,13 @@ Use angular material theming sistem to generate the colors etc for this app:
 -  import the theme you created inside the styles.scss folder (Ideally you should lazy load the style from the code);  
   
 
-  # Review-Form
-  - using a view model logic pattern for a template driven form : only need to use one way binding and keep form state in sync using valueChanges
-  - 
+## FORMS
+Recently started exploring on Template Driven forms.
+Surprisingly they work much better. Ward Bell convinced me to switch to Template driven forms.
+You can see an example of the usage in the "contact us" form.
+
+Two great posts on t-d-forms:
+
+https://timdeschryver.dev/blog/a-practical-guide-to-angular-template-driven-forms#injecting-the-control-container
+https://medium.com/@a.yurich.zuev/angular-nested-template-driven-form-4a3de2042475
+
