@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
-import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { distinctUntilChanged, Subject, takeUntil, tap } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -26,6 +26,7 @@ import { TemplateFormErrorComponent } from 'src/app/shared/components/template-f
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProfanityValidator } from 'src/app/core/validators/profanity.validator';
 import { StatusChangesPipe } from 'src/app/shared/pages/status-change/status-changes.pipe';
+import { AddressSubFormComponent } from 'src/app/shared/components/address-sub-form/address-sub-form.component';
 type ReviewForm = Partial<{
   email: string;
   name: string;
@@ -39,6 +40,10 @@ type ReviewForm = Partial<{
     announcements: boolean;
     updates: boolean;
   };
+  address:{
+    road:string,
+    city:string
+  }
 }>;
 
 @Component({
@@ -58,7 +63,8 @@ type ReviewForm = Partial<{
     TemplateFormErrorComponent,
     MatTooltipModule,
     ProfanityValidator,
-    StatusChangesPipe
+    StatusChangesPipe,
+    AddressSubFormComponent
   ],
   templateUrl: './review-form.component.html',
   styleUrl: './review-form.component.scss',
@@ -114,7 +120,7 @@ export class ReviewFormComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.ngForm.valueChanges
-      ?.pipe(takeUntil(this.destroy$$), distinctUntilChanged(deepEqual))
+      ?.pipe(tap(x=>console.log(x)),takeUntil(this.destroy$$), distinctUntilChanged(deepEqual))
       .subscribe((value) => {
         this.formValue.set(value);
         this.formDirty.set(this.ngForm.form.dirty);

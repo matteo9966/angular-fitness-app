@@ -21,7 +21,7 @@
       type="email"
       id="email"
       name="email"
-      [ngModel]="vm.review.email"
+      ngModel
       required
       email
       #emailV="ngModel"
@@ -51,7 +51,7 @@
       type="text"
       id="name"
       name="name"
-      [ngModel]="vm.review.name"
+      ngModel
       required
       #nameV="ngModel"
     />
@@ -63,16 +63,19 @@
       matInput
       name="description"
       id="description"
-      [ngModel]="vm.review.description"
+      ngModel
       minlength="10"
       #descriptionV="ngModel"
       required
-      [ngModelOptions]="{updateOn:'blur'}"
+      [ngModelOptions]="{ updateOn: 'blur' }"
       profanity
     ></textarea>
     <mat-error>{{ descriptionV.control.errors | validate }}</mat-error>
-    <mat-hint>{{descriptionV.control.statusChanges|async|statusChanges}}</mat-hint>
+    <mat-hint>{{
+      descriptionV.control.statusChanges | async | statusChanges
+    }}</mat-hint>
   </mat-form-field>
+  <app-address-sub-form [address]="vm.review.address!"></app-address-sub-form>
   <div
     ngModelGroup="privacyAndMarketing"
     [requiredCheckboxes]="['privacy']"
