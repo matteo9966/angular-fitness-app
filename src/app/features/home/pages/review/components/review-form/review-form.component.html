@@ -75,7 +75,17 @@
       descriptionV.control.statusChanges | async | statusChanges
     }}</mat-hint>
   </mat-form-field>
-  <app-address-sub-form [address]="vm.review.address!"></app-address-sub-form>
+  <div>
+    <label for="name">Rate us in a scale from 1 to 10</label>
+    <app-vote-input id="name" name="vote" ngModel></app-vote-input>
+  </div>
+  <div class="address-container">
+    <label for="address">Your address</label>
+    <app-address-sub-form></app-address-sub-form>
+  </div>
+  <div class="donations">
+    <app-donation-form/>
+  </div>
   <div
     ngModelGroup="privacyAndMarketing"
     [requiredCheckboxes]="['privacy']"

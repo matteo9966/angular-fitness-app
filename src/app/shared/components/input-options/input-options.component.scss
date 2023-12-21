@@ -1,0 +1,21 @@
+:host {
+  max-width: 100%;
+  position: relative;
+  // position: absolute;
+  // top: 90px;
+}
+
+.items {
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: 2px;
+  position: absolute;
+  z-index: 1;
+}
+
+mat-card{
+  cursor: pointer;
+  &:hover{
+    outline: 2px solid red;
+  }
+}

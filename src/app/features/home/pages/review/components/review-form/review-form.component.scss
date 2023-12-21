@@ -23,3 +23,13 @@
     line-height: 0.6rem;
   }
 }
+
+::ng-deep .address-container {
+  app-address-sub-form {
+    .address {
+      display: flex;
+      flex-direction: column;
+      
+    }
+  }
+}

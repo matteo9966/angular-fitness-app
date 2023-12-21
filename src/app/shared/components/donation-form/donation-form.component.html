@@ -1,0 +1,29 @@
+<mat-card ngModelGroup="donation">
+  <mat-card-content>
+    <section class="title">
+      <div>Offer a coffee to the hard working developer</div>
+      <mat-icon class="heart">favorite</mat-icon>
+    </section>
+    <section class="inputs">
+      <div class="amount">
+        <div class="buttons">
+          @for(amount of [1,2,3,5,10];track amount){
+          <button
+            mat-raised-button
+            [value]="amount"
+            (click)="donation = amount"
+          >
+            {{ amount }} €
+          </button>
+          }
+          <input
+            type="text"
+            [ngModel]="donation"
+            name="amount"
+            [hidden]="true"
+          />
+        </div>
+      </div>
+    </section>
+  </mat-card-content>
+</mat-card>

@@ -27,6 +27,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProfanityValidator } from 'src/app/core/validators/profanity.validator';
 import { StatusChangesPipe } from 'src/app/shared/pages/status-change/status-changes.pipe';
 import { AddressSubFormComponent } from 'src/app/shared/components/address-sub-form/address-sub-form.component';
+import { VoteInputComponent } from 'src/app/shared/components/vote-input/vote-input.component';
+import { OptionsDirectiveDirective } from 'src/app/shared/directives/options-directive.directive';
+import { DonationFormComponent } from 'src/app/shared/components/donation-form/donation-form.component';
 type ReviewForm = Partial<{
   email: string;
   name: string;
@@ -64,7 +67,10 @@ type ReviewForm = Partial<{
     MatTooltipModule,
     ProfanityValidator,
     StatusChangesPipe,
-    AddressSubFormComponent
+    AddressSubFormComponent,
+    VoteInputComponent,
+    OptionsDirectiveDirective,
+    DonationFormComponent
   ],
   templateUrl: './review-form.component.html',
   styleUrl: './review-form.component.scss',

@@ -1,0 +1,7 @@
+<mat-button-toggle-group #group="matButtonToggleGroup">
+  @for( vote of votes;track vote){
+  <mat-button-toggle [value]="vote" aria-label="Text align left">
+    {{ vote }}
+  </mat-button-toggle>
+  }
+</mat-button-toggle-group>

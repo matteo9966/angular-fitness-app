@@ -1,0 +1,13 @@
+<div class="items">
+  @for(option of options;track option.label){
+  <!-- <div>{{ option.label }}</div> -->
+  <mat-card>
+    <mat-card-content>
+      <div (click)="select.emit(option); log(option.value)">
+        {{ option.label }}
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  }
+</div>
